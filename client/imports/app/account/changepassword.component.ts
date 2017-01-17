@@ -22,7 +22,7 @@ export class PasswordComponent extends MeteorComponent implements OnInit {
 
   oldpassword = new FormControl("", Validators.required);
   newpassword = new FormControl("", Validators.required);
-  newpasswordagain = new FormControl("", Validators.required);
+  confirmpassword = new FormControl("", Validators.required);
 
 
 
@@ -34,8 +34,8 @@ export class PasswordComponent extends MeteorComponent implements OnInit {
 
       "oldpassword": this.oldpassword,
      "newpassword": this.newpassword,
-     "newpasswordagain": this.newpasswordagain
-   }, {validator: this.matchingPasswords('newpassword', 'newpasswordagain')});
+     "confirmpassword": this.confirmpassword
+   }, {validator: this.matchingPasswords('newpassword', 'confirmpassword')});
 
 }
         changepassword() {

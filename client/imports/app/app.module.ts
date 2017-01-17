@@ -13,6 +13,7 @@ import {PasswordComponent} from "./account/changepassword.component"
 import { routes, ROUTES_PROVIDERS } from './app.routes';
 import { SHARED_DECLARATIONS } from './shared';
 import {AUTH_DECLARATIONS} from "./auth/index";
+
 import { LAYOUT_DECLARATIONS } from "./layout/index";
 
 import {FileDropModule} from "angular2-file-drop";
@@ -44,6 +45,7 @@ moduleDefinition = {
     ...AUTH_DECLARATIONS,
     ...DASHBOARD_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
+
 
 
   ],
