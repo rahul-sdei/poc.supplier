@@ -4,9 +4,6 @@ import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
 import { matchingPasswords } from '../../app/validators/validators';
-
-
-
 import template from './signup.component.html';
 
 @Component({
@@ -20,8 +17,6 @@ export class SignupComponent extends MeteorComponent implements OnInit {
   constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder) {
     super();
   }
-
-
     ngOnInit() {
         var emailRegex = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
         this.signupForm = this.formBuilder.group({
@@ -34,12 +29,8 @@ export class SignupComponent extends MeteorComponent implements OnInit {
        lastName: ['', Validators.required]
      }, {validator: matchingPasswords('password', 'confirmPassword')})
 
-   }
-
-
-
-
-
+  }
+  
         signup() {
         if (this.signupForm.valid) {
           let userData = {

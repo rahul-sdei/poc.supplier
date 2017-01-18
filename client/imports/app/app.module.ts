@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Angular2TokenService } from 'angular2-token';
 import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from "angular-2-local-storage";
-
-
 import { AppComponent } from "./app.component.web";
-import {UserDetailsComponent} from "./account/account.component";
-import {PasswordComponent} from "./account/changepassword.component"
+import {ACC_DECLARATIONS} from "./account/index";
+import { DropdownModule } from 'ng2-bootstrap';
 import { routes, ROUTES_PROVIDERS } from './app.routes';
 import { SHARED_DECLARATIONS } from './shared';
 import {AUTH_DECLARATIONS} from "./auth/index";
-
 import { LAYOUT_DECLARATIONS } from "./layout/index";
 
 import {FileDropModule} from "angular2-file-drop";
@@ -32,25 +30,24 @@ moduleDefinition = {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+
     RouterModule.forRoot(routes),
+    DropdownModule.forRoot(),
     AccountsModule,
     Ng2PaginationModule,
     FileDropModule
   ],
   declarations: [
     AppComponent,
-    UserDetailsComponent,
-    PasswordComponent,
+    ...ACC_DECLARATIONS,
     ...SHARED_DECLARATIONS,
     ...AUTH_DECLARATIONS,
     ...DASHBOARD_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
-
-
-
   ],
   providers: [
     ...ROUTES_PROVIDERS,
+
     LocalStorageService,
       {
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

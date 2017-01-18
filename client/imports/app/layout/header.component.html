@@ -1,21 +1,19 @@
+
 <header>
-  <section class="row head-brk navbar-fixed">
-      <nav class="col s12">
-          <!--<ul id="dropdown1" class="dropdown-content">
-              <li><a href="#!">It has survived not only five centuries</a></li>
-              <li><a href="#!">It has survived not only five centuries</a></li>
-              <li><a href="#!">It has survived not only five centuries</a></li>
-          </ul>-->
-          <section class="nav-wrapper"> <a href="javascript:void(0);" class="brand-logo"><img src="images/logo.png" alt="Logo"/></a>
-              <ul class="right hide-on-med-and-down">
-                  <li><a href="javascript:void(0);"><i class="zmdi zmdi-assignment-alert"></i></a></li>
-                  <li><a class="dropdown-button" href="javascript:void(0);" data-activates="dropdown1"><i class="zmdi zmdi-email"></i><span class="noti red">5</span></a></li>
-                  <!-- Dropdown Trigger -->
-                  <li class="admin-ac"><a href="javascript:void(0);">{{user | displayName}} <i class="zmdi zmdi-account"></i></a></li>
-              </ul>
-          </section>
-      </nav>
-  </section>
-  <section class="container"><a href="javascript:void(0);" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></section>
-  <navbar></navbar>
+    <section class="row head-brk navbar-fixed">
+        <nav class="col s12">
+<div class="btn-group pull-right" dropdown>
+  <button id="single-button" type="button" class="btn btn-primary"  dropdownToggle>
+    {{user.profile.firstName}} <span class="caret"></span>
+  </button>
+  <ul dropdownMenu role="menu" >
+    <li role="menuitem"><a class="dropdown-item" href="/account">My Account</a></li>
+    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+    <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item"  [hidden]="!user" (click)="logout()">Logout</a></li>
+  </ul>
+</div>
+
+</nav>
+</section>
 </header>

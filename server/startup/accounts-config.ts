@@ -34,3 +34,15 @@ Accounts.validateLoginAttempt(function (options) {
    }
    return true;
 });
+
+//validate the change password
+Accounts.changePassword = function (oldpassword, newPassword) {
+  if (!Meteor.user()) {
+    throw new Meteor.Error("Must be logged in to change password.");
+  }
+
+  check(newPassword, String);
+  if (!newPassword) {
+    throw new Meteor.Error(400, "Password may not be empty");
+  }
+}

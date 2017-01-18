@@ -1,9 +1,9 @@
+
 import {Component, OnInit, NgZone} from '@angular/core';
-import { FormBuilder, FormGroup, Validators,FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
-import { matchingPasswords} from '../../app/validators/validators';
 
 
 import template from './changepassword.component.html';
@@ -20,40 +20,27 @@ export class PasswordComponent extends MeteorComponent implements OnInit {
     super();
   }
 
-  oldpassword = new FormControl("", Validators.required);
-  newpassword = new FormControl("", Validators.required);
-  confirmpassword = new FormControl("", Validators.required);
 
+ngOnInit() {
+  this.passwordForm = this.formBuilder.group({
+    oldpassword: ['',Validators.required],
+    newPassword: ['', Validators.required],
+  });
 
-
-
-    ngOnInit() {
-
-      this.passwordForm = this.formBuilder.group({
-
-
-      "oldpassword": this.oldpassword,
-     "newpassword": this.newpassword,
-     "confirmpassword": this.confirmpassword
-   }, {validator: this.matchingPasswords('newpassword', 'confirmpassword')});
-
+   this.error = '';
 }
-        changepassword() {
-        if (this.passwordForm.valid) {
-          let userData = {
 
-            passwd: this.passwordForm.value.password,
-          };
-          this.call("users.insert", userData, (err, res) => {
-            if (err) {
-              this.zone.run(() => {
-                this.error = err;
-              });
-            } else {
-              console.log("new user-id:", res);
-              this.router.navigate(['/account']);
-            }
-          });
-        }
-    }
+ChangePassword() {
+  if (this.passwordForm.valid) {
+
+    Accounts.changePassword({oldpassword:this.passwordForm.value.newPassword,newPassword:this.passwordForm.value.newPassword}
+    ), (err) => {
+      if (err) {
+        this.error = err;
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    };
+  }
+}
 }
