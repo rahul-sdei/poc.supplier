@@ -12,12 +12,12 @@ declare var jQuery:any;
 @InjectUser('user')
 export class NavBarComponent implements AfterViewInit {
     constructor(private router: Router) {}
-  
+
     logout() {
         Meteor.logout();
         this.router.navigate( ['/login'] );
     }
-    
+
     ngAfterViewInit() {
         jQuery(function($){
             $(".button-collapse").sideNav();

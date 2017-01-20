@@ -10,7 +10,7 @@ import {InjectUser} from "angular2-meteor-accounts-ui";
 @InjectUser('user')
 export class HeaderMinComponent implements AfterViewInit {
     constructor(private router: Router) {}
-  
+
     ngAfterViewInit() {
     }
 }

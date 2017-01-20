@@ -6,13 +6,20 @@ import {RecoverComponent} from "./auth/recover.component";
 import {LoginComponent} from "./auth/login.component.web";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {LandingComponent} from "./layout/landing.component";
+import {UserDetailsComponent} from "./account/account.component";
+import {PasswordComponent} from "./account/changepassword.component";
+import {accountRoutes} from "./account/account.routes";
+import {passwordRoutes} from "./account/changepassword.routes"
+import {NavBarComponent} from "./layout/navbar.component";
 
 let mainRoutes = [
     { path: '', component: LandingComponent/*, canActivate: ['canActivateForLogoff']*/ },
     { path: 'dashboard', component: DashboardComponent, canActivate: ['canActivateForLoggedIn'] },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'recover', component: RecoverComponent }
+    { path: 'recover', component: RecoverComponent },
+    {path: 'account', component: UserDetailsComponent},
+    {path: 'changepassword',component: PasswordComponent}
 ];
 
 export const routes: Route[] = [

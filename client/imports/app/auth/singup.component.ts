@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
+import { matchingPasswords } from '../../app/validators/validators';
+
+
 
 import template from './signup.component.html';
 
@@ -18,26 +21,37 @@ export class SignupComponent extends MeteorComponent implements OnInit {
     super();
   }
 
+
     ngOnInit() {
         var emailRegex = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
         this.signupForm = this.formBuilder.group({
-          email: ['', Validators.compose([Validators.pattern(emailRegex), Validators.required])],
-          password: ['', Validators.compose([Validators.required, Validators.minLength(6)]) ],
-          firstName: ['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,30}")])],
-          lastName: ['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,30}")])],
-        });
-  
-        this.error = '';
-    }
 
-    signup() {
+       email: ['', Validators.compose([Validators.required])],
+       password: ['', Validators.required],
+       confirmPassword: ['', Validators.required],
+       contactNumber:['',Validators.required],
+        firstName: ['', ([Validators.required,Validators.pattern("[a-zA-Z][a-zA-Z ]*")])],
+       lastName: ['', Validators.required]
+     }, {validator: matchingPasswords('password', 'confirmPassword')})
+
+   }
+
+
+
+
+
+        signup() {
         if (this.signupForm.valid) {
           let userData = {
             email: this.signupForm.value.email,
             passwd: this.signupForm.value.password,
+
+            contact:this.signupForm.value.contactNumber,
             profile: {
               firstName: this.signupForm.value.firstName,
-              lastName: this.signupForm.value.lastName
+              lastName: this.signupForm.value.lastName,
+              contact:this.signupForm.value.contactNumber,
+
             }
           };
           this.call("users.insert", userData, (err, res) => {
