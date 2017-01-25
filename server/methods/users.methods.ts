@@ -7,9 +7,7 @@ Meteor.methods({
         let userId = Accounts.createUser({
             email: userData.email,
             password: userData.passwd,
-            profile: userData.profile,
-
-
+            profile: userData.profile
         });
 
         Roles.addUsersToRoles(userId, ['practitioner']);

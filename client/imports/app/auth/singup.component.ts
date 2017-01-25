@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
-import { matchingPasswords } from '../../app/validators/validators';
+import { matchingPasswords } from '../validators/validators';
 import template from './signup.component.html';
 
 @Component({
@@ -30,7 +30,7 @@ export class SignupComponent extends MeteorComponent implements OnInit {
      }, {validator: matchingPasswords('password', 'confirmPassword')})
 
   }
-  
+
         signup() {
         if (this.signupForm.valid) {
           let userData = {

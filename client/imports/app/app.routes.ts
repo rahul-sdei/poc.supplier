@@ -9,6 +9,8 @@ import {LandingComponent} from "./layout/landing.component";
 import {UserDetailsComponent} from "./account/account.component";
 import {PasswordComponent} from "./account/changepassword.component";
 import {accountRoutes} from "./account/account.routes";
+import {routes as pageRoutes} from "./content-page/routes";
+
 
 let mainRoutes = [
     { path: '', component: LandingComponent/*, canActivate: ['canActivateForLogoff']*/ },
@@ -24,8 +26,7 @@ let mainRoutes = [
 export const routes: Route[] = [
     ...mainRoutes,
     ...accountRoutes,
-
-
+    ...pageRoutes
 ];
 
 export const ROUTES_PROVIDERS = [

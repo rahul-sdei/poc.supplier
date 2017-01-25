@@ -1,10 +1,10 @@
-
 import {Component, OnInit, NgZone} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
-
+import { matchingPasswords, validatePassword } from '../validators/validators';
+import {showAlert} from "../shared/show-alert";
 
 import template from './changepassword.component.html';
 
@@ -20,27 +20,30 @@ export class PasswordComponent extends MeteorComponent implements OnInit {
     super();
   }
 
+  ngOnInit() {
+    this.passwordForm = this.formBuilder.group({
+      oldpassword: ['', Validators.compose([Validators.required])],
+      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), validatePassword])],
+      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), validatePassword])],
+    }, {validator: matchingPasswords('newPassword', 'confirmPassword')});
 
-ngOnInit() {
-  this.passwordForm = this.formBuilder.group({
-    oldpassword: ['',Validators.required],
-    newPassword: ['', Validators.required],
-  });
+     this.error = '';
+  }
 
-   this.error = '';
-}
+  changePassword() {
+    if (! this.passwordForm.valid) {
+      showAlert("Invalid formData supplied.", "danger");
+      return;
+    }
 
-ChangePassword() {
-  if (this.passwordForm.valid) {
-
-    Accounts.changePassword({oldpassword:this.passwordForm.value.newPassword,newPassword:this.passwordForm.value.newPassword}
-    ), (err) => {
+    Accounts.changePassword(this.passwordForm.value.oldpassword, this.passwordForm.value.newPassword, (err) => {
+      //console.log("res:", err);
       if (err) {
         this.error = err;
+        showAlert(err.message, "danger");
       } else {
-        this.router.navigate(['/dashboard']);
+        showAlert("Password updated successfully.", "success");
       }
-    };
+    });
   }
-}
 }

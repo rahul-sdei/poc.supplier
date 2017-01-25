@@ -1,19 +1,21 @@
-
-<header>
-    <section class="row head-brk navbar-fixed">
-        <nav class="col s12">
-<div class="btn-group pull-right" dropdown>
-  <button id="single-button" type="button" class="btn btn-primary"  dropdownToggle>
-    {{user.profile.firstName}} <span class="caret"></span>
-  </button>
-  <ul dropdownMenu role="menu" >
-    <li role="menuitem"><a class="dropdown-item" href="/account">My Account</a></li>
-    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-    <li class="divider dropdown-divider"></li>
-      <li role="menuitem"><a class="dropdown-item"  [hidden]="!user" (click)="logout()">Logout</a></li>
-  </ul>
-</div>
-
-</nav>
+<header *ngIf="!!user">
+<section class="row head-brk navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+      <li *ngFor="let page of pages" class="btn btn-primary" [routerLink]="['page/view', page.slug]" >{{page.title}}</li>
+      <div class="btn-group pull-right" dropdown>
+        <button id="single-button" type="button" class="btn btn-primary"  dropdownToggle>
+          {{user.profile.firstName}} {{user.profile.lastName}} <span class="caret"></span>
+        </button>
+        <ul dropdownMenu role="menu" >
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['account']">My Account</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" [hidden]="!user" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+  </nav>
 </section>
 </header>

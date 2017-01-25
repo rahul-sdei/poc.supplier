@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-
-
-import template from './signup.component.html'
-
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 export function matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
   return (group: FormGroup): {[key: string]: any} => {
@@ -16,4 +12,22 @@ export function matchingPasswords(passwordKey: string, confirmPasswordKey: strin
       };
     }
   }
+}
+
+export const validatePassword = function(c: FormControl) {
+  if (isEmptyInputValue(c.value)) {
+    return null;  // don't validate empty values to allow optional controls
+  }
+
+  let REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\(\)\-\_\=\+\{\}\[\]\;\:\'\"\,\.\<\>\/\\\|\?])(?=.{8,})/;
+
+  return REGEXP.test(c.value) ? null : {
+    validatePassword: {
+      valid: false
+    }
+  };
+}
+
+function isEmptyInputValue(value: any) {
+  return value == null || typeof value === 'string' && value.length === 0;
 }

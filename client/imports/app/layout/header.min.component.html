@@ -1,20 +1,24 @@
 <header>
     <section class="row head-brk navbar-fixed">
         <nav class="col s12">
-    <button class="btn pull-right" type="signup" [routerLink]="['signup']">Signup</button>
-    <button class="btn pull-right butt"  style="margin-left:20px" type="login" [routerLink]="['login']">Login</button>
             <!--<ul id="dropdown1" class="dropdown-content">
                 <li><a href="#!">It has survived not only five centuries</a></li>
                 <li><a href="#!">It has survived not only five centuries</a></li>
                 <li><a href="#!">It has survived not only five centuries</a></li>
             </ul>-->
-</div>
-            <section class="nav-wrapper"><a [routerLink]="['/']" class="brand-logo"><img src="images/bmi.resized.jpg" alt=""/></a>
-                <!--<ul class="right hide-on-med-and-down">
-                    <li><a href="javascript:void(0);"><i class="zmdi zmdi-assignment-alert"></i></a></li>
-                </ul>-->
-            </section>
+            <div class="row">
+              <section class="nav-wrapper col-sm-6">
+                <a [routerLink]="['/']" class="brand-logo"><img src="images/bmi.resized.jpg" alt=""/></a>
+                  <!--<ul class="right hide-on-med-and-down">
+                      <li><a href="javascript:void(0);"><i class="zmdi zmdi-assignment-alert"></i></a></li>
+                  </ul>-->
+              </section>
+
+              <section class="col sm-6">
+                <button class="btn " type="signup" [routerLink]="['signup']">Signup</button>
+                <button class="btn "  type="login" [routerLink]="['login']">Login</button>
+              </section>
+            </div>
         </nav>
     </section>
-
 </header>

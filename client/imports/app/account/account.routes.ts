@@ -6,7 +6,7 @@ import {PasswordComponent}  from './changepassword.component';
 
 // Route Configuration
 export const accountRoutes: Routes = [
-  { path: 'account/:id', component: UserDetailsComponent },
-  { path: 'changepassword',component: PasswordComponent },                                       
+  { path: 'account', component: UserDetailsComponent },
+  { path: 'changepassword',component: PasswordComponent },
 
 ];
