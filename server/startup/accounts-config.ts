@@ -26,12 +26,12 @@ Accounts.onCreateUser(function(options, user) {
 
 // validate user role before login
 Accounts.validateLoginAttempt(function (options) {
-   if (options.user && options.allowed) {
+   /*if (options.user && options.allowed) {
        var isAdmin = Roles.userIsInRole(options.user, ['practitioner'])
        if (!isAdmin) {
            throw new Meteor.Error(403, "Not authorized!");
        }
-   }
+   }*/
    return true;
 });
 

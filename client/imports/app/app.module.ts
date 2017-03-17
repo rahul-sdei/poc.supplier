@@ -14,7 +14,7 @@ import { SHARED_DECLARATIONS } from './shared';
 import {AUTH_DECLARATIONS} from "./auth/index";
 import { LAYOUT_DECLARATIONS } from "./layout/index";
 import {Page_Declarations} from "./content-page/index";
-
+import {Faq_Declarations} from "./faqs/index";
 
 import {FileDropModule} from "angular2-file-drop";
 import {DASHBOARD_DECLARATIONS} from "./dashboard/index";
@@ -46,7 +46,8 @@ moduleDefinition = {
     ...AUTH_DECLARATIONS,
     ...DASHBOARD_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
-    ...Page_Declarations
+    ...Page_Declarations,
+    ...Faq_Declarations
 
   ],
   providers: [

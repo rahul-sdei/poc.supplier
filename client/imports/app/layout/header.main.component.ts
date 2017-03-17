@@ -23,6 +23,12 @@ export class HeaderMainComponent extends MeteorComponent implements OnInit, Afte
           sort: { "title": 1 },
           fields: {title: 1, slug: 1}
       };
+      const optionsfaq:any = {
+          limit: 0,
+          curPage: 1,
+          nameOrder: 1,
+          searchString: '',
+      }
       let searchString = "";
       this.call("pages.find", options, {}, searchString, (err, res) => {
         if (err) {
