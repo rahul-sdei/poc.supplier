@@ -9,6 +9,11 @@
 	}
 @media(max-width:768px){
 	.table-wrapper {height:500px}
+	.login-form, .side-images .center-content{padding: 0 25px}
+	.side-images p{display:none}
+	.side-images .table-wrapper{height:250px}
+	.title-line:after{display:none}
+	.title-line {text-align:center;font-weight:900}
 		}
 @media(max-width:360px){
 	.login-form, .side-images .center-content {padding: 0 15px;}

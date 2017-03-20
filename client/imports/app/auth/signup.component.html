@@ -1,110 +1,81 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Sign Up</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-</head>
-
-<body>
-<main>
-	<div class="login-wrap signup-wrap">
-    	<div class="container-fluid">
-        	<div class="row">
-            	<div class="col-md-6 side-images">
-                	<div class="table-wrapper">
-                    	<div class="center-content">
-                        	<h3 class="title-line">ATORVIA</h3>
-                            <p>Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                	<div class="table-wrapper side-form">
-                    	<div class="center-content login-form">
-                        	<form [formGroup]="signupForm" #f="ngForm" (ngSubmit)="signup()">
-                            	<div class="form-group">
-                                	<button class="facebook-login" type="button" name="fblogin" (click)="fblogin()"><span><i class="fa fa-facebook-official" aria-hidden="true"></i></span>Sign up with Facebook</button>
-                                </div>
-                                <div class="form-group">
-                                	<div class="row">
-                                		<div class="col-sm-6">
-                                        	<label for="FirstName">First Name</label>
-                                            <div class="input-wrap">
-                                                <input type="text" class="form-control" formControlName="firstName" placeholder="First Name"/>
-                                                <!-- <span><i class="fa fa-user" aria-hidden="true"></i></span> -->
-                                            </div>
-                                            <div class='form-text error' *ngIf='signupForm.controls.firstName.touched'>
-                                            <div *ngIf="!!signupForm.controls.firstName.hasError('required')">First name is required.</div>
-                                            <div *ngIf="!!signupForm.controls.firstName.hasError('pattern')">only characters is required.</div>
-                                            </div>
-                                        <div class="col-sm-6">
-                                        	<label for="LastName">Last Name</label>
-                                            <div class="input-wrap">
-                                                <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name"/>
-                                                <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                                            </div>
-                                            <div class='form-text error' *ngIf='signupForm.controls.lastName.touched'>
-                                            <div *ngIf="signupForm.controls.lastName.hasError('required')">Last name is required.</div>
-                                            </div>
-                                        </div>
-                                    </div>
+<div class="login-wrap signup-wrap">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 side-images">
+				<div class="table-wrapper">
+					<div class="center-content">
+						<h3 class="title-line">ATORVIA</h3>
+						<p>Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="table-wrapper side-form">
+					<div class="center-content login-form">
+						<form [formGroup]="signupForm" #f="ngForm" (ngSubmit)="signup()">
+							<div class="form-group">
+								<button class="facebook-login" (click)="fblogin()"><span><i class="fa fa-facebook-official" aria-hidden="true"></i></span>Sign up with Facebook</button>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+										<label for="FirstName">First Name</label>
+										<div class="input-wrap">
+											<input type="text" class="form-control" id="FirstName" placeholder="First Name" formControlName="firstName"/>
+											<span><i class="fa fa-user" aria-hidden="true"></i></span>
+										</div>
+										<div class='form-text error' *ngIf='signupForm.controls.firstName.touched'>
+										<div *ngIf="!!signupForm.controls.firstName.hasError('required')">First name is required.</div>
+										<div *ngIf="!!signupForm.controls.firstName.hasError('pattern')">Only characters are allowed.</div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<label for="LastName">Last Name</label>
+										<div class="input-wrap">
+											<input type="text" class="form-control" id="LastName" placeholder="Last Name" formControlName="lastName"/>
+											<span><i class="fa fa-user" aria-hidden="true"></i></span>
+										</div>
+										<div class='form-text error' *ngIf='signupForm.controls.lastName.touched'>
+										<div *ngIf="signupForm.controls.lastName.hasError('required')">Last name is required.</div>
+										</div>
+									</div>
+								</div>
 
 
-                                </div>
+							</div>
 
-                                <div class="form-group">
-                                	<label for="loginEmail">Email</label>
-                                    <div class="input-wrap">
-                                    	<input type="email" class="form-control" formControlName="email" placeholder="Email"/>
-                                        <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                    </div>
-                                    <div class="form-text error" *ngIf="signupForm.controls.email.touched">
-                                        <div *ngIf="signupForm.controls.email.hasError('required')">Email is required.</div>
-                                        <div *ngIf="signupForm.controls.email.hasError('invalidEmail')">Email is invalid.</div>
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                	<label for="loginPassword">Password</label>
-                                    <div class="input-wrap">
-                                    	<input type="password" class="form-control" minlength='6' formControlName="password" placeholder="Password"/>
-                                        <span><i class="fa fa-lock" aria-hidden="true"></i></span>
-                                    </div>
-                                    <div class='form-text error' *ngIf="signupForm.controls.password.touched">
-                                        <div *ngIf="signupForm.controls.password.hasError('required')">Password is required.</div>
-                                        <div *ngIf="signupForm.controls.password.hasError('minlength')">Password isn't long enough.</div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                	<div class="checkbox">
-                                    	Remember me for 30 days
-                                        <label class="switch">
-                                          <input type="checkbox">
-                                          <div class="slider"></div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group forget-pass">
-                                	<div class="row">
-                                    	<div class="col-sm-6">
-                                        	<a href="javascript:void(0)">Forgot Password?</a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                        	<button type="button" type="submit" name="action" class="btn green-btn" [disabled]="!signupForm.valid">Sign Up</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-</body>
-</html>
+							<div class="form-group">
+								<label for="loginEmail">Email</label>
+								<div class="input-wrap">
+									<input type="email" class="form-control" id="loginEmail" placeholder="Email" formControlName="email"/>
+									<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+								</div>
+								<div class="form-text error" *ngIf="signupForm.controls.email.touched">
+										<div *ngIf="signupForm.controls.email.hasError('required')">Email is required.</div>
+										<div *ngIf="signupForm.controls.email.hasError('invalidEmail')">Email is invalid.</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="loginPassword">Password</label>
+								<div class="input-wrap">
+									<input type="password" class="form-control" id="loginPassword" placeholder="Password" minlength='6' formControlName="password"/>
+									<span><i class="fa fa-lock" aria-hidden="true"></i></span>
+								</div>
+								<div class='form-text error' *ngIf="signupForm.controls.password.touched">
+										<div *ngIf="signupForm.controls.password.hasError('required')">Password is required.</div>
+										<div *ngIf="signupForm.controls.password.hasError('minlength')">Password isn't long enough.</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn green-btn full-btn" [disabled]="!signupForm.valid">Sign Up</button>
+							</div>
+							<div class="form-group signup-option">
+								<p>By clicking ‘Sign Up’, you agree with our <a href="javascript:void(0)">Terms & Conditions</a>, <a href="javascript:void(0)">Privacy Policy</a> and <a href="javascript:void(0)">Disclaimer</a></p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -6,8 +6,8 @@
 
 /*login*/
 .login-wrap{}
-.table-wrapper {display: table;width: 100%;height:1070px}
-.side-images{background:url(/images/login-bg.png) 0 0 no-repeat;background-size:cover}
+.table-wrapper {display: table;width: 100%;}
+.side-images{background:url(/images/login-bg.png) 0 0 no-repeat;background-size:cover;background-position:100% 50%}
 
 .center-content {display: table-cell;height: 100%;vertical-align: middle;width: 100%;}
 .side-images .center-content{padding:0 100px}
@@ -36,31 +36,22 @@
 .switch {position: relative;display: inline-block;width:55px;height: 30px;float:right;border-radius:4px}
 .switch input {display:none;}
 .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;border-radius:4px}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 5px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;border-radius:5px;
-}
-
-input:checked + .slider {
-  background-color: #16a085;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #16a085;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
+.slider:before {position: absolute;content: "";height: 20px;width: 20px;left: 4px;bottom: 5px;background-color: white;-webkit-transition: .4s;transition: .4s;border-radius:5px;}
+input:checked + .slider {background-color: #16a085;}
+input:focus + .slider {box-shadow: 0 0 1px #16a085;}
+input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transform: translateX(26px);transform: translateX(26px);}
+.slider span{position:absolute;top:6px;color:#fff;text-transform:uppercase;font-size:12px;font-weight:900}
+.slider span.on{left:6px;display:none}
+.slider span.off{right:6px;}
+input:checked + .slider >  span.on{display:block}
+input:checked + .slider >  span.off{display:none}
 /*sign-up*/
-.signup-wrap .side-images{background:url(../public/images/signup.png) 0 0 no-repeat;background-size:cover}
+.signup-wrap .side-images{background:url(/images/sign-up.png) 0 0 no-repeat;background-size:cover}
+.signup-option{font-size:16px;color:#5a6b81}
+.signup-option a{color:#05ad97}
+.full-btn{width:100%}
+/*forgot-password*/
+.forgot-pass .side-images{background:url(/images/forget-bg.png) 0 0 no-repeat;background-size:cover}
+.forgot-pass p{color#5a6b81;font-size:16px}
+.forgot-pass h4{color:#05ad97;font-size:30px;font-weigh:700}
+.forgot-pass .green-btn{width:100%}
