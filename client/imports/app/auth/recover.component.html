@@ -32,6 +32,14 @@
                                 <div class="form-group">
                                 	<button type="submit" class="btn green-btn full-btn" [disabled]="!recoverForm.valid">Reset Password</button>
                                 </div>
+
+                                <div class="form-group add-account">
+                                	<div class="row">
+                                    	<div class="col-7">
+                                        	<a [routerLink]="['/login']">Remember your password?</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
 
                             <div [hidden]="error == ''">

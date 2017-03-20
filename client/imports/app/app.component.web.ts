@@ -11,7 +11,17 @@ declare var jQuery:any;
 })
 @InjectUser('user')
 export class AppComponent implements AfterViewInit {
-    constructor(private router: Router) {}
+    constructor(private router: Router) {
+      this.router.events.subscribe((val) => {
+        //console.log("route changed:", val);
+        // see also
+        (function setWindowHeight(){
+        	var windowHeight = $(window).height();
+        	$('.table-wrapper').height(windowHeight);
+        	var tableHeight = $('.table-wrapper').height();
+        })();
+      });
+    }
 
     ngAfterViewInit() {
         jQuery(function($){

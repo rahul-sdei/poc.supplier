@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Meteor } from 'meteor/meteor';
 import {MeteorComponent} from 'angular2-meteor';
 import template from './login.component.web.html';
+import {showAlert} from "../shared/show-alert";
 
 @Component({
   selector: 'login',
@@ -35,6 +36,7 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                         this.error = err;
                       });
                   } else {
+                      showAlert("You have been logged in successfully.", "success");
                       this.router.navigate(['/dashboard']);
                   }
               });
@@ -46,6 +48,7 @@ export class LoginComponent extends MeteorComponent implements OnInit {
        if (err) {
          console.log("Error while calling loginWithFacebook:", err);
        } else {
+         showAlert("You have been logged in successfully.", "success");
          this.router.navigate(['/dashboard']);
        }
      });

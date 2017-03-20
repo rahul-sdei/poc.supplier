@@ -11,7 +11,7 @@ import {PasswordComponent} from "./account/changepassword.component";
 import {accountRoutes} from "./account/account.routes";
 import {routes as pageRoutes} from "./content-page/routes";
 import {routes as faqRoutes} from "./faqs/routes";
-// import {AccountsForgotPassword} from './auth/forgetpassword.component'
+import {ResetPassword} from "./auth/resetpassword";
 
 
 let mainRoutes = [
@@ -22,7 +22,7 @@ let mainRoutes = [
     { path: 'recover', component: RecoverComponent },
     {path: 'account', component: UserDetailsComponent},
     {path: 'changepassword', component:PasswordComponent},
-    // {path: 'forgetpassword',component:AccountsForgotPassword}
+    {path: 'reset-password/:token',component:ResetPassword}
 
 ];
 

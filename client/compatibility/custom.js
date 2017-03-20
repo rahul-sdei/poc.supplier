@@ -3,11 +3,11 @@ $(document).ready(function() {
 	setWindowHeight();
 });
 $( window ).resize( function () {
-		setWindowHeight();
-	 });
+	setWindowHeight();
+});
 
 function setWindowHeight(){
-    var windowHeight = $(window).height();
+	var windowHeight = $(window).height();
 	$('.table-wrapper').height(windowHeight);
 	var tableHeight = $('.table-wrapper').height();
 }

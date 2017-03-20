@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
 import template from './signup.component.html';
+import {showAlert} from "../shared/show-alert";
 
 @Component({
   selector: 'signup',
@@ -47,6 +48,7 @@ export class SignupComponent extends MeteorComponent implements OnInit {
             this.error = err;
           });
         } else {
+          showAlert("Your account has been created successfully.", "success");
           this.router.navigate(['/login']);
         }
       });
@@ -58,6 +60,7 @@ export class SignupComponent extends MeteorComponent implements OnInit {
       if (err) {
         console.log("Error while calling loginWithFacebook:", err);
       } else {
+        showAlert("Your account has been created successfully.", "success");
         this.router.navigate(['/dashboard']);
       }
     });
