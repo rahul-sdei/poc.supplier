@@ -25,7 +25,7 @@
                                         <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
-                                <div *ngIf="recoverForm.controls['email'].errors && recoverForm.controls['email'].touched" class="error">
+                                <div *ngIf="recoverForm.controls['email'].errors && recoverForm.controls['email'].touched" class="has-error">
                                     <div [hidden]="!recoverForm.controls['email'].errors.required">Email is required.</div>
                                     <div [hidden]="!recoverForm.controls['email'].errors.pattern">Invalid email address.</div>
                                 </div>

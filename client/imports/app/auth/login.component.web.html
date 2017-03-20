@@ -22,7 +22,7 @@
                                     	<input type="email" class="form-control" id="loginEmail" placeholder="Email" formControlName="email"/>
                                         <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
                                     </div>
-																		<div *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched" class="error">
+																		<div *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched" class="has-error">
                                       <div [hidden]="!loginForm.controls['email'].errors.required">Email is required.</div>
                                       <div [hidden]="!loginForm.controls['email'].errors.pattern">Invalid email address.</div>
                                     </div>
@@ -33,7 +33,7 @@
                                     	<input type="password" class="form-control" id="loginPassword" placeholder="Password" formControlName="password"/>
                                         <span><i class="fa fa-lock" aria-hidden="true"></i></span>
                                     </div>
-																		<div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched" class="error">
+																		<div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched" class="has-error">
                                         <div [hidden]="!loginForm.controls['password'].errors.required" class="error">Password is required.
                                         </div>
                                     </div>

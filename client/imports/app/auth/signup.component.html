@@ -24,7 +24,7 @@
 											<input type="text" class="form-control" id="FirstName" placeholder="First Name" formControlName="firstName"/>
 											<span><i class="fa fa-user" aria-hidden="true"></i></span>
 										</div>
-										<div class='form-text error' *ngIf='signupForm.controls.firstName.touched'>
+										<div class='form-text error has-error' *ngIf='signupForm.controls.firstName.touched'>
 										<div *ngIf="!!signupForm.controls.firstName.hasError('required')">First name is required.</div>
 										<div *ngIf="!!signupForm.controls.firstName.hasError('pattern')">Only characters are allowed.</div>
 										</div>
@@ -35,7 +35,7 @@
 											<input type="text" class="form-control" id="LastName" placeholder="Last Name" formControlName="lastName"/>
 											<span><i class="fa fa-user" aria-hidden="true"></i></span>
 										</div>
-										<div class='form-text error' *ngIf='signupForm.controls.lastName.touched'>
+										<div class='form-text error has-error' *ngIf='signupForm.controls.lastName.touched'>
 										<div *ngIf="signupForm.controls.lastName.hasError('required')">Last name is required.</div>
 										</div>
 									</div>
@@ -50,7 +50,7 @@
 									<input type="email" class="form-control" id="loginEmail" placeholder="Email" formControlName="email"/>
 									<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
 								</div>
-								<div class="form-text error" *ngIf="signupForm.controls.email.touched">
+								<div class="form-text error has-error" *ngIf="signupForm.controls.email.touched">
 										<div *ngIf="signupForm.controls.email.hasError('required')">Email is required.</div>
 										<div *ngIf="signupForm.controls.email.hasError('invalidEmail')">Email is invalid.</div>
 								</div>
@@ -61,7 +61,7 @@
 									<input type="password" class="form-control" id="loginPassword" placeholder="Password" minlength='6' formControlName="password"/>
 									<span><i class="fa fa-lock" aria-hidden="true"></i></span>
 								</div>
-								<div class='form-text error' *ngIf="signupForm.controls.password.touched">
+								<div class='form-text error has-error' *ngIf="signupForm.controls.password.touched">
 										<div *ngIf="signupForm.controls.password.hasError('required')">Password is required.</div>
 										<div *ngIf="signupForm.controls.password.hasError('minlength')">Password isn't long enough.</div>
 								</div>
