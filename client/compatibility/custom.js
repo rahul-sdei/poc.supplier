@@ -1,6 +1,13 @@
 // JavaScript Document
 $(document).ready(function() {
-	var windowHeight = $(window).height();
-	console.log(windowHeight);
-	$('.table-wrapper').height(windowHeight);
+	setWindowHeight();
 });
+$( window ).resize( function () {
+		setWindowHeight();
+	 });
+
+function setWindowHeight(){
+    var windowHeight = $(window).height();
+	$('.table-wrapper').height(windowHeight);
+	var tableHeight = $('.table-wrapper').height();
+}

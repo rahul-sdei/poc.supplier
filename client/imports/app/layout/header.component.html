@@ -1,17 +1,17 @@
 <header *ngIf="!!user">
-<!--<section class="row head-brk navbar-fixed">
+<section class="row head-brk navbar-fixed">
   <nav>
     <div class="nav-wrapper">
       <a class="brand-logo">Atorvia</a>
         <ul class="right hide-on-med-and-down">
           <li *ngFor="let page of pages" class="nav-item">
-            <a class="nav-link" [routerLink]="['page/view', page.slug]">{{page.title}}</a>
+            <a class="nav-link" [routerLink]="['/page/view', page.slug]">{{page.title}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['faqs']">FAQs</a>
+            <a class="nav-link" [routerLink]="['/faqs']">FAQs</a>
           </li>
           <li rol="nav-item" [hidden]="!!user.profile.fbId">
-            <a class="nav-link" [routerLink]="['changepassword']">Change Password</a>
+            <a class="nav-link" [routerLink]="['/changepassword']">Change Password</a>
           </li>
           <li role="nav-item">
             <a class="nav-link" [hidden]="!user" href="javascript:void(0);" (click)="logout()">Logout</a>
@@ -20,5 +20,5 @@
       </a>
     </div>
   </nav>
-</section>-->
+</section>
 </header>

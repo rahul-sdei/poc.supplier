@@ -15,7 +15,7 @@ import {routes as faqRoutes} from "./faqs/routes";
 
 
 let mainRoutes = [
-    { path: '', component: LandingComponent/*, canActivate: ['canActivateForLogoff']*/ },
+    { path: '', component: SignupComponent/*, canActivate: ['canActivateForLogoff']*/ },
     { path: 'dashboard', component: DashboardComponent, canActivate: ['canActivateForLoggedIn'] },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },

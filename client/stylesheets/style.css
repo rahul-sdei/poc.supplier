@@ -3,7 +3,6 @@
 
 .st-pusher{right:0}
 .st-effect-13.st-menu-open .st-pusher{transform: translate3d(-300px, 0px, 0px);}
-
 /*login*/
 .login-wrap{}
 .table-wrapper {display: table;width: 100%;}
@@ -45,13 +44,20 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
 .slider span.off{right:6px;}
 input:checked + .slider >  span.on{display:block}
 input:checked + .slider >  span.off{display:none}
+.add-account a{font-size:16px;color:#8597ac}
 /*sign-up*/
 .signup-wrap .side-images{background:url(/images/sign-up.png) 0 0 no-repeat;background-size:cover}
 .signup-option{font-size:16px;color:#5a6b81}
 .signup-option a{color:#05ad97}
-.full-btn{width:100%}
+.full-btn{width:100%;font-weight:bold}
 /*forgot-password*/
 .forgot-pass .side-images{background:url(/images/forget-bg.png) 0 0 no-repeat;background-size:cover}
-.forgot-pass p{color#5a6b81;font-size:16px}
+.forgot-pass p{color:#5a6b81;font-size:16px}
 .forgot-pass h4{color:#05ad97;font-size:30px;font-weigh:700}
 .forgot-pass .green-btn{width:100%}
+
+/*reset-password*/
+.reset-wrap .side-images{background:url(/images/reset-bg.png) 0 0 no-repeat;background-size:cover}
+
+/*always at the bottom*/
+.green-text{color:#05ad97!important}

@@ -11,9 +11,12 @@
 	.table-wrapper {height:500px}
 	.login-form, .side-images .center-content{padding: 0 25px}
 	.side-images p{display:none}
-	.side-images .table-wrapper{height:250px}
+	.side-images .table-wrapper{height:250px!important}
+	.side-form.table-wrapper{height:auto!important;padding:25px 0}
 	.title-line:after{display:none}
 	.title-line {text-align:center;font-weight:900}
+	.forget-pass-link {text-align:center}
+	.forget-pass button{margin:15px auto}
 		}
 @media(max-width:360px){
 	.login-form, .side-images .center-content {padding: 0 15px;}
