@@ -11,16 +11,18 @@ import {PasswordComponent} from "./account/changepassword.component";
 import {accountRoutes} from "./account/account.routes";
 import {routes as pageRoutes} from "./content-page/routes";
 import {routes as faqRoutes} from "./faqs/routes";
+// import {AccountsForgotPassword} from './auth/forgetpassword.component'
 
 
 let mainRoutes = [
     { path: '', component: LandingComponent/*, canActivate: ['canActivateForLogoff']*/ },
     { path: 'dashboard', component: DashboardComponent, canActivate: ['canActivateForLoggedIn'] },
     { path: 'login', component: LoginComponent },
-    // { path: 'signup', component: SignupComponent },
+    { path: 'signup', component: SignupComponent },
     { path: 'recover', component: RecoverComponent },
     {path: 'account', component: UserDetailsComponent},
     {path: 'changepassword', component:PasswordComponent},
+    // {path: 'forgetpassword',component:AccountsForgotPassword}
 
 ];
 

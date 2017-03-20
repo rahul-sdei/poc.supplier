@@ -15,8 +15,6 @@ export class AppComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         jQuery(function($){
-            $(".button-collapse").sideNav();
-            $('select').material_select();
         })
     }
 }

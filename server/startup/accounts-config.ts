@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -10,6 +11,18 @@ Accounts.onCreateUser(function(options, user) {
     // user status
     if (typeof options.status !== "undefined") {
         user.status = options.status || {};
+    }
+
+    // set profile incase of fb login
+    if (typeof user.services.facebook !== "undefined") {
+        let fbData = user.services.facebook;
+        user.profile = {
+          fullName: fbData.name,
+          firstName: fbData.first_name,
+          lastName: fbData.last_name,
+          age: fbData.age_range.min,
+          gender: fbData.gender
+        }
     }
 
     // Returns the user object

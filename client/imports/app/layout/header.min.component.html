@@ -1,24 +1,29 @@
 <header>
-    <section class="row head-brk navbar-fixed">
-        <nav class="col s12">
-            <!--<ul id="dropdown1" class="dropdown-content">
-                <li><a href="#!">It has survived not only five centuries</a></li>
-                <li><a href="#!">It has survived not only five centuries</a></li>
-                <li><a href="#!">It has survived not only five centuries</a></li>
-            </ul>-->
-            <div class="row">
-              <section class="nav-wrapper col-sm-6">
-                <a [routerLink]="['/']" class="brand-logo"><img src="images/bmi.resized.jpg" alt=""/></a>
-                  <!--<ul class="right hide-on-med-and-down">
-                      <li><a href="javascript:void(0);"><i class="zmdi zmdi-assignment-alert"></i></a></li>
-                  </ul>-->
-              </section>
+  <div class="banner">
+                <div class="container">
+                    <div class="navbar navbar-toggleable-md navbar-light bg-faded">
+                      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <a class="navbar-brand" href="/">ATROVIA</a>
 
-              <section class="col sm-6">
-                <button class="btn " type="signup" [routerLink]="['signup']">Signup</button>
-                <button class="btn "  type="login" [routerLink]="['login']">Login</button>
-              </section>
-            </div>
-        </nav>
-    </section>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['login']">Login</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['signup']">Sign Up</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['faqs']">FAQs</a>
+                          </li>
+                          <li *ngFor="let page of pages" class="nav-item">
+                            <a class="nav-link" [routerLink]="['page/view', page.slug]" >{{page.title}}</a>
+                          </li>
+                        </ul>
+                       </div>
+                    </div>
+                </div>
+    </div>
 </header>

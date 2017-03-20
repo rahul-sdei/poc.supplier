@@ -1,17 +1,15 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
-import { Roles } from 'meteor/alanning:roles';
-
+import { Users } from '../../both/collections/users.collection';
 Meteor.methods({
-    "users.insert": (userData: {email: string, passwd: string, profile?: any}): string => {
-        let userId = Accounts.createUser({
+    "users.insert": (userData: {email: string, passwd: string, profile?: any, fbId?: string}): string => {
+        let userDetails = {
             email: userData.email,
             password: userData.passwd,
-            profile: userData.profile
-        });
-
-        Roles.addUsersToRoles(userId, ['practitioner']);
-
+            profile: userData.profile,
+            fbId: userData.fbId
+        };
+        let userId = Accounts.createUser(userDetails);
         return userId;
     }
 })
