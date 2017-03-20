@@ -7,7 +7,7 @@ Meteor.startup(() => {
   };
   Accounts.emailTemplates.resetPassword.text = function(user, url) {
     let myToken = user.services.password.reset.token;
-    return "http://" + "localhost:8081/reset-password/" + myToken;
+    return "http://" + "52.39.212.226:4059/reset-password/" + myToken;
   };
   process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':'
   + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':'
