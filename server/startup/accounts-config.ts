@@ -17,6 +17,7 @@ Accounts.onCreateUser(function(options, user) {
     if (typeof user.services.facebook !== "undefined") {
         let fbData = user.services.facebook;
         user.profile = {
+          fbId: fbData.id,
           fullName: fbData.name,
           firstName: fbData.first_name,
           lastName: fbData.last_name,
