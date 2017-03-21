@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                 	<label for="loginEmail">Email</label>
                                     <div class="input-wrap">
-                                    	<input type="email" class="form-control" id="loginEmail" placeholder="Email" formControlName="email"/>
+                                    	<input type="email" class="form-control" placeholder="Email" formControlName="email"/>
                                         <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
                                     </div>
 																		<div *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched" class="has-error">
@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                 	<label for="loginPassword">Password</label>
                                     <div class="input-wrap">
-                                    	<input type="password" class="form-control" id="loginPassword" placeholder="Password" formControlName="password"/>
+                                    	<input type="password" class="form-control" placeholder="Password" formControlName="password"/>
                                         <span><i class="fa fa-lock" aria-hidden="true"></i></span>
                                     </div>
 																		<div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched" class="has-error">
@@ -45,7 +45,7 @@
                                 	<div class="checkbox">
                                     	Remember me for 30 days
                                         <label class="switch">
-                                          <input type="checkbox">
+                                          <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked" />
                                           <div class="slider">
                                           	<span class="on">On</span>
                                             <span class="off">Off</span>
