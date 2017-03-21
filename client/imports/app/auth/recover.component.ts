@@ -36,7 +36,7 @@ export class RecoverComponent implements OnInit {
           });
         } else {
           showAlert("Reset password request initiated. Please check your email for further instructions.", "success");
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }
       });
     }
