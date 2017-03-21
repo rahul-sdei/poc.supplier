@@ -47,15 +47,4 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 });
             }
           }
-
-    fblogin(): void {
-     Meteor.loginWithFacebook({requestPermissions: ['public_profile,email']}, (err) => {
-       if (err) {
-         console.log("Error while calling loginWithFacebook:", err);
-       } else {
-         showAlert("You have been logged in successfully.", "success");
-         this.router.navigate(['/dashboard']);
-       }
-     });
-   }
 }

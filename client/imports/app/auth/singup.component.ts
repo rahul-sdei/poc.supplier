@@ -14,8 +14,6 @@ import {validateEmail, validatePhoneNum, validateFirstName} from "../../validato
 export class SignupComponent extends MeteorComponent implements OnInit {
   signupForm: FormGroup;
   error: string;
-  fbId: string;
-  fbProfile: any;
 
   constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder) {
     super();
@@ -26,7 +24,6 @@ export class SignupComponent extends MeteorComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
       firstName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      lastName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])]
     })
 
   }
@@ -36,10 +33,8 @@ export class SignupComponent extends MeteorComponent implements OnInit {
       let userData = {
         email: this.signupForm.value.email,
         passwd: this.signupForm.value.password,
-        fbId: this.fbId,
         profile: {
-          firstName: this.signupForm.value.firstName,
-          lastName: this.signupForm.value.lastName,
+          companyName: this.signupForm.value.firstName,
         }
       };
       this.call("users.insert", userData, (err, res) => {
@@ -53,16 +48,5 @@ export class SignupComponent extends MeteorComponent implements OnInit {
         }
       });
     }
-  }
-
-  fblogin(): void {
-    Meteor.loginWithFacebook({requestPermissions: ['public_profile,email']}, (err) => {
-      if (err) {
-        console.log("Error while calling loginWithFacebook:", err);
-      } else {
-        showAlert("Your account has been created successfully.", "success");
-        this.router.navigate(['/dashboard']);
-      }
-    });
   }
 }

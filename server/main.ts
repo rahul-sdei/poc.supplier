@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import './startup/accounts-config';
-import './startup/service-config';
 import './imports/publications/users';
 import './startup/email-config';
 

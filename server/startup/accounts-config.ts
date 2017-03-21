@@ -27,7 +27,7 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     // set user role
-    user.roles = ['customer'];
+    user.roles = ['supplier'];
 
     // Returns the user object
     return user;
@@ -39,7 +39,7 @@ Accounts.onCreateUser(function(options, user) {
 // validate user role before login
 Accounts.validateLoginAttempt(function (options) {
    if (options.user && options.allowed) {
-       var isAdmin = Roles.userIsInRole(options.user, ['customer'])
+       var isAdmin = Roles.userIsInRole(options.user, ['supplier'])
        if (!isAdmin) {
            throw new Meteor.Error(403, "Not authorized!");
        }
