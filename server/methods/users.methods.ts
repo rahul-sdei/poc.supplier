@@ -3,12 +3,11 @@ import { Accounts } from 'meteor/accounts-base';
 import { Users } from '../../both/collections/users.collection';
 
 Meteor.methods({
-    "users.insert": (userData: {email: string, passwd: string, profile?: any, fbId?: string}): string => {
+    "users.insert": (userData: {email: string, passwd: string, profile?: any}): string => {
         let userDetails = {
             email: userData.email,
             password: userData.passwd,
-            profile: userData.profile,
-            fbId: userData.fbId
+            profile: userData.profile
         };
         let userId = Accounts.createUser(userDetails);
         return userId;

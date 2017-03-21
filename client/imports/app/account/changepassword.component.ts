@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
-import { matchingPasswords, validatePassword } from '../validators/validators';
+import { matchingPasswords, validatePassword } from '../../validators/common';
 import {showAlert} from "../shared/show-alert";
 
 import template from './changepassword.component.html';

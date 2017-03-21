@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import {MeteorComponent} from 'angular2-meteor';
 import template from './login.component.web.html';
 import {showAlert} from "../shared/show-alert";
+import {validateEmail, validatePhoneNum, validateFirstName} from "../../validators/common";
 
 @Component({
   selector: 'login',
@@ -19,10 +20,9 @@ export class LoginComponent extends MeteorComponent implements OnInit {
     }
 
     ngOnInit() {
-        var emailRegex = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
         this.loginForm = this.formBuilder.group({
-          email: ['', Validators.compose([Validators.pattern(emailRegex), Validators.required])],
-          password: ['', Validators.required]
+          email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])],
+          password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])]
         });
 
         this.error = '';

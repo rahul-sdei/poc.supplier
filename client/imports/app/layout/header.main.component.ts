@@ -4,6 +4,8 @@ import { InjectUser } from "angular2-meteor-accounts-ui";
 import { MeteorComponent } from 'angular2-meteor';
 import template from './header.component.html';
 import { Page } from "../../../../both/models/page.model";
+import {showAlert} from "../shared/show-alert";
+
 @Component({
     selector: 'header-main',
     template
@@ -34,6 +36,7 @@ export class HeaderMainComponent extends MeteorComponent implements OnInit, Afte
 
     logout() {
         Meteor.logout();
+        showAlert("You have been logged out successfully.", "success");
         this.router.navigate( ['/login'] );
     }
 

@@ -5,6 +5,7 @@ import { Accounts } from 'meteor/accounts-base';
 import {MeteorComponent} from 'angular2-meteor';
 import template from './signup.component.html';
 import {showAlert} from "../shared/show-alert";
+import {validateEmail, validatePhoneNum, validateFirstName} from "../../validators/common";
 
 @Component({
   selector: 'signup',
@@ -21,12 +22,11 @@ export class SignupComponent extends MeteorComponent implements OnInit {
   }
 
   ngOnInit() {
-    var emailRegex = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
     this.signupForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.required],
-      firstName: ['', ([Validators.required,Validators.pattern("[a-zA-Z][a-zA-Z ]*")])],
-      lastName: ['', Validators.required]
+      email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
+      firstName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
+      lastName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])]
     })
 
   }
