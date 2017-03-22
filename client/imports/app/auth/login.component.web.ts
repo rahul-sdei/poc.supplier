@@ -1,12 +1,13 @@
-import {Component, OnInit, NgZone} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
-import {MeteorComponent} from 'angular2-meteor';
+import { MeteorComponent } from 'angular2-meteor';
+import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import template from './login.component.web.html';
-import {showAlert} from "../shared/show-alert";
-import {validateEmail, validatePhoneNum, validateFirstName} from "../../validators/common";
+import { showAlert } from "../shared/show-alert";
+import { validateEmail, validatePhoneNum, validateFirstName } from "../../validators/common";
 
 @Component({
   selector: 'login',
@@ -18,7 +19,7 @@ export class LoginComponent extends MeteorComponent implements OnInit {
     rememberMe = false;
     userId: string;
 
-    constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder) {
+    constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
       super();
     }
 
@@ -40,6 +41,8 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 });
             } else {
                 showAlert("You have been logged in successfully.", "success");
+                this.localStorage.store("rememberMeNot", !this.rememberMe);
+                this.sessionStorage.store("Meteor.userId", Meteor.userId());
                 this.router.navigate(['/dashboard']);
             }
         });

@@ -5,10 +5,11 @@ import { Angular2TokenService } from 'angular2-token';
 import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { Ng2PaginationModule } from 'ng2-pagination';
-import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from "angular-2-local-storage";
+//import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from "angular-2-local-storage";
+import {Ng2Webstorage} from 'ng2-webstorage';
 import { AppComponent } from "./app.component.web";
 import {ACC_DECLARATIONS} from "./account/index";
-import { DropdownModule } from 'ng2-bootstrap';
+//import { DropdownModule } from 'ng2-bootstrap';
 import { routes, ROUTES_PROVIDERS } from './app.routes';
 import { SHARED_DECLARATIONS } from './shared';
 import {AUTH_DECLARATIONS} from "./auth/index";
@@ -16,13 +17,13 @@ import { LAYOUT_DECLARATIONS } from "./layout/index";
 import {Page_Declarations} from "./content-page/index";
 import {Faq_Declarations} from "./faqs/index";
 
-import {FileDropModule} from "angular2-file-drop";
+//import {FileDropModule} from "angular2-file-drop";
 import {DASHBOARD_DECLARATIONS} from "./dashboard/index";
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
-    prefix: 'my-app',
-    storageType: 'sessionStorage'
+    prefix: '',
+    storageType: 'localStorage'
 };
 
 let moduleDefinition;
@@ -32,12 +33,13 @@ moduleDefinition = {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-
     RouterModule.forRoot(routes),
-    DropdownModule.forRoot(),
+    //DropdownModule.forRoot(),
     AccountsModule,
     Ng2PaginationModule,
-    FileDropModule
+    Ng2Webstorage,
+    Ng2Webstorage.forRoot({ prefix: '', separator: '' })
+    //FileDropModule
   ],
   declarations: [
     AppComponent,
@@ -48,15 +50,13 @@ moduleDefinition = {
     ...LAYOUT_DECLARATIONS,
     ...Page_Declarations,
     ...Faq_Declarations
-
   ],
   providers: [
     ...ROUTES_PROVIDERS,
-
-    LocalStorageService,
+    /*LocalStorageService,
       {
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-      }
+      }*/
   ],
   bootstrap: [
     AppComponent

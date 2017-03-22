@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './imports/app/app.module';
 
-import ionicSelector from 'ionic-selector';
+//import ionicSelector from 'ionic-selector';
 
 function setClass(css) {
   if (!document.body.className) {
@@ -14,13 +14,7 @@ function setClass(css) {
 }
 
 Meteor.startup(() => {
-  if (Meteor.isCordova) {
-    ionicSelector("app");
-    setClass('mobile');
-  }
-  else {
-    setClass('web');
-  }
+  setClass('web');
 
   const platform = platformBrowserDynamic();
   platform.bootstrapModule(AppModule);
