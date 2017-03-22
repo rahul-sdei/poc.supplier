@@ -1,0 +1,238 @@
+body
+{
+	background: $white;
+	color: $base-color;
+	font-size: $font-16;
+	font-family: $font_1;
+}
+
+ul, li
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a
+{
+	text-decoration: none;
+	color: $light-grey;
+	&:hover, &:focus {
+		text-decoration: none
+	}
+}
+
+img
+{
+	max-width: 100%;
+	height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+	margin: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea.form-control,
+select.form-control,
+input[type="tel"],
+input[type="date"]
+{
+	width: 100%;
+	@include border-radius(3px,3px,3px,3px);
+	border: solid 1px $border-color;
+	background-color: $white;
+	color: $label-color;
+	font-size: $font-16;
+	&:focus {
+		border-color: $green-color;
+		outline: none;
+		box-shadow: none;
+	}
+}
+textarea.form-control
+	{
+	height: 132px;
+}
+
+textarea.absolute
+	{
+		position: absolute;
+	}
+
+.relative
+	{
+	position: relative;
+}
+.static
+	{
+	position: static;
+}
+.fixed
+	{
+	position: fixed;
+}
+.float_left
+	{
+	float:left;
+}
+.float_right
+	{
+	float: right;
+}
+.float_none
+{
+		float: none;
+}
+.pull-left
+	{
+	float: left;
+}
+.pull-right
+{
+	float: right;
+}
+.pull-none
+	{
+	float: none
+}
+.green-btn
+	{
+	padding : 15px 0;
+	background : $green-color;
+	color : $white;
+	font-size : $font-16;
+	@include  border-radius (4px, 4px, 4px, 4px);
+	border : none;
+	width : 200px;
+	cursor : pointer;
+	&:hover,
+	&:focus {
+		background : $hover-green
+	}
+}
+
+.facebook-login
+	{
+	@extend .block;
+	font-size : $font-16;
+	background-color : $fb-colr;
+	padding : 20px 0;
+	width : $full;
+	border : none;
+	@include  border-radius (4px, 4px, 4px, 4px);
+	color : $white;
+	&:hover {
+		background : $fb-hover
+	}
+	span {
+		margin-right : 5px
+	}
+}
+
+.checkbox
+	{
+	color : $label-color;
+	font-size : $font-16;
+}
+
+.switch
+	{
+		@extend .relative;
+		@extend .inline-block;
+		width : 55px;
+		height : 30px;
+		@extend .pull_right;
+		@include  border-radius (4px, 4px, 4px, 4px);
+		input {
+			display : none;
+			&:checked + .slider {
+				background-color : $green-color;
+				&:before {
+					-ms-transform-webkit-transform : translateX(26px);
+					-ms-transform : translateX(26px);
+					transform : translateX(26px);
+				}
+				span.on {
+					@extend .block;
+				}
+				span.off {
+					@extend .none;
+				}
+			}
+		}
+		&:focus + .slider {
+			@include box-shadow(0, 0, 1px, $green-color)
+		}
+	 @media (max-width: small_phone) {
+		float: none;
+		margin: 5px 0 0;
+		display:block;
+	}
+}
+
+.slider
+{
+		@extend .absolute;
+		cursor : pointer;
+		@extend .top-0;
+		@extend .left-0;
+		@extend .right-0;
+		@extend .bottom-0;
+		background-color : $label-color;
+		-webkit-transition : .4s;
+		transition : .4s;
+		@include  border-radius (4px, 4px, 4px, 4px);
+		&:before {
+			@extend .absolute;
+			content : "";
+			height : 20px;
+			width : 20px;
+			left : 4px;
+			bottom : 5px;
+			background-color : $white;
+			-webkit-transition : .4s;
+			transition : .4s;
+			@include  border-radius (4px, 4px, 4px, 4px);
+		}
+		span {
+			@extend .absolute;
+			top : 6px;
+			color : $white;
+			text-transform : uppercase;
+			font-size : $font-12;
+			font-weight : $weight_700;
+		}
+		span.on {
+			left : 6px;
+			@extend .none;
+		}
+		span.off {
+			right : 6px;
+		}
+}
+
+/*generic*/
+.full-btn
+{
+	width : $full;
+}
+
+.green-text
+{
+	color : $green-anchor !important;
+}
+/* responsive */
+$desktop : 1200px;
+$laptop:  992px;
+$ipad:  768px;
+$phone: 600px;
+$small_phone: 360px;
