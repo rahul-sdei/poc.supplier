@@ -23,7 +23,7 @@
 									<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
 								</div>
 								<div *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched" class="has-error">
-									<div [hidden]="!loginForm.controls['email'].errors.required">You have to fill in Email to signup.</div>
+									<div [hidden]="!loginForm.controls['email'].errors.required">You have to fill in Email to login.</div>
 									<div [hidden]="!loginForm.controls['email'].errors.minlength">Min 5 characters required.</div>
 									<div [hidden]="!loginForm.controls['email'].errors.maxlength">Max 50 characters allowed.</div>
 									<div [hidden]="!loginForm.controls['email'].errors.validateEmail">Invalid email address.</div>
@@ -36,7 +36,7 @@
 									<span><i class="fa fa-lock" aria-hidden="true"></i></span>
 								</div>
 								<div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched" class="has-error">
-									<div [hidden]="!loginForm.controls['password'].errors.required">You have to fill in Password to signup.</div>
+									<div [hidden]="!loginForm.controls['password'].errors.required">You have to fill in Password to login.</div>
 									<div [hidden]="!loginForm.controls['password'].errors.minlength">Minimum 8 characters required.</div>
 									<div [hidden]="!loginForm.controls['password'].errors.maxlength">Maximum 30 characters allowed.</div>
 								</div>

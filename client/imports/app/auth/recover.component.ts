@@ -26,11 +26,11 @@ export class RecoverComponent implements OnInit {
   }
 
   recover() {
-    if (this.recoverForm.valid) {
+    if (! this.recoverForm.valid) {
       showAlert("Invalid FormData supplied.", "danger");
       return;
     }
-    
+
     showAlert("Please wait...", "info");
     Accounts.forgotPassword({
       email: this.recoverForm.value.email

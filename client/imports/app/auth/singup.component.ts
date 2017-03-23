@@ -32,11 +32,11 @@ export class SignupComponent extends MeteorComponent implements OnInit {
   }
 
   signup() {
-    if (this.signupForm.valid) {
+    if (! this.signupForm.valid) {
       showAlert("Invalid FormData supplied.", "danger");
       return;
     }
-    
+
     let userData = {
       email: this.signupForm.value.email,
       passwd: this.signupForm.value.password,

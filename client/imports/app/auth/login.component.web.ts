@@ -33,10 +33,11 @@ export class LoginComponent extends MeteorComponent implements OnInit {
     }
 
     login() {
-        if (this.loginForm.valid) {
+        if (! this.loginForm.valid) {
           showAlert("Invalid FormData supplied.", "danger");
           return;
         }
+        
         Meteor.loginWithPassword(this.loginForm.value.email, this.loginForm.value.password, (err) => {
           if (err) {
               this.zone.run(() => {
