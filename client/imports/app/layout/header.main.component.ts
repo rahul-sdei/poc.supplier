@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { MeteorComponent } from 'angular2-meteor';
+import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 import template from './header.component.html';
 import { Page } from "../../../../both/models/page.model";
 import {showAlert} from "../shared/show-alert";
@@ -13,7 +14,7 @@ import {showAlert} from "../shared/show-alert";
 @InjectUser('user')
 export class HeaderMainComponent extends MeteorComponent implements OnInit, AfterViewInit {
     pages: Page[];
-    constructor(private router: Router) {
+    constructor(private router: Router, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
       super();
     }
 
@@ -35,6 +36,8 @@ export class HeaderMainComponent extends MeteorComponent implements OnInit, Afte
     }
 
     logout() {
+        this.localStorage.clear("rememberMeNot");
+        this.sessionStorage.clear("Meteor.userId");
         Meteor.logout();
         showAlert("You have been logged out successfully.", "success");
         this.router.navigate( ['/login'] );

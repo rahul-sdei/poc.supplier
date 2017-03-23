@@ -25,7 +25,7 @@
 											<span><i class="fa fa-user" aria-hidden="true"></i></span>
 										</div>
 										<div class='form-text error has-error' *ngIf='signupForm.controls.firstName.errors && signupForm.controls.firstName.touched'>
-											<div [hidden]="!signupForm.controls['firstName'].errors.required">First Name is required.</div>
+											<div [hidden]="!signupForm.controls['firstName'].errors.required">You have to fill in First Name to signup.</div>
 			                <div [hidden]="!signupForm.controls['firstName'].errors.minlength">Min 2 characters required.</div>
 			                <div [hidden]="!signupForm.controls['firstName'].errors.maxlength">Max 30 characters allowed.</div>
 			                <div [hidden]="!signupForm.controls['firstName'].errors.validateFirstName">Please type valid name.</div>
@@ -38,7 +38,7 @@
 											<span><i class="fa fa-user" aria-hidden="true"></i></span>
 										</div>
 										<div class='form-text error has-error' *ngIf='signupForm.controls.lastName.errors && signupForm.controls.lastName.touched'>
-											<div [hidden]="!signupForm.controls['lastName'].errors.required">Last Name is required.</div>
+											<div [hidden]="!signupForm.controls['lastName'].errors.required">You have to fill in Last Name to signup.</div>
 			                <div [hidden]="!signupForm.controls['lastName'].errors.minlength">Min 2 characters required.</div>
 			                <div [hidden]="!signupForm.controls['lastName'].errors.maxlength">Max 30 characters allowed.</div>
 			                <div [hidden]="!signupForm.controls['lastName'].errors.validateFirstName">Please type valid name.</div>
@@ -56,7 +56,7 @@
 									<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
 								</div>
 								<div class="form-text error has-error" *ngIf="signupForm.controls.email.errors && signupForm.controls.email.touched">
-									<div [hidden]="!signupForm.controls['email'].errors.required">Email is required.</div>
+									<div [hidden]="!signupForm.controls['email'].errors.required">You have to fill in Email to signup.</div>
 									<div [hidden]="!signupForm.controls['email'].errors.minlength">Min 2 characters required.</div>
 									<div [hidden]="!signupForm.controls['email'].errors.maxlength">Max 30 characters allowed.</div>
 									<div [hidden]="!signupForm.controls['email'].errors.validateEmail">Invalid Email address.</div>
@@ -69,7 +69,7 @@
 									<span><i class="fa fa-lock" aria-hidden="true"></i></span>
 								</div>
 								<div class='form-text error has-error' *ngIf="signupForm.controls.password.errors && signupForm.controls.password.touched">
-									<div [hidden]="!signupForm.controls['password'].errors.required">Password is required.</div>
+									<div [hidden]="!signupForm.controls['password'].errors.required">You have to fill in Password to signup.</div>
 									<div [hidden]="!signupForm.controls['password'].errors.minlength">Minimum 6 characters required.</div>
 									<div [hidden]="!signupForm.controls['password'].errors.maxlength">Maximum 30 characters allowed.</div>
 								</div>

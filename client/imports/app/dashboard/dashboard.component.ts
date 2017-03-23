@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Meteor } from "meteor/meteor";
 import { InjectUser } from "angular2-meteor-accounts-ui";
-
+import { Router } from '@angular/router'
 import template from "./dashboard.html";
 
 @Component({
@@ -10,9 +10,13 @@ import template from "./dashboard.html";
 })
 @InjectUser('user')
 export class DashboardComponent implements OnInit {
-    constructor() {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
+      if (!Meteor.userId()) {
+        console.log("in dashboard");
+        this.router.navigate(['/login']);
+      }
     }
 }

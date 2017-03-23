@@ -27,6 +27,7 @@ export class RecoverComponent implements OnInit {
 
   recover() {
     if (this.recoverForm.valid) {
+      showAlert("Please wait...", "info");
       Accounts.forgotPassword({
         email: this.recoverForm.value.email
       }, (err) => {
