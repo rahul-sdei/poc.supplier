@@ -34,19 +34,21 @@ export class LoginComponent extends MeteorComponent implements OnInit {
 
     login() {
         if (this.loginForm.valid) {
-          Meteor.loginWithPassword(this.loginForm.value.email, this.loginForm.value.password, (err) => {
-            if (err) {
-                this.zone.run(() => {
-                  this.error = err;
-                });
-            } else {
-                showAlert("You have been logged in successfully.", "success");
-                this.localStorage.store("rememberMeNot", !this.rememberMe);
-                this.sessionStorage.store("Meteor.userId", Meteor.userId());
-                this.router.navigate(['/dashboard']);
-            }
-        });
-      }
+          showAlert("Invalid FormData supplied.", "danger");
+          return;
+        }
+        Meteor.loginWithPassword(this.loginForm.value.email, this.loginForm.value.password, (err) => {
+          if (err) {
+              this.zone.run(() => {
+                this.error = err;
+              });
+          } else {
+              showAlert("You have been logged in successfully.", "success");
+              this.localStorage.store("rememberMeNot", !this.rememberMe);
+              this.sessionStorage.store("Meteor.userId", Meteor.userId());
+              this.router.navigate(['/dashboard']);
+          }
+      });
     }
 
     fblogin(): void {

@@ -27,19 +27,22 @@ export class RecoverComponent implements OnInit {
 
   recover() {
     if (this.recoverForm.valid) {
-      showAlert("Please wait...", "info");
-      Accounts.forgotPassword({
-        email: this.recoverForm.value.email
-      }, (err) => {
-        if (err) {
-          this.zone.run(() => {
-            this.error = err;
-          });
-        } else {
-          showAlert("Reset password request initiated. Please check your email for further instructions.", "success");
-          this.router.navigate(['/login']);
-        }
-      });
+      showAlert("Invalid FormData supplied.", "danger");
+      return;
     }
+    
+    showAlert("Please wait...", "info");
+    Accounts.forgotPassword({
+      email: this.recoverForm.value.email
+    }, (err) => {
+      if (err) {
+        this.zone.run(() => {
+          this.error = err;
+        });
+      } else {
+        showAlert("Reset password request initiated. Please check your email for further instructions.", "success");
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

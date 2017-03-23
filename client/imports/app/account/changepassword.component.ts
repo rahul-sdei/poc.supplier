@@ -32,7 +32,7 @@ export class PasswordComponent extends MeteorComponent implements OnInit {
 
   changePassword() {
     if (! this.passwordForm.valid) {
-      showAlert("Invalid formData supplied.", "danger");
+      showAlert("Invalid FormData supplied.", "danger");
       return;
     }
 

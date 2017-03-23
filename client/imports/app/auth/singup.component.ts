@@ -33,25 +33,28 @@ export class SignupComponent extends MeteorComponent implements OnInit {
 
   signup() {
     if (this.signupForm.valid) {
-      let userData = {
-        email: this.signupForm.value.email,
-        passwd: this.signupForm.value.password,
-        profile: {
-          firstName: this.signupForm.value.firstName,
-          lastName: this.signupForm.value.lastName,
-        }
-      };
-      this.call("users.insert", userData, (err, res) => {
-        if (err) {
-          this.zone.run(() => {
-            this.error = err;
-          });
-        } else {
-          showAlert("Your account has been created successfully. Please check your email for further instructions.", "success");
-          this.router.navigate(['/login']);
-        }
-      });
+      showAlert("Invalid FormData supplied.", "danger");
+      return;
     }
+    
+    let userData = {
+      email: this.signupForm.value.email,
+      passwd: this.signupForm.value.password,
+      profile: {
+        firstName: this.signupForm.value.firstName,
+        lastName: this.signupForm.value.lastName,
+      }
+    };
+    this.call("users.insert", userData, (err, res) => {
+      if (err) {
+        this.zone.run(() => {
+          this.error = err;
+        });
+      } else {
+        showAlert("Your account has been created successfully. Please check your email for further instructions.", "success");
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   fblogin(): void {
