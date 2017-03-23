@@ -54,8 +54,8 @@ export class ResetPassword extends MeteorComponent implements OnInit {
         });
 
     this.passwordForm = this.formBuilder.group({
-      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), validatePassword])],
-      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), validatePassword])],
+      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
     }, {validator: matchingPasswords('newPassword', 'confirmPassword')});
 
      this.error = '';
