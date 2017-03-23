@@ -51,7 +51,7 @@ Meteor.methods({
       return userId;
     },
     "users.resetPasswd": (token: string, newPasswd: string) => {
-        let userId = Meteor.call("users.findByToken", token);
+        let userId = Meteor.call("users.findByPasswdToken", token);
         if (! userId.length) {
           return false;
         } else {
