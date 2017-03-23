@@ -10,9 +10,11 @@ Meteor.methods({
             profile: userData.profile
         };
         let userId = Accounts.createUser(userDetails);
-        if(userId)
+        if (userId)
         {
-          Accounts.sendVerificationEmail(userId);
+          Meteor.setTimeout(function () {
+            Accounts.sendVerificationEmail(userId);
+          }, 500);
         }
         return userId;
     },
