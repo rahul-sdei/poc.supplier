@@ -30,11 +30,11 @@ export class ResetPassword extends MeteorComponent implements OnInit {
       .subscribe(token => {
           this.token = token;
 
-          this.call("users.findByToken", this.token, (err, res) => {
+          this.call("users.findByPasswdToken", this.token, (err, res) => {
             if (err) {
               console.log("Error while calling users.findByToken()");
               this.zone.run(() => {
-                showAlert("Uncaught server error. Please try later.");
+                showAlert("Uncaught server error. Please try again later.");
                 this.router.navigate(['/signup']);
               });
               return;
