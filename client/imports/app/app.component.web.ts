@@ -35,14 +35,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     private checkRememberMe() {
       let rememberMeNot = this.localStorage.retrieve("rememberMeNot");
-      console.log("rememberMeNot:", rememberMeNot);
       if (rememberMeNot == true) {
-        console.log("remember me not");
         let userId = this.sessionStorage.retrieve("Meteor.userId");
-        console.log(userId);
         if (! userId) {
           // remove tokens
-          console.log("remove login tokens");
           this.localStorage.clear("rememberMeNot");
           Meteor.logout();
           let router = this.router;

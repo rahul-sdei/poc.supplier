@@ -43,6 +43,19 @@ Accounts.validateLoginAttempt(function (options) {
        if (!isAdmin) {
            throw new Meteor.Error(403, "Not authorized!");
        }
+
+       let isVerified = false;
+       let formEmail = options.methodArguments[0].user.email;
+       let userEmails = options.user.emails;
+       for(let i=0; i<userEmails.length; i++) {
+         if (userEmails[i] ["address"] == formEmail && userEmails[i] ["verified"] == true) {
+           isVerified = true;
+         }
+       }
+
+       if (!isVerified) {
+         throw new Meteor.Error(403, "Email not verified");
+       }
    }
    return true;
 });
@@ -58,3 +71,6 @@ Accounts.changePassword = function (oldpassword, newPassword) {
     throw new Meteor.Error(400, "Password may not be empty");
   }
 }
+Accounts.config({
+  loginExpirationInDays: 30
+})

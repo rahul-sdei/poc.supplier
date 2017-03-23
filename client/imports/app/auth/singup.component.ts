@@ -36,7 +36,6 @@ export class SignupComponent extends MeteorComponent implements OnInit {
       let userData = {
         email: this.signupForm.value.email,
         passwd: this.signupForm.value.password,
-        fbId: this.fbId,
         profile: {
           firstName: this.signupForm.value.firstName,
           lastName: this.signupForm.value.lastName,
@@ -48,7 +47,7 @@ export class SignupComponent extends MeteorComponent implements OnInit {
             this.error = err;
           });
         } else {
-          showAlert("Your account has been created successfully.", "success");
+          showAlert("Your account has been created successfully. Please check your email for further instructions.", "success");
           this.router.navigate(['/login']);
         }
       });
