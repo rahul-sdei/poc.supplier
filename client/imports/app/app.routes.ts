@@ -15,7 +15,7 @@ import {ResetPassword} from "./auth/resetpassword";
 
 
 let mainRoutes = [
-    { path: '', component: SignupComponent/*, canActivate: ['canActivateForLogoff']*/ },
+    { path: '', component: LoginComponent/*, canActivate: ['canActivateForLogoff']*/ },
     { path: 'dashboard', component: DashboardComponent, canActivate: ['canActivateForLoggedIn'] },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },

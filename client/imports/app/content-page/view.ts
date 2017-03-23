@@ -10,6 +10,9 @@ import { Page } from "../../../../both/models/page.model";
 import {showAlert} from "../shared/show-alert";
 
 import template from "./view.html";
+import terms from "./static/terms.html";
+import privacy from "./static/privacy.html";
+import disclaimer from "./static/disclaimer.html";
 
 @Component({
   selector: '',
@@ -38,14 +41,38 @@ export class ViewPageComponent extends MeteorComponent implements OnInit, OnDest
               return;
             }
 
-            this.call("pages.findOne", this.slug, (err, res)=> {
-                if (err) {
-                    showAlert("Error while fetching page data.", "danger");
-                    return;
-                }
+            switch (this.slug) {
+              case "terms":
+                this.item = <Page> {
+                  heading: "Terms",
+                  contents: terms
+                };
+              break;
+              case "privacy":
+                this.item = <Page> {
+                  heading: "Privacy",
+                  contents: privacy
+                };
+              break;
+              case "disclaimer":
+                this.item = <Page> {
+                  heading: "Disclaimer",
+                  contents: disclaimer
+                };
+              break;
+              default:
+                this.call("pages.findOne", this.slug, (err, res)=> {
+                    if (err) {
+                        showAlert("Error while fetching page data.", "danger");
+                        return;
+                    }
 
-                this.item = res;
-            });
+                    this.item = res;
+                });
+              break;
+            }
+
+
         });
     }
 

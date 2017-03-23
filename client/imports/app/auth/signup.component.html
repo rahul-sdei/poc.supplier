@@ -78,7 +78,7 @@
 								<button type="submit" class="btn green-btn full-btn" [disabled]="!signupForm.valid">Sign Up</button>
 							</div>
 							<div class="form-group signup-option">
-								<p>By clicking ‘Sign Up’, you agree with our <a href="javascript:void(0)">Terms & Conditions</a>, <a href="javascript:void(0)">Privacy Policy</a> and <a href="javascript:void(0)">Disclaimer</a></p>
+								<p>By clicking ‘Sign Up’, you agree with our <a [routerLink]="['/page/view/terms']">Terms & Conditions</a>, <a [routerLink]="['/page/view/privacy']">Privacy Policy</a> and <a [routerLink]="['/page/view/disclaimer']">Disclaimer</a></p>
 							</div>
 
 							<div class="form-group add-account">
