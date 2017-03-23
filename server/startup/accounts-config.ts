@@ -1,36 +1,40 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import * as _ from 'underscore';
 
 Accounts.onCreateUser(function(options, user) {
-    // Use provided userData in options, or create an empty object
-    // user profile
-    if (typeof options.profile !== "undefined") {
-        user.profile = options.profile || {};
+  // Use provided userData in options, or create an empty object
+  // user profile
+  if (typeof options.profile !== "undefined") {
+    user.profile = options.profile || {};
+    if (user.profile.firstName && user.profile.lastName && !user.profile.fullName) {
+      user.profile.fullName = `${user.profile.firstName} ${user.profile.lastName}`;
     }
-    // user status
-    if (typeof options.status !== "undefined") {
-        user.status = options.status || {};
+  }
+  // user status
+  if (typeof options.status !== "undefined") {
+    user.status = options.status || {};
+  }
+
+  // set profile incase of fb login
+  if (typeof user.services.facebook !== "undefined") {
+    let fbData = user.services.facebook;
+    user.profile = {
+      fbId: fbData.id,
+      fullName: fbData.name,
+      firstName: fbData.first_name,
+      lastName: fbData.last_name,
+      age: fbData.age_range.min,
+      gender: fbData.gender
     }
+  }
 
-    // set profile incase of fb login
-    if (typeof user.services.facebook !== "undefined") {
-        let fbData = user.services.facebook;
-        user.profile = {
-          fbId: fbData.id,
-          fullName: fbData.name,
-          firstName: fbData.first_name,
-          lastName: fbData.last_name,
-          age: fbData.age_range.min,
-          gender: fbData.gender
-        }
-    }
+  // set user role
+  user.roles = ['customer'];
 
-    // set user role
-    user.roles = ['customer'];
-
-    // Returns the user object
-    return user;
+  // Returns the user object
+  return user;
 });
 
 // remove login attempt limit
@@ -38,26 +42,28 @@ Accounts.onCreateUser(function(options, user) {
 
 // validate user role before login
 Accounts.validateLoginAttempt(function (options) {
-   if (options.user && options.allowed) {
-       var isAdmin = Roles.userIsInRole(options.user, ['customer'])
-       if (!isAdmin) {
-           throw new Meteor.Error(403, "Not authorized!");
-       }
+  if (options.user && options.allowed) {
+    var isAdmin = Roles.userIsInRole(options.user, ['customer'])
+    if (!isAdmin) {
+      throw new Meteor.Error(403, "Not authorized!");
+    }
 
-       let isVerified = false;
-       let formEmail = options.methodArguments[0].user.email;
-       let userEmails = options.user.emails;
-       for(let i=0; i<userEmails.length; i++) {
-         if (userEmails[i] ["address"] == formEmail && userEmails[i] ["verified"] == true) {
-           isVerified = true;
-         }
-       }
+    let isVerified = true;
+    if (options.methodArguments.length && !_.isEmpty(options.methodArguments[0].user) ) {
+      let formEmail = options.methodArguments[0].user.email;
+      let userEmails = options.user.emails;
+      for(let i=0; i<userEmails.length; i++) {
+        if (userEmails[i] ["address"] == formEmail && userEmails[i] ["verified"] != true) {
+          isVerified = false;
+        }
+      }
+    }
 
-       if (!isVerified) {
-         throw new Meteor.Error(403, "Email not verified");
-       }
-   }
-   return true;
+    if (!isVerified) {
+      throw new Meteor.Error(403, "Email not verified");
+    }
+  }
+  return true;
 });
 
 //validate the change password

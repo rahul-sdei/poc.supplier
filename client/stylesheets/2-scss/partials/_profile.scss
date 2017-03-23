@@ -1,0 +1,28 @@
+.user-head {
+	@include padding(48px, 0, 48px, 0);
+	height: 199px;
+	border-bottom: 1px solid $border-color;
+	.user-img {
+		@extend .pull_left;
+		img {
+			height: 102px;
+			width: 102px;
+			@include border-radius(100%, 100%, 100%, 100%);
+		}
+	}
+	.user-deatil {
+		@extend .inline-block;
+		@extend .pull_left;
+		@include margin(25px, 0, 0, 45px);
+		h4 {
+			color: $label-color;
+			font-size: $font-36;
+			font-weight: $weight_900;
+			margin-bottom: 0;
+		}
+		p {
+			color: $grey-anchor;
+			font-size: $font-16;
+		}
+	}
+}

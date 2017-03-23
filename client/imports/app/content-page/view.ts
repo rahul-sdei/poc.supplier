@@ -18,6 +18,7 @@ import disclaimer from "./static/disclaimer.html";
   selector: '',
   template
 })
+@InjectUser('user')
 export class ViewPageComponent extends MeteorComponent implements OnInit, OnDestroy {
     paramsSub: Subscription;
     item: Page;

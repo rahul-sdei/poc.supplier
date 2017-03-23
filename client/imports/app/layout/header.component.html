@@ -1,24 +1,44 @@
-<header *ngIf="!!user">
-<section class="row head-brk navbar-fixed">
-  <nav>
-    <div class="nav-wrapper">
-      <a class="brand-logo">Atorvia</a>
-        <ul class="right hide-on-med-and-down">
-          <li *ngFor="let page of pages" class="nav-item">
-            <a class="nav-link" [routerLink]="['/page/view', page.slug]">{{page.title}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/faqs']">FAQs</a>
-          </li>
-          <li rol="nav-item" [hidden]="!!user.profile.fbId">
-            <a class="nav-link" [routerLink]="['/changepassword']">Change Password</a>
-          </li>
-          <li role="nav-item">
-            <a class="nav-link" [hidden]="!user" href="javascript:void(0);" (click)="logout()">Logout</a>
-          </li>
-        </ul>
-      </a>
+<header class="user-header" *ngIf="!!user">
+    <div class="container-fluid">
+        <nav class="navbar navbar-toggleable-md">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="javascript:void(0);navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="javascript:void(0);"><img src="images/logo.png" alt=""/></a>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);">Bookings</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="javascript:void(0);">Profile <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+                <ul class="pull-right">
+                    <li>
+                        <a href="javascript:void(0)" class="">
+                            <img src="images/bell.png" alt=""/>
+                            <span class="red-dot"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="user-img"><img src="images/user.png" alt=""/></span>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{user.profile.fullName}}
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Action</button>
+                            <button class="dropdown-item" type="button" [routerLink]="['/changepassword']">Change Password</button>
+                            <button class="dropdown-item" type="button" href="javascript:void(0);" (click)="logout()">Logout</button>
+                          </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </span>
+          </div>
+        </nav>
     </div>
-  </nav>
-</section>
 </header>

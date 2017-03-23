@@ -7,5 +7,4 @@ import './startup/email-config';
 
 Meteor.startup(() => {
 
-
 });
