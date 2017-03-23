@@ -1,20 +1,9 @@
 Meteor.startup(() => {
-  let smtp = {
-    username: 'atorvia12@gmail.com',
-    password: 'Atorvia@123',
-    server: 'smtp.gmail.com',
-    port: 465
-  };
 
-  process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':'
-  + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':'
-  + smtp.port;
   Accounts.emailTemplates.from = "Atorvia <atorvia12@gmail.com>";
+  
   Accounts.emailTemplates.resetPassword.subject = function (user) {
     return "Reset Password Instructions";
-  };
-  Accounts.emailTemplates.verifyEmail.subject = function (user) {
-    return "Verify Account Instructions";
   };
   Accounts.emailTemplates.resetPassword.html = function(user, url) {
     let myToken = user.services.password.reset.token;
@@ -25,6 +14,9 @@ Meteor.startup(() => {
       <p>Team Atorvia</p>`;
   };
 
+  Accounts.emailTemplates.verifyEmail.subject = function (user) {
+    return "Verify Your Account";
+  };
   Accounts.emailTemplates.verifyEmail.html = function(user, url) {
     let myToken = user.services.email.verificationTokens[0].token;
     let url2 = `${process.env.ROOT_URL}/verify-email/${myToken}`;
