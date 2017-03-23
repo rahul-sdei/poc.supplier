@@ -9,7 +9,13 @@ Meteor.startup(() => {
   process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':'
   + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':'
   + smtp.port;
-
+  Accounts.emailTemplates.from = "Atorvia <atorvia12@gmail.com>";
+  Accounts.emailTemplates.resetPassword.subject = function (user) {
+    return "Reset Password Instructions";
+  };
+  Accounts.emailTemplates.verifyEmail.subject = function (user) {
+    return "Verify Account Instructions";
+  };
   Accounts.emailTemplates.resetPassword.html = function(user, url) {
     let myToken = user.services.password.reset.token;
     let url2 = `${process.env.ROOT_URL}/reset-password/${myToken}`;
