@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Meteor } from "meteor/meteor";
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { Router } from '@angular/router';
@@ -10,9 +10,14 @@ import template from "./dashboard.html";
   template
 })
 @InjectUser('user')
-export class DashboardComponent extends MeteorComponent implements OnInit {
+export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewChecked {
   constructor(private router: Router) {
     super();
+  }
+
+  ngAfterViewChecked() {
+    var d = document.getElementById("main");
+    d.className = "supplier-dashboard summary";
   }
 
   ngOnInit() {
