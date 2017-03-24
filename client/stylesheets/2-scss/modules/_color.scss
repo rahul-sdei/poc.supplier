@@ -11,3 +11,11 @@ $fb-hover : #2c416c;
 $grey-anchor  : #8597ac;
 $hedaer-hover : #8accbf;
 $red : #d0021b;
+$grey-bg : #f4f8f9;
+$dark-grey-bg : #b8c6d1;
+.grey-bg {
+	background-color: $grey-bg;
+}
+.dark-grey-bg	{
+	background-color : $dark-grey-bg;
+}

@@ -1,5 +1,5 @@
 .user-header {
-	@include cover-background('../images/header-bg.png');
+	@include cover-background('/images/header-bg.png');
 	.navbar {
 		padding : 0 1rem;
 		height : 80px;

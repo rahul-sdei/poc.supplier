@@ -1,13 +1,11 @@
-@mixin padding($top, $right, $bottom, $left)
-{
+@mixin padding($top, $right, $bottom, $left) {
 	padding-top: $top;
 	padding-right: $right;
 	padding-left: $left;
 	padding-bottom: $bottom;
 }
 
-@mixin border-radius($top, $right, $bottom, $left)
-{
+@mixin border-radius($top, $right, $bottom, $left) {
 	-webkit-border-radius: $top $right $bottom $left;
 	-moz-border-radius: $top $right $bottom $left;
 	-ms-border-radius: $top $right $bottom $left;
@@ -15,8 +13,7 @@
 	border-radius: $top $right $bottom $left;
 }
 
-@mixin margin($top, $right, $bottom, $left)
-{
+@mixin margin($top, $right, $bottom, $left) {
 	margin-top: $top;
 	margin-right: $right;
 	margin-left: $left;
@@ -24,24 +21,20 @@
 }
 
 
-@mixin box-shadow($top, $left, $blur, $color, $inset: false)
-{
-	@if $inset
-	{
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+	@if $inset {
 		-webkit-box-shadow:inset $top $left $blur $color;
 		-moz-box-shadow:inset $top $left $blur $color;
 		box-shadow:inset $top $left $blur $color;
 	}
-	@else
-	{
+	@else {
 		-webkit-box-shadow: $top $left $blur $color;
 		-moz-box-shadow: $top $left $blur $color;
 		box-shadow: $top $left $blur $color;
 	}
 }
 
-@mixin cover-background($img-uri, $background-top:"50%", $background-left:"100%")
-{
+@mixin cover-background($img-uri, $background-top:"50%", $background-left:"100%") {
 	background: url($img-uri) no-repeat unquote($background-top) unquote($background-left);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -50,19 +43,41 @@
 }
 
 
-@mixin background-size($option)
-{
+@mixin background-size($option) {
 	background-size: $option;
 }
 
+@mixin border-all($width, $style, $color) {
+	border-width: $width;
+	border-style: $style;
+	border-color: $color;
+}
 
-/* new mixins */
+@mixin border-bottom($width, $style, $color) {
+	border-bottom-width: $width;
+	border-bottom-style: $style;
+	border-bottom-color: $color;
+}
 
-@mixin position($position, $left: auto, $right: auto, $top: auto, $bottom: auto)
-{
+@mixin position($position, $left: auto, $right: auto, $top: auto, $bottom: auto) {
 	position: $position;
 	left: $left;
 	right: $right;
 	top: $top;
 	bottom: $bottom;
+}
+
+@mixin placeholder() {
+	input::-webkit-input-placeholder {
+		@content;
+	}
+	input:-moz-placeholder {
+		@content;
+	}
+	input::-moz-placeholder {
+		@content;
+	}
+	input:-ms-input-placeholder {
+		@content;
+	}
 }

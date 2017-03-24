@@ -18,6 +18,17 @@ Meteor.methods({
         }
         return userId;
     },
+    "users.update": (userData: {"profile" : any }): any => {
+      if (! Meteor.userId()) {
+        throw new Meteor.Error(403, "Not authorized!");
+      }
+
+      return Meteor.users.update({
+        _id: Meteor.userId()
+      }, {
+        $set: userData
+      });
+    },
     "users.findByPasswdToken": (token: string): any => {
       let userDetail = Meteor.users.findOne({"services.password.reset.token": token});
       if (userDetail && userDetail._id) {
@@ -59,5 +70,13 @@ Meteor.methods({
         } else {
           return Accounts.setPassword(userId, newPasswd);
         }
+    },
+    /* find logged-in user */
+    "users.findOne": () => {
+      let userId = Meteor.userId();
+      if (! userId) {
+        throw new Meteor.Error(403, "Not authorized!");
+      }
+      return Meteor.users.findOne({ _id: userId });
     },
 })

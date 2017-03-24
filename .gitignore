@@ -5,3 +5,4 @@ npm-debug.log
 uploads/*
 run.sh
 .DS_Store
+._.DS_Store
