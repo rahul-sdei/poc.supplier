@@ -11,6 +11,8 @@ import template from "./dashboard.html";
 })
 @InjectUser('user')
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewChecked {
+  userId: string;
+  
   constructor(private router: Router) {
     super();
   }

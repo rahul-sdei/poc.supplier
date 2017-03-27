@@ -37,29 +37,32 @@ export class LoginComponent extends MeteorComponent implements OnInit {
           showAlert("Invalid FormData supplied.", "danger");
           return;
         }
-        
+
         Meteor.loginWithPassword(this.loginForm.value.email, this.loginForm.value.password, (err) => {
-          if (err) {
-              this.zone.run(() => {
-                this.error = err;
-              });
-          } else {
-              showAlert("You have been logged in successfully.", "success");
-              this.localStorage.store("rememberMeNot", !this.rememberMe);
-              this.sessionStorage.store("Meteor.userId", Meteor.userId());
-              this.router.navigate(['/dashboard']);
-          }
+          this.zone.run(() => {
+            if (err) {
+              showAlert(err.message, "danger");
+              this.error = err;
+            } else {
+                showAlert("You have been logged in successfully.", "success");
+                this.localStorage.store("rememberMeNot", !this.rememberMe);
+                this.sessionStorage.store("Meteor.userId", Meteor.userId());
+                this.router.navigate(['/dashboard']);
+            }
+          });
       });
     }
 
     fblogin(): void {
      Meteor.loginWithFacebook({requestPermissions: ['public_profile,email']}, (err) => {
-       if (err) {
-         console.log("Error while calling loginWithFacebook:", err);
-       } else {
-         showAlert("You have been logged in successfully.", "success");
-         this.router.navigate(['/dashboard']);
-       }
+       this.zone.run(() => {
+         if (err) {
+           console.log("Error while calling loginWithFacebook:", err);
+         } else {
+           showAlert("You have been logged in successfully.", "success");
+           this.router.navigate(['/dashboard']);
+         }
+       });
      });
    }
 }

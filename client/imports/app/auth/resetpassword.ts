@@ -31,31 +31,29 @@ export class ResetPassword extends MeteorComponent implements OnInit {
           this.token = token;
 
           this.call("users.findByPasswdToken", this.token, (err, res) => {
-            if (err) {
-              console.log("Error while calling users.findByToken()");
-              this.zone.run(() => {
+            this.zone.run(() => {
+              if (err) {
+                console.log("Error while calling users.findByToken()");
                 showAlert("Uncaught server error. Please try again later.");
                 this.router.navigate(['/signup']);
-              });
-              return;
-            }
+                return;
+              }
 
-            if (!res || !res.length) {
-              console.log("Invalid token supplied");
-              this.zone.run(() => {
+              if (!res || !res.length) {
+                console.log("Invalid token supplied");
                 showAlert("Invalid token supplied.");
                 this.router.navigate(['/signup']);
-              });
-              return;
-            }
+                return;
+              }
 
-            this.userId = res;
-          })
+              this.userId = res;
+            });
+          });
         });
 
     this.passwordForm = this.formBuilder.group({
-      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
+      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
     }, {validator: matchingPasswords('newPassword', 'confirmPassword')});
 
      this.error = '';
@@ -68,14 +66,15 @@ export class ResetPassword extends MeteorComponent implements OnInit {
     }
 
     this.call("users.resetPasswd", this.token, this.passwordForm.value.newPassword, (err) => {
-      //console.log("res:", err);
-      if (err) {
-        this.error = err;
-        showAlert(err.message, "danger");
-      } else {
-        showAlert("Password updated successfully.", "success");
-        this.router.navigate(['/login']);
-      }
+      this.zone.run(() => {
+        if (err) {
+          this.error = err;
+          showAlert(err.message, "danger");
+        } else {
+          showAlert("Password updated successfully.", "success");
+          this.router.navigate(['/login']);
+        }
+      });
     });
 
   }
