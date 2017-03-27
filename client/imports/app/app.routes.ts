@@ -10,8 +10,9 @@ import {accountRoutes} from "./account/account.routes";
 import {routes as pageRoutes} from "./content-page/routes";
 import {routes as tourRoutes} from "./tours/routes";
 import {routes as faqRoutes} from "./faqs/routes";
-import {ResetPassword} from "./auth/resetpassword";
-import {VerifyEmail} from "./auth/verifyemail.component";
+import { ResetPassword } from "./auth/resetpassword";
+import { VerifyEmail } from "./auth/verifyemail.component";
+import { routes as bookingRoutes } from "./bookings/routes";
 
 
 let mainRoutes = [
@@ -29,7 +30,8 @@ export const routes: Route[] = [
     ...accountRoutes,
     ...pageRoutes,
     ...faqRoutes,
-    ...tourRoutes
+    ...tourRoutes,
+    ...bookingRoutes
 ];
 
 export const ROUTES_PROVIDERS = [

@@ -3,6 +3,9 @@ import { CollectionObject } from "./collection-object.model";
 export interface Booking extends CollectionObject {
     userId: string;
     tourId: string;
+    tour: {
+      title: string;
+    };
     contactDetails: {
       firstName: string;
       middleName: string;
@@ -38,9 +41,11 @@ export interface Booking extends CollectionObject {
       type: string;
       expiry: Date;
     };
+    departureDate: Date;
     active: boolean;
     confirmed: boolean;
     cancelled: boolean;
+    completed: boolean;
     cancellationReason: string;
     deleted: boolean;
     createdAt: Date;
