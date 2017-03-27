@@ -115,9 +115,9 @@ No records have been added yet.
       <div class="row justify-content-sm-center">
         <div class="col-xl-10">
           <ul class="tabs">
-            <li rel="tab1" (click)="changeStatus(false)" [ngClass]="{'active': showPending}">New Bookings</li>
-            <li rel="tab2" (click)="changeStatus(true)" [ngClass]="{'active': showPending}">Pending</li>
-            <li rel="tab2" (click)="showCompleted()" [ngClass]="{'active': showPending}">Completed</li>
+            <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" [ngClass]="{'active': !activeTab || activeTab=='first'}" class="active">New Bookings</li>
+            <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending</li>
+            <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}">Completed</li>
           </ul>
           <div class="right-wrap">
             <div class="tab_container" id="tabContent1">
@@ -141,16 +141,26 @@ No records have been added yet.
                       [attr.data-page-id]="page._id"
                       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
                       [hidden]="page.deleted">
-                      <td class="tour-detail">
-                        <span><img src ="images/random.png" /></span>
-                        <div>
-                          <h5>{{page.bookingDate | date}}</h5>
-                        </div>
-                      </td>
-                      <td>{{page.tour.title}}</td>
+                      <td>{{page.bookingDate | date}}</td>
+                      <td><a href="javascript:void(0)">{{page.tour.title}}</a></td>
                       <td>{{page.departureDate | date}}</td>
                       <td>{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</td>
                       <td>4</td>
+                      <td class="action-td">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                          </button>
+                          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);">Approved</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Denied</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                     <tr *ngIf="itemsSize==0">
                       <td colspan="4">

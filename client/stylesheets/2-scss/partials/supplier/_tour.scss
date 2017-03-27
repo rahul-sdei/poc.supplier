@@ -69,6 +69,10 @@
 						padding: 15px 25px;
 						font-size: $font-14;
 						@extend .vertical-middle;
+						a {
+							color: $green-anchor;
+							font-weight: bold;
+						}
           }
 					td.tour-detail {
 						width: 330px;
@@ -180,7 +184,7 @@
 				padding: 7px 0 0 25px;
 				@include placeholder();
 				@extend .placholder-font;
-				color: $green-color;
+				color: $black;
       }
 			.green-btn {
 				padding: 6px 0;
