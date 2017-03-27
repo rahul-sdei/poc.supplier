@@ -1,181 +1,121 @@
 <header-main></header-main>
-<!-- <h2 class="header red-text text-lighten-1" color="primary">
-<span>Tours</span>
-</h2>
 
-<section class="serach-bg" *ngIf="itemsSize>=0">
-<section class="col s1 closeSearch" *ngIf="!!searchString">
-<a class="" (click)="clearsearch(searchString='')"><i class="material-icons">clear</i></a>
-</section>
+<div class="user-head">
+  <div class="container">
+    <div class="row justify-content-sm-center">
+      <div class="col-xl-10">
+        <div class="row sort-bar">
+          <div class="col-md-2">
+            <h4>Tours</h4>
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-sm-9">
+                <div class="row">
+                  <div class="col-8">
+                    <div class="form-group">
+                      <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                      <input type="search" class="form-control" #searchtext placeholder="Search Booking ID, tour name or suppliers..." (keyup.enter)="search(searchtext.value)" [(ngModel)]="searchString" />
 
-<section class="search col s9">
-<input id="search" type="text" #searchtext class="col s12" placeholder="Search here..." (keyup.enter)="search(searchtext.value)" [(ngModel)]="searchString" />
-<label class="tooltipped" for="search" (click)="search(searchtext.value)" data-position="top" data-delay="0" data-tooltip="Click to Search"><i class="material-icons">search</i></label>
-</section>
-</section>
-
-<button (click)="changeStatus(false)" type="button">New Bookings</button>
-<button (click)="changeStatus(true)" type="button">Pending</button>
-<button (click)="showCompleted()" type="button">Completed</button>
-
-<div class="loading">
-Loading...
-</div>
-
-<pagination-controls *ngIf="itemsSize>0" class="pagination" (pageChange)="onPageChanged($event)"></pagination-controls>
-
-<table class="bordered striped highlight responsive-table" *ngIf="itemsSize>=0">
-<thead>
-<tr>
-<th data-field="title">Booking Date</th>
-<th data-field="heading">Tour</th>
-<th data-field="summary">Departure Date</th>
-<th data-field="summary">Contact Person</th>
-<th data-field="summary">Travellers</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class=""
-*ngFor="let page of pageArr"
-[attr.data-page-id]="page._id"
-[ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
-[hidden]="page.deleted">
-<td>24/03/2017</td>
-<td style="margin-left: 10px;"></td>
-<td style="margin-left: 10px;"></td>
-<td></td>
-<td>4</td>
-<td><a class="btn-floating waves-effect waves-light blue tooltipped" href="javascript:void(0);" [routerLink]="['/page/update', page._id]" data-position="top" data-delay="0" data-tooltip="Edit Page"><i class="material-icons">mode_edit</i></a>
-<a *ngIf="page.active == undefined || page.active === true" class="btn-floating waves-effect waves-light green lighten-2 tooltipped" href="javascript:void(0);" (click)="deactivate(page)" data-position="top" data-delay="0" data-tooltip="Deactivate"><i class="material-icons">check</i></a>
-<a *ngIf="page.active === false" class="btn-floating waves-effect waves-light red lighten-2 tooltipped" href="javascript:void(0);" (click)="activate(page)" data-position="top" data-delay="0" data-tooltip="Activate"><i class="material-icons">check</i></a></li>
-<a *ngIf="!page.deleted" class="btn-floating waves-effect waves-light red tooltipped" href="javascript:void(0);" (click)="deletePage(page)" data-position="top" data-delay="0" data-tooltip="Delete Page"><i class="material-icons">delete</i></a>
-</td>
-</tr>
-<tr *ngIf="itemsSize==0">
-<td colspan="4">
-No records have been added yet.
-</td>
-</tr>
-</tbody>
-</table>
-
-<pagination-controls *ngIf="itemsSize>0" class="pagination" (pageChange)="onPageChanged($event)"></pagination-controls> -->
-
-<main class="supplier-dashboard summary tours">
-  <div class="user-head">
-    <div class="container">
-      <div class="row justify-content-sm-center">
-        <div class="col-xl-10">
-          <div class="row sort-bar">
-            <div class="col-md-2">
-              <h4>Tours</h4>
-            </div>
-            <div class="col-md-10">
-              <div class="row">
-                <div class="col-sm-9">
-                  <div class="row">
-                    <div class="col-8">
-                      <div class="form-group">
-                        <span><i class="fa fa-search" aria-hidden="true"></i></span>
-                        <input type="search" class="form-control" #searchtext placeholder="Search Booking ID, tour name or suppliers..." (keyup.enter)="search(searchtext.value)" [(ngModel)]="searchString" />
-
-                      </div>
                     </div>
-                    <div class="col-4">
+                  </div>
+                  <div class="col-4">
 
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span><img src="images/sort.png" alt=""/></span> Sort
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                          <button class="dropdown-item" type="button">Booking Date</button>
-                          <button class="dropdown-item" type="button">Tour</button>
-                          <button class="dropdown-item" type="button">Departure Date</button>
-                          <button class="dropdown-item" type="button">Contact Person</button>
-                          <button class="dropdown-item" type="button">Travellers</button>
-                        </div>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span><img src="images/sort.png" alt=""/></span>
+                        <span *ngIf="!sortBy">Sort</span>
+                        <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'">Booking Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'">Tour</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'">Departure Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'">Contact Person</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'">Travellers</button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-3">
-                  <button type="button" class="btn green-btn"><i class="fa fa-plus" aria-hidden="true"></i>New Tour</button>
-                </div>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn green-btn"><i class="fa fa-plus" aria-hidden="true"></i>New Tour</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div>
-  </div>
-  <div class="grey-bg">
-    <div class="container">
-      <div class="row justify-content-sm-center">
-        <div class="col-xl-10">
-          <ul class="tabs">
-            <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" [ngClass]="{'active': !activeTab || activeTab=='first'}" class="active">New Bookings</li>
-            <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending</li>
-            <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}">Completed</li>
-          </ul>
-          <div class="right-wrap">
-            <div class="tab_container" id="tabContent1">
-              <!--tab-1-->
-              <div id="tab1" class="tab_content" style="display: block">
-                <div class="table-wrapper">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th data-field="title">Booking Date</th>
-                        <th data-field="heading">Tour</th>
-                        <th data-field="summary">Departure Date</th>
-                        <th data-field="summary">Contact Person</th>
-                        <th data-field="summary">Travellers</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr  class=""
-                      *ngFor="let page of pageArr"
-                      [attr.data-page-id]="page._id"
-                      [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
-                      [hidden]="page.deleted">
-                      <td>{{page.bookingDate | date}}</td>
-                      <td><a href="javascript:void(0)">{{page.tour.title}}</a></td>
-                      <td>{{page.departureDate | date}}</td>
-                      <td>{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</td>
-                      <td>4</td>
-                      <td class="action-td">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
-                          </button>
-                          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);">Approved</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Denied</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Completed</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr *ngIf="itemsSize==0">
-                      <td colspan="4">
-                        No records have been added yet.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <!--tab-1-->
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-</main>
+
+<div class="grey-bg">
+  <div class="container">
+    <div class="row justify-content-sm-center">
+      <div class="col-xl-10">
+        <ul class="tabs">
+          <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" [ngClass]="{'active': !activeTab || activeTab=='first'}" class="active">New Bookings</li>
+          <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending</li>
+          <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}">Completed</li>
+        </ul>
+        <div class="right-wrap">
+          <div class="tab_container" id="tabContent1">
+            <!--tab-1-->
+            <div id="tab1" class="tab_content" style="display: block">
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th data-field="title">Booking Date</th>
+                      <th data-field="heading">Tour</th>
+                      <th data-field="summary">Departure Date</th>
+                      <th data-field="summary">Contact Person</th>
+                      <th data-field="summary">Travellers</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  class=""
+                    *ngFor="let page of pageArr"
+                    [attr.data-page-id]="page._id"
+                    [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
+                    [hidden]="page.deleted">
+                    <td>{{page.bookingDate | date}}</td>
+                    <td><a href="javascript:void(0)">{{page.tour.title}}</a></td>
+                    <td>{{page.departureDate | date}}</td>
+                    <td>{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</td>
+                    <td>{{page.travellers?.length}}</td>
+                    <td class="action-td">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action
+                        </button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="javascript:void(0);">Approved</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Denied</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Completed</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsSize==0">
+                    <td colspan="4">
+                      No records have been added yet.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--tab-1-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<pagination-controls *ngIf="itemsSize>0" class="pagination" (pageChange)="onPageChanged($event)"></pagination-controls>-->
+  </div>
+</div>

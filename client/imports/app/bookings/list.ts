@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { Component, OnInit, OnDestroy, NgZone, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { PaginationService } from "ng2-pagination";
 import { MeteorObservable } from "meteor-rxjs";
@@ -29,7 +29,7 @@ declare var jQuery:any;
   selector: '',
   template
 })
-export class BookingPageComponent extends MeteorComponent implements OnInit, OnDestroy {
+export class BookingPageComponent extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
     items: Booking[];
     pageSize: Subject<number> = new Subject<number>();
     curPage: Subject<number> = new Subject<number>();
@@ -53,6 +53,11 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, OnD
         this.setOptions();
     }
 
+    ngAfterViewChecked() {
+      var d = document.getElementById("main");
+      d.className = "supplier-dashboard summary tours";
+    }
+
     private setOptions() {
         let options = {
             limit: 10,
@@ -65,7 +70,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, OnD
         this.setOptionsSub();
 
         this.paginationService.register({
-        id: this.paginationService.defaultId,
+        id: "bookings",
         itemsPerPage: 10,
         currentPage: options.curPage,
         totalItems: this.itemsSize
@@ -93,7 +98,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, OnD
                 sort: { "title": nameOrder as number }
             };
 
-            this.paginationService.setCurrentPage(this.paginationService.defaultId, curPage as number);
+            this.paginationService.setCurrentPage("bookings", curPage as number);
 
             this.searchString = searchString;
             jQuery(".loading").show();
@@ -104,9 +109,8 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, OnD
                     return;
                 }
                 this.items = res.data;
-                //console.log(res.data);
                 this.itemsSize = res.count;
-                this.paginationService.setTotalItems(this.paginationService.defaultId, this.itemsSize);
+                this.paginationService.setTotalItems("bookings", this.itemsSize);
             })
         });
     }
@@ -133,7 +137,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, OnD
     }
 
     changeStatus(confirmed: boolean): void {
-      this.whereCond.next({active: true, confirmed: confirmed});
+      this.whereCond.next({active: true, confirmed: confirmed, completed: false});
     }
 
     showCompleted(): void {
