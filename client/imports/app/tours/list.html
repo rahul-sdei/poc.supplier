@@ -101,7 +101,7 @@ No records have been added yet.
       <div class="row justify-content-sm-center">
         <div class="col-xl-10">
           <ul class="tabs">
-            <li rel="tab1" (click)="showPending=false; changeStatus(true)" [ngClass]="{'active': !showPending}" class="active">Approved Tours</li>
+            <li rel="tab1" (click)="showPending=false; changeStatus(true)" [ngClass]="{'active': !showPending}">Approved Tours</li>
             <li rel="tab2" (click)="showPending=true; changeStatus(false);" [ngClass]="{'active': showPending}">Pending Approval</li>
           </ul>
           <div class="right-wrap">

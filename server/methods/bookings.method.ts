@@ -22,9 +22,19 @@ Meteor.methods({
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
         }
-
+        // match search string
+        if (typeof searchString === 'string' && searchString.length) {
+            // allow search on firstName, lastName
+            where.push({
+                "$or": [
+                    { "tour.title": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "contactDetails.lastName": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "contactDetails.firstName": { $regex: `.*${searchString}.*`, $options: 'i' } }
+                ]
+            });
+        }
         let cursor = Bookings.collection.find({$and: where}, options);
-        
+
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "bookings.findOne": (slug: string) => {
