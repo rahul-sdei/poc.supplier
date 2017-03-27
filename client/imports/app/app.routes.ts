@@ -8,6 +8,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {LandingComponent} from "./layout/landing.component";
 import {accountRoutes} from "./account/account.routes";
 import {routes as pageRoutes} from "./content-page/routes";
+import {routes as tourRoutes} from "./tours/routes";
 import {routes as faqRoutes} from "./faqs/routes";
 import {ResetPassword} from "./auth/resetpassword";
 import {VerifyEmail} from "./auth/verifyemail.component";
@@ -27,7 +28,8 @@ export const routes: Route[] = [
     ...mainRoutes,
     ...accountRoutes,
     ...pageRoutes,
-    ...faqRoutes
+    ...faqRoutes,
+    ...tourRoutes
 ];
 
 export const ROUTES_PROVIDERS = [

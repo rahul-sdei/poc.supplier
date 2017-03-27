@@ -15,6 +15,7 @@ import { LAYOUT_DECLARATIONS } from "./layout/index";
 import { Page_Declarations } from "./content-page/index";
 import { Faq_Declarations } from "./faqs/index";
 import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
+import { Tour_Declarations } from "./tours/index";
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -43,7 +44,8 @@ moduleDefinition = {
     ...DASHBOARD_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
     ...Page_Declarations,
-    ...Faq_Declarations
+    ...Faq_Declarations,
+    ...Tour_Declarations
   ],
   providers: [
     ...ROUTES_PROVIDERS,
