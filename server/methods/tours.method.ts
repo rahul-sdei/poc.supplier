@@ -11,7 +11,6 @@ interface Options {
 }
 
 Meteor.methods({
-
     "tours.find": (options: Options, criteria: any, searchString: string) => {
         let where:any = [];
         where.push({
@@ -19,8 +18,22 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         });
+
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
+        }
+
+        // match search string
+        if (typeof searchString === 'string' && searchString.length) {
+            // allow search on firstName, lastName
+            where.push({
+                "$or": [
+                    { "name": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "departure": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "destination": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "startPrice": { $regex: `.*${searchString}.*`, $options: 'i' } }
+                ]
+            });
         }
 
         let cursor = Tours.collection.find({$and: where}, options);
