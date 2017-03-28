@@ -40,6 +40,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
     searchSubject: Subject<string> = new Subject<string>();
     searchString: string = "";
     whereCond: Subject<any> = new Subject<any>();
+    searchTimeout: any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -126,12 +127,14 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
     }
 
     search(value: string): void {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = setTimeout(() => {
         this.searchSubject.next(value);
-
+      }, 500);
     }
-    /* function for clearing search */
-    clearsearch(value: string): void{
-        this.searchSubject.next(value);
+
+    clearsearch(value: string): void {
+        clearTimeout(this.searchTimeout);
     }
 
     onPageChanged(page: number): void {

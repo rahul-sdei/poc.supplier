@@ -40,6 +40,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     searchSubject: Subject<string> = new Subject<string>();
     searchString: string = "";
     whereCond: Subject<any> = new Subject<any>();
+    searchTimeout: any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -125,12 +126,14 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     }
 
     search(value: string): void {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = setTimeout(() => {
         this.searchSubject.next(value);
-
+      }, 500);
     }
 
-    clearsearch(value: string): void{
-        this.searchSubject.next(value);
+    clearsearch(value: string): void {
+        clearTimeout(this.searchTimeout);
     }
 
     onPageChanged(page: number): void {

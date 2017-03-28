@@ -8,19 +8,19 @@
       <a class="navbar-brand" href="#"><img src="images/logo.png" alt=""/></a>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" [routerLink]="['/dashboard']">Summary</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" [routerLink]="['/tours/list']">Tours</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" [routerLink]="['/bookings/list']">Bookings</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" href="javascript:void(0);">Report</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" href="javascript:void(0);">Profile</a>
           </li>
           <li class="user-drop">
