@@ -22,6 +22,7 @@ export interface Booking extends CollectionObject {
       postcode: string;
       country: string;
     };
+    numOfTravellers: number;
     travellers: [
       {
         firstName: string;

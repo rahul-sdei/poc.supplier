@@ -33,6 +33,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
     items: Booking[];
     pageSize: Subject<number> = new Subject<number>();
     curPage: Subject<number> = new Subject<number>();
+    orderBy: Subject<string> = new Subject<string>();
     nameOrder: Subject<number> = new Subject<number>();
     optionsSub: Subscription;
     itemsSize: number = -1;
@@ -62,7 +63,8 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
         let options = {
             limit: 10,
             curPage: 1,
-            nameOrder: 1,
+            orderBy: "createdAt",
+            nameOrder: -1,
             searchString: '',
             where: {"active": true, "confirmed": false}
         }
@@ -78,6 +80,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
 
         this.pageSize.next(options.limit);
         this.curPage.next(options.curPage);
+        this.orderBy.next(options.orderBy);
         this.nameOrder.next(options.nameOrder);
         this.searchSubject.next(options.searchString);
         this.whereCond.next(options.where);
@@ -87,16 +90,18 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
         this.optionsSub = Observable.combineLatest(
             this.pageSize,
             this.curPage,
+            this.orderBy,
             this.nameOrder,
             this.whereCond,
             this.searchSubject
-        ).subscribe(([pageSize, curPage, nameOrder, where, searchString]) => {
+        ).subscribe(([pageSize, curPage, orderBy, nameOrder, where, searchString]) => {
             //console.log("inside subscribe");
             const options: Options = {
                 limit: pageSize as number,
                 skip: ((curPage as number) - 1) * (pageSize as number),
-                sort: { "title": nameOrder as number }
+                sort: { [orderBy]: nameOrder as number }
             };
+            //console.log("options;", options);
 
             this.paginationService.setCurrentPage("bookings", curPage as number);
 
@@ -105,9 +110,10 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
             this.call("bookings.find", options, where, searchString, (err, res) => {
                 jQuery(".loading").hide();
                 if (err) {
-                    showAlert("Error while fetching pages list.", "danger");
+                    showAlert("Error while fetching bookings list.", "danger");
                     return;
                 }
+                //console.log("res:", res.data);
                 this.items = res.data;
                 this.itemsSize = res.count;
                 this.paginationService.setTotalItems("bookings", this.itemsSize);
@@ -130,6 +136,35 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
 
     onPageChanged(page: number): void {
         this.curPage.next(page);
+    }
+
+    changeOrderBy(sortBy: string): void {
+      switch(sortBy) {
+        case 'Booking Date':
+        this.orderBy.next("createdAt");
+        this.nameOrder.next(-1);
+        break;
+        case 'Tour':
+        this.orderBy.next("tour.title");
+        this.nameOrder.next(1);
+        break;
+        case 'Departure Date':
+        this.orderBy.next("departureDate");
+        this.nameOrder.next(-1);
+        break;
+        case 'Contact Person':
+        this.orderBy.next("contactDetails.firstName");
+        this.nameOrder.next(1);
+        break;
+        case 'Travellers':
+        this.orderBy.next("numOfTravellers");
+        this.nameOrder.next(-1);
+        break;
+        default:
+        this.orderBy.next("createdAt");
+        this.nameOrder.next(-1);
+        break;
+      }
     }
 
     changeSortOrder(nameOrder: string): void {

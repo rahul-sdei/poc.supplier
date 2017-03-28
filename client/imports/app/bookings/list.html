@@ -6,7 +6,7 @@
       <div class="col-xl-10">
         <div class="row sort-bar">
           <div class="col-md-2">
-            <h4>Tours</h4>
+            <h4>Bookings</h4>
           </div>
           <div class="col-md-10">
             <div class="row">
@@ -15,7 +15,7 @@
                   <div class="col-8">
                     <div class="form-group">
                       <span><i class="fa fa-search" aria-hidden="true"></i></span>
-                      <input type="search" class="form-control" #searchtext placeholder="Search Booking ID, tour name or suppliers..." (keyup.enter)="search(searchtext.value)" [(ngModel)]="searchString" />
+                      <input type="search" class="form-control" #searchtext placeholder="Search Booking ID, tour name or customer name..." (keyup.enter)="search(searchtext.value)" [(ngModel)]="searchString" />
 
                     </div>
                   </div>
@@ -28,19 +28,17 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'">Booking Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'">Departure Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'">Contact Person</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'">Travellers</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; changeOrderBy(sortBy);">Booking Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; changeOrderBy(sortBy);">Tour</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; changeOrderBy(sortBy);">Departure Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; changeOrderBy(sortBy);">Contact Person</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; changeOrderBy(sortBy);">Travellers</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-3">
-                <button type="button" class="btn green-btn"><i class="fa fa-plus" aria-hidden="true"></i>New Tour</button>
-              </div>
+              
             </div>
           </div>
         </div>

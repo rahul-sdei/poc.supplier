@@ -63,13 +63,12 @@ Meteor.methods({
       Meteor.users.update({_id: userId}, {$set: {emails: emails} });
       return userId;
     },
-    "users.resetPasswd": (token: string, newPasswd: string) => {
+    "users.resetPasswd": (token: string, newPasswd: string) : void => {
         let userId = Meteor.call("users.findByPasswdToken", token);
-        if (! userId.length) {
-          return false;
-        } else {
-          return Accounts.setPassword(userId, newPasswd);
+        if (! userId || ! userId.length) {
+          throw new Meteor.Error(403, "Not authorized");
         }
+        return Accounts.setPassword(userId, newPasswd);
     },
     /* find logged-in user */
     "users.findOne": () => {

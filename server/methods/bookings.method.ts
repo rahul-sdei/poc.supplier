@@ -27,6 +27,7 @@ Meteor.methods({
             // allow search on firstName, lastName
             where.push({
                 "$or": [
+                    { "_id": { $regex: `.*${searchString}.*`, $options: 'i' } },
                     { "tour.title": { $regex: `.*${searchString}.*`, $options: 'i' } },
                     { "contactDetails.lastName": { $regex: `.*${searchString}.*`, $options: 'i' } },
                     { "contactDetails.firstName": { $regex: `.*${searchString}.*`, $options: 'i' } }
