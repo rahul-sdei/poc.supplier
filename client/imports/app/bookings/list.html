@@ -38,7 +38,7 @@
                   </div>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -79,11 +79,16 @@
                     [attr.data-page-id]="page._id"
                     [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
                     [hidden]="page.deleted">
-                    <td>{{page.bookingDate | date}}</td>
-                    <td><a href="javascript:void(0)">{{page.tour.title}}</a></td>
-                    <td>{{page.departureDate | date}}</td>
-                    <td>{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</td>
-                    <td>{{page.travellers?.length}}</td>
+                    <td class="date-time">{{page.bookingDate | date}}</td>
+                    <td class="tour-name"><a href="javascript:void(0)">{{page.tour.title}}</a></td>
+                    <td class="departure-date">{{page.departureDate | date}}</td>
+                    <td class="contact-person">
+                      <span class="user-img">
+                        <img src="/images/user.png" />
+                      </span>
+                      <span class="name">{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</span>
+                    </td>
+                    <td class="travellers">{{page.travellers?.length}}</td>
                     <td class="action-td">
                       <div class="btn-group">
                         <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -110,6 +115,20 @@
             </div>
           </div>
           <!--tab-1-->
+        </div>
+      </div>
+      <div class="pagination-wrap">
+        <div class="row">
+          <div class="col-4">
+            <button type="button" class="btn green-btn disabled"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span> Previous</button>
+          </div>
+          <div class="col-4 text-center">
+            <p>page</p>
+            <h4>1/1</h4>
+          </div>
+          <div class="col-4 text-right">
+            <button type="button" class="btn green-btn disabled">Next <span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+          </div>
         </div>
       </div>
     </div>
