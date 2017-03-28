@@ -1,9 +1,22 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, NgZone } from '@angular/core';
 import { Meteor } from "meteor/meteor";
 import { InjectUser } from "angular2-meteor-accounts-ui";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import template from "./dashboard.html";
+import { Booking } from "../../../../both/models/booking.model";
+import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
+import { ChangeDetectorRef } from "@angular/core";
+import { showAlert } from "../shared/show-alert";
+
+interface Pagination {
+  limit: number;
+  skip: number;
+}
+
+interface Options extends Pagination {
+  [key: string]: any
+}
 
 @Component({
   selector: "dashboard",
@@ -12,9 +25,14 @@ import template from "./dashboard.html";
 @InjectUser('user')
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewChecked {
   userId: string;
-  
-  constructor(private router: Router) {
-    super();
+  items: Booking[];
+
+  constructor(private router: Router,
+      private route: ActivatedRoute,
+      private ngZone: NgZone,
+      private changeDetectorRef: ChangeDetectorRef,
+  ) {
+      super();
   }
 
   ngAfterViewChecked() {
@@ -28,5 +46,27 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
     } else {
       this.userId = Meteor.userId();
     }
+
+    const options: Options = {
+        limit: 10,
+        skip: 0,
+        sort: { "createdAt": -1 }
+    };
+    let where = {active: true, confirmed: false, completed: false};
+
+    jQuery(".loading").show();
+    this.call("bookings.find", options, where, "", (err, res) => {
+        jQuery(".loading").hide();
+        if (err) {
+            showAlert("Error while fetching pages list.", "danger");
+            return;
+        }
+        this.items = res.data;
+    })
   }
+
+  get pageArr() {
+      return this.items;
+  }
+
 }

@@ -8,6 +8,7 @@
     </div>
   </div>
 </div>
+
 <div class="grey-bg">
   <div class="container">
     <div class="row justify-content-sm-center">
@@ -22,12 +23,12 @@
                 </div>
                 <div class="col-3">
                   <div class="side-img">
-                    <img src="/images/booking.png" alt=""/>
+                    <img src="images/booking.png" alt=""/>
                   </div>
                 </div>
               </div>
               <div class="graph-img">
-                <img src="/images/graph.png" alt=""/>
+                <img src="images/graph.png" alt=""/>
               </div>
             </div>
           </div>
@@ -58,12 +59,12 @@
                 </div>
                 <div class="col-3">
                   <div class="side-img">
-                    <img src="/images/totView.png" alt=""/>
+                    <img src="images/totView.png" alt=""/>
                   </div>
                 </div>
               </div>
               <div class="graph-img">
-                <img src="/images/graph.png" alt=""/>
+                <img src="images/graph.png" alt=""/>
               </div>
             </div>
           </div>
@@ -76,106 +77,37 @@
                   <div class="row">
                     <div class="col-6">
                       <h5>Recent Bookings</h5>
-                      <p>You have 6 new bookings</p>
+                      <p>You have <span [innerHTML]="pageArr?.length">0</span> new bookings</p>
                     </div>
                     <div class="col-6">
-                      <a href="view-all">View all <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                      <a [routerLink]="['/bookings/list']">View all <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                     </div>
                   </div>
                 </div>
                 <div class="table-box table-responsive">
                   <table class="table table-hover ">
                     <tbody>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
+                      <tr class=""
+                      *ngFor="let page of pageArr"
+                      [attr.data-page-id]="page._id"
+                      [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
+                      [hidden]="page.deleted">
+                        <th scope="row"><img src ="images/random.png" /></th>
                         <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
+                          <h5>{{page.tour.title}}</h5>
+                          <p>Departure {{page.departureDate | date}}</p>
                         </td>
                         <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
+                          <span class="user-img"><img src ="images/user.png" /></span>
+                          <span class="user-name">{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</span>
                         </td>
-                        <td class="total-travellers">4 Travlers</td>
+                        <td class="total-travellers">4 Travllers</td>
                         <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
                       </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><img src ="/images/random.png" /></th>
-                        <td class="location">
-                          <h5>Japan Super Easter Highlight</h5>
-                          <p>Departure 01/12/2016</p>
-                        </td>
-                        <td class="user-detail">
-                          <span class="user-img"><img src ="/images/user.png" /></span>
-                          <span class="user-name">Betty Jhonston</span>
-                        </td>
-                        <td class="total-travellers">4 Travlers</td>
-                        <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
+                      <tr *ngIf="itemsSize==0">
+                      <td colspan="4">
+                      No records have been added yet.
+                      </td>
                       </tr>
                     </tbody>
                   </table>
@@ -187,4 +119,110 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- <div class="grey-bg">
+<div class="container">
+<div class="row justify-content-sm-center">
+<div class="col-xl-10">
+<div class="row">
+<div class="col-md-4">
+<div class="right-wrap">
+<h4>Booking <span>This week</span></h4>
+<div class="row">
+<div class="col-9">
+<p class="count">56</p>
+</div>
+<div class="col-3">
+<div class="side-img">
+<img src="/images/booking.png" alt=""/>
+</div>
+</div>
+</div>
+<div class="graph-img">
+<img src="/images/graph.png" alt=""/>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="right-wrap">
+<h4>Net Revenue <span> This week</span></h4>
+<div class="row">
+<div class="col-9">
+<p class="count">$13,347.00</p>
+</div>
+<div class="col-3">
+<div class="side-img">
+<img src="images/revenue.png" alt=""/>
+</div>
+</div>
+</div>
+<div class="graph-img">
+<img src="images/graph.png" alt=""/>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="right-wrap">
+<h4>Total Views<span> This week</span></h4>
+<div class="row">
+<div class="col-9">
+<p class="count">39,478</p>
+</div>
+<div class="col-3">
+<div class="side-img">
+<img src="/images/totView.png" alt=""/>
+</div>
+</div>
+</div>
+<div class="graph-img">
+<img src="/images/graph.png" alt=""/>
+</div>
+</div>
+</div>
+</div>
+<div class="recent-booking">
+<div class="row">
+<div class="col-sm-12">
+<div class="right-wrap">
+<div class="table-top">
+<div class="row">
+<div class="col-6">
+<h5>Recent Bookings</h5>
+<p>You have 6 new bookings</p>
+</div>
+<div class="col-6">
+<a href="view-all">View all <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
+<div class="table-box table-responsive">
+<table class="table">
+<tbody>
+<tr  class=""
+*ngFor="let page of pageArr"
+[attr.data-page-id]="page._id"
+[ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
+[hidden]="page.deleted">
+<td>{{page.bookingDate | date}}</td>
+<td><a href="javascript:void(0)">{{page.tour.title}}</a></td>
+<td>{{page.departureDate | date}}</td>
+<td>{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</td>
+<td>4</td>
+</tr>
+<tr *ngIf="itemsSize==0">
+<td colspan="4">
+No records have been added yet.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> -->
 </div>
