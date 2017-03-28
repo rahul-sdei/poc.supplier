@@ -28,10 +28,10 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length'">Length</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'">Availability</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'">Price From</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; changeOrderBy(sortBy);">Tour</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; changeOrderBy(sortBy);">Length</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; changeOrderBy(sortBy);">Availability</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; changeOrderBy(sortBy);">Price From</button>
                       </div>
                     </div>
                   </div>

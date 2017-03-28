@@ -33,6 +33,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     items: Tour[];
     pageSize: Subject<number> = new Subject<number>();
     curPage: Subject<number> = new Subject<number>();
+    orderBy: Subject<string> = new Subject<string>();
     nameOrder: Subject<number> = new Subject<number>();
     optionsSub: Subscription;
     itemsSize: number = -1;
@@ -62,7 +63,8 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         let options = {
             limit: 10,
             curPage: 1,
-            nameOrder: 1,
+            orderBy: "createdAt",
+            nameOrder: -1,
             searchString: '',
             where: {"active": true, "approved": true}
         }
@@ -78,6 +80,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
 
         this.pageSize.next(options.limit);
         this.curPage.next(options.curPage);
+        this.orderBy.next(options.orderBy);
         this.nameOrder.next(options.nameOrder);
         this.searchSubject.next(options.searchString);
         this.whereCond.next(options.where);
@@ -87,15 +90,16 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         this.optionsSub = Observable.combineLatest(
             this.pageSize,
             this.curPage,
+            this.orderBy,
             this.nameOrder,
             this.whereCond,
             this.searchSubject
-        ).subscribe(([pageSize, curPage, nameOrder, where, searchString]) => {
+        ).subscribe(([pageSize, curPage, orderBy, nameOrder, where, searchString]) => {
             //console.log("inside subscribe");
             const options: Options = {
                 limit: pageSize as number,
                 skip: ((curPage as number) - 1) * (pageSize as number),
-                sort: { "title": nameOrder as number }
+                sort: { [orderBy]: nameOrder as number }
             };
 
             this.paginationService.setCurrentPage("tours", curPage as number);
@@ -105,11 +109,11 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
             this.call("tours.find", options, where, searchString, (err, res) => {
                 jQuery(".loading").hide();
                 if (err) {
-                    showAlert("Error while fetching pages list.", "danger");
+                    showAlert("Error while fetching tours list.", "danger");
                     return;
                 }
                 this.items = res.data;
-                console.log(res.data);
+                //console.log(res.data);
                 this.itemsSize = res.count;
                 this.paginationService.setTotalItems("tours", this.itemsSize);
             })
@@ -124,14 +128,38 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         this.searchSubject.next(value);
 
     }
-    /* function for clearing search */
+
     clearsearch(value: string): void{
         this.searchSubject.next(value);
     }
 
-
     onPageChanged(page: number): void {
         this.curPage.next(page);
+    }
+
+    changeOrderBy(sortBy: string): void {
+      switch(sortBy) {
+        case 'Tour':
+        this.orderBy.next("name");
+        this.nameOrder.next(1);
+        break;
+        case 'Length':
+        this.orderBy.next("noOfDays");
+        this.nameOrder.next(-1);
+        break;
+        case 'Availability':
+        this.orderBy.next("active");
+        this.nameOrder.next(1);
+        break;
+        case 'Price From':
+        this.orderBy.next("startPrice");
+        this.nameOrder.next(1);
+        break;
+        default:
+        this.orderBy.next("createdAt");
+        this.nameOrder.next(-1);
+        break;
+      }
     }
 
     changeSortOrder(nameOrder: string): void {
