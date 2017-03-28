@@ -10,3 +10,6 @@
   text-align: center;
   margin: 15px 0 0 15px;
 }
+canvas {
+    background-color: #ffffff;
+}
