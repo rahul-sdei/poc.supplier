@@ -22,16 +22,19 @@
                   <div class="col-4">
 
                     <div class="dropdown">
+                      <div class="anchor-icons" *ngIf="!!sortBy">
+                        <a href="javascript:void(0)" class="top-anchor" [ngClass]="{'active': sortOrder == 1}" (click)="sortOrder=1; changeSortOrder(1);"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="bottom-anchor" [ngClass]="{'active': sortOrder == -1}" (click)="sortOrder=-1; changeSortOrder(-1);"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                      </div>
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span><img src="images/sort.png" alt=""/></span>
                         <span *ngIf="!sortBy">Sort</span>
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; changeOrderBy(sortBy);">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; changeOrderBy(sortBy);">Length</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; changeOrderBy(sortBy);">Availability</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; changeOrderBy(sortBy);">Price From</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy);">Tour</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=-1; changeOrderBy(sortBy);">Length</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=1; changeOrderBy(sortBy);">Availability</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=1; changeOrderBy(sortBy);">Price From</button>
                       </div>
                     </div>
                   </div>

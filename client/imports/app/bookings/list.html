@@ -22,17 +22,20 @@
                   <div class="col-4">
 
                     <div class="dropdown">
+                      <div class="anchor-icons" *ngIf="!!sortBy">
+                        <a href="javascript:void(0)" class="top-anchor" [ngClass]="{'active': sortOrder == 1}" (click)="sortOrder=1; changeSortOrder(1);"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="bottom-anchor" [ngClass]="{'active': sortOrder == -1}" (click)="sortOrder=-1; changeSortOrder(-1);"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                      </div>
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span><img src="images/sort.png" alt=""/></span>
                         <span *ngIf="!sortBy">Sort</span>
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; changeOrderBy(sortBy);">Booking Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; changeOrderBy(sortBy);">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; changeOrderBy(sortBy);">Departure Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; changeOrderBy(sortBy);">Contact Person</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; changeOrderBy(sortBy);">Travellers</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; sortOrder=-1; changeOrderBy(sortBy);">Booking Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy);">Tour</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; sortOrder=-1; changeOrderBy(sortBy);">Departure Date</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; sortOrder=1; changeOrderBy(sortBy);">Contact Person</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; sortOrder=-1; changeOrderBy(sortBy);">Travellers</button>
                       </div>
                     </div>
                   </div>
@@ -90,7 +93,7 @@
                     </td>
                     <td class="travellers">{{page.travellers?.length}}</td>
                     <td class="action-td">
-                      <div class="btn-group">
+                      <div class="btn-group" *ngIf="!activeTab || activeTab=='first'">
                         <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Action
                         </button>

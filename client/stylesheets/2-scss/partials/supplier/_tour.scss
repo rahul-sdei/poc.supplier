@@ -107,6 +107,7 @@
 							border: none;
 							font-size: font-14;
             }
+
 						.dropdown-toggle {
 							border-left: 1px solid $light-green;
             }
@@ -202,6 +203,18 @@
 					margin-right: 10px;
         }
       }
+			.anchor-icons{
+				position: absolute;
+				left: 2px;
+				top: 2px;
+				a{
+					display: block;
+					line-height: 12px;
+				}
+				a.active {
+					color: $green-color;
+				}
+			}
 			.dropdown-toggle {
 				width: $full;
 				@extend .text-left;
