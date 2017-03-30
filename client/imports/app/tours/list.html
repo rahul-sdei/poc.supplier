@@ -31,10 +31,14 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy);">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=-1; changeOrderBy(sortBy);">Length</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=1; changeOrderBy(sortBy);">Availability</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=1; changeOrderBy(sortBy);">Price From</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Tour (A-Z)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Tour (Z-A)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Length (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Length (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Availability (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Availability (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Price From (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Price From (DESC)</button>
                       </div>
                     </div>
                   </div>

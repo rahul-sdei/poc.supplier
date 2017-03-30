@@ -19,7 +19,16 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         });
-        if (!_.isEmpty(criteria)) {
+
+        if ( !_.isEmpty(criteria) ) {
+          if ( criteria.completed==true ) {
+            criteria.departureDate = {$lte: new Date()};
+            delete criteria["completed"];
+          } else if ( criteria.completed==false && criteria.confirmed==true ) {
+            criteria.departureDate = {$gte: new Date()};
+            delete criteria["completed"];
+          }
+          //console.log(criteria);
           where.push(criteria);
         }
         // match search string

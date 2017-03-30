@@ -31,11 +31,16 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; sortOrder=-1; changeOrderBy(sortBy);">Booking Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy);">Tour</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; sortOrder=-1; changeOrderBy(sortBy);">Departure Date</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; sortOrder=1; changeOrderBy(sortBy);">Contact Person</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; sortOrder=-1; changeOrderBy(sortBy);">Travellers</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Booking Date (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Booking Date'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Booking Date (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Tour (A-Z)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Tour (Z-A)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Departure Date (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Departure Date'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Departure Date (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Contact Person (A-Z)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Contact Person'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Contact Person (Z-A)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Travellers (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Travellers'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Travellers (DESC)</button>
                       </div>
                     </div>
                   </div>
