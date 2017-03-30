@@ -142,21 +142,37 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
 
     changeOrderBy(sortBy: string): void {
       switch(sortBy) {
-        case 'Tour':
+        case 'Tour (A-Z)':
         this.orderBy.next("name");
         this.nameOrder.next(1);
         break;
-        case 'Length':
+        case 'Tour (Z-A)':
+        this.orderBy.next("name");
+        this.nameOrder.next(-1);
+        break;
+        case 'Length (ASC)':
+        this.orderBy.next("noOfDays");
+        this.nameOrder.next(1);
+        break;
+        case 'Length (DESC)':
         this.orderBy.next("noOfDays");
         this.nameOrder.next(-1);
         break;
-        case 'Availability':
+        case 'Availability (ASC)':
         this.orderBy.next("active");
         this.nameOrder.next(1);
         break;
-        case 'Price From':
+        case 'Availability (DESC)':
+        this.orderBy.next("active");
+        this.nameOrder.next(-1);
+        break;
+        case 'Price From (ASC)':
         this.orderBy.next("startPrice");
         this.nameOrder.next(1);
+        break;
+        case 'Price From (DESC)':
+        this.orderBy.next("startPrice");
+        this.nameOrder.next(-1);
         break;
         default:
         this.orderBy.next("createdAt");

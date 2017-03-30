@@ -143,28 +143,48 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
 
     changeOrderBy(sortBy: string): void {
       switch(sortBy) {
-        case 'Booking Date':
-        this.orderBy.next("createdAt");
+        case 'Booking Date (ASC)':
+        this.orderBy.next("bookingDate");
+        this.nameOrder.next(1);
+        break;
+        case 'Booking Date (DESC)':
+        this.orderBy.next("bookingDate");
         this.nameOrder.next(-1);
         break;
-        case 'Tour':
+        case 'Tour (A-Z)':
         this.orderBy.next("tour.title");
         this.nameOrder.next(1);
         break;
-        case 'Departure Date':
+        case 'Tour (Z-A)':
+        this.orderBy.next("tour.title");
+        this.nameOrder.next(-1);
+        break;
+        case 'Departure Date (ASC)':
+        this.orderBy.next("departureDate");
+        this.nameOrder.next(1);
+        break;
+        case 'Departure Date (DESC)':
         this.orderBy.next("departureDate");
         this.nameOrder.next(-1);
         break;
-        case 'Contact Person':
+        case 'Contact Person (A-Z)':
         this.orderBy.next("contactDetails.firstName");
         this.nameOrder.next(1);
         break;
-        case 'Travellers':
+        case 'Contact Person (Z-Z)':
+        this.orderBy.next("contactDetails.firstName");
+        this.nameOrder.next(-1);
+        break;
+        case 'Travellers (ASC)':
+        this.orderBy.next("numOfTravellers");
+        this.nameOrder.next(1);
+        break;
+        case 'Travellers (DESC)':
         this.orderBy.next("numOfTravellers");
         this.nameOrder.next(-1);
         break;
         default:
-        this.orderBy.next("createdAt");
+        this.orderBy.next("bookingDate");
         this.nameOrder.next(-1);
         break;
       }
