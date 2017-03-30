@@ -171,7 +171,7 @@ export class BookingPageComponent extends MeteorComponent implements OnInit, Aft
         this.orderBy.next("contactDetails.firstName");
         this.nameOrder.next(1);
         break;
-        case 'Contact Person (Z-Z)':
+        case 'Contact Person (Z-A)':
         this.orderBy.next("contactDetails.firstName");
         this.nameOrder.next(-1);
         break;
