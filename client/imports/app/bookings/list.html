@@ -57,8 +57,8 @@
       <div class="col-xl-10">
         <ul class="tabs">
           <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" [ngClass]="{'active': !activeTab || activeTab=='first'}" class="active">New Bookings <span>1</span></li>
-          <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending</li>
-          <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}" class="tab_last">Completed</li>
+          <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending <span>2</span></li>
+          <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}" class="tab_last">Completed <span>2</span></li>
         </ul>
         <div class="right-wrap">
           <div class="tab_container" id="tabContent1">
