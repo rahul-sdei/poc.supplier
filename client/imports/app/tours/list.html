@@ -10,7 +10,7 @@
           </div>
           <div class="col-md-10">
             <div class="row">
-              <div class="col-sm-9">
+              <div class="col-sm-10">
                 <div class="row">
                   <div class="col-8">
                     <div class="form-group">
@@ -22,7 +22,7 @@
                   <div class="col-4">
 
                     <div class="dropdown">
-                      <div class="anchor-icons" *ngIf="!!sortBy">
+                      <div class="anchor-icons" *ngIf="false">
                         <a href="javascript:void(0)" class="top-anchor" [ngClass]="{'active': sortOrder == 1}" (click)="sortOrder=1; changeSortOrder(1);"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="bottom-anchor" [ngClass]="{'active': sortOrder == -1}" (click)="sortOrder=-1; changeSortOrder(-1);"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
                       </div>
@@ -31,14 +31,14 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Tour (A-Z)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Tour (Z-A)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Length (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Length (DESC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Availability (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Availability (DESC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Price From (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Price From (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (A-Z)'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Tour (A-Z)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (Z-A)'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Tour (Z-A)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length (ASC)'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Length (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length (DESC)'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Length (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (ASC)'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Availability (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (DESC)'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Availability (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (ASC)'; sortOrder=1; changeOrderBy(sortBy); changeSortOrder(1);">Price From (ASC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (DESC)'; sortOrder=-1; changeOrderBy(sortBy); changeSortOrder(-1);">Price From (DESC)</button>
                       </div>
                     </div>
                   </div>
