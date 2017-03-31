@@ -32,12 +32,15 @@ export class CreateComponentStep3 extends MeteorComponent implements OnInit {
         title: ['', Validators.compose([Validators.required])],
         description: ['', Validators.compose([Validators.required])],
         hotelType: ['', Validators.compose([Validators.required])],
-        hotelName: ['', Validators.compose([Validators.required])],
-        hasBreakfast: ['', Validators.compose([Validators.required])],
-        hasLunch: ['', Validators.compose([Validators.required])],
-        hasDinner: ['', Validators.compose([Validators.required])],
+        hotelName: ['', Validators.compose([Validators.required])]
       });
-
+      let step3Details = this.sessionStorage.retrieve("step3Details");
+      if (step3Details) {
+        this.step3Form.controls['title'].setValue(step3Details.title);
+        this.step3Form.controls['description'].setValue(step3Details.description);
+        this.step3Form.controls['hotelType'].setValue(step3Details.hotelType);
+        this.step3Form.controls['hotelName'].setValue(step3Details.hotelName);
+      }
       this.error = '';
     }
 
@@ -65,14 +68,13 @@ export class CreateComponentStep3 extends MeteorComponent implements OnInit {
         hasDinner : this.hasDinner,
       };
       this.sessionStorage.store("step3Details", details);
-      let step1Details = this.sessionStorage.retrieve("step3Details");
-      if (step1Details) {
+      let step3Details = this.sessionStorage.retrieve("step3Details");
+      if (step3Details) {
         this.ngZone.run(() => {
           this.router.navigate(['/tours/create/step4']);
-            console.log(step1Details);
         });
       } else {
-        showAlert("Please refresh your session and try again.", "danger");
+        showAlert("Error while saving data. Please try after restarting your browser.", "danger");
       }
     }
 }

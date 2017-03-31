@@ -104,8 +104,8 @@ textarea.absolute
 	{
 	float: none
 }
-.green-btn
-	{
+.green-btn,
+.grey-btn {
 	padding : 15px 0;
 	background : $green-color;
 	color : $white;
@@ -116,7 +116,15 @@ textarea.absolute
 	cursor : pointer;
 	&:hover,
 	&:focus {
-		background : $hover-green
+		background : $hover-green;
+	}
+}
+
+.grey-btn {
+	background: $grey-btn;
+	&:hover,
+	&:focus {
+		background : $hover-green;
 	}
 }
 
@@ -237,3 +245,72 @@ $ipad:  768px;
 $phone: 600px;
 $medium-phone: 480px;
 $small_phone: 360px;
+
+.select-style {
+	padding: 0;
+	margin: 0;
+	@include border-all (1px, solid, $border-color);
+	width: $full;
+	@include border-radius (3px, 3px, 3px, 3px);
+	overflow: hidden;
+	background-color: $white;
+	background: $white url("../images/drop.png") no-repeat 90% 50%;
+	.select {
+		padding: 5px 8px;
+		width: 100%;
+		border: none;
+		box-shadow: none;
+		background-color: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		color: $grey-anchor;
+		font-size: $font-16;
+	}
+}
+
+.radio-custom {
+	opacity: 0;
+	@extend .absolute;
+	padding: 5px;
+}
+
+.radio-custom,
+.radio-custom-label {
+	@extend .inline-block;
+	@extend .vertical-middle;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.radio-custom-label {
+	@extend .relative;
+}
+
+.radio-custom + .radio-custom-label:before {
+	content: '';
+	background: $white;
+	border: 2px solid #ddd;
+	@include border-all (1px, solid, $border-color);
+	@extend .vertical-middle;
+	width: 23px;
+	height: 23px;
+	padding: 2px;
+	margin-right: 10px;
+	@extend .text-center;
+	@extend .inline-block;
+	@include border-radius ($full, $full, $full, $full);
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+	content: "\f00c";
+	font-family: 'FontAwesome';
+	color: $white;
+	background: $green-color;
+	line-height: 17px;
+}
+
+.radio-custom:focus + .radio-custom-label {
+	outline: none;
+}

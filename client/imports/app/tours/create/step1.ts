@@ -36,13 +36,26 @@ export class CreateComponent extends MeteorComponent implements OnInit {
         tourType: ['', Validators.compose([Validators.required])],
         tourPace: ['', Validators.compose([Validators.required])]
       });
-
+      let step1Details = this.sessionStorage.retrieve("step1Details");
+      if (step1Details) {
+        this.step1Form.controls['name'].setValue(step1Details.name);
+        this.step1Form.controls['description'].setValue(step1Details.description);
+        this.step1Form.controls['departure'].setValue(step1Details.departure);
+        this.step1Form.controls['destination'].setValue(step1Details.destination);
+        this.step1Form.controls['noOfDays'].setValue(step1Details.noOfDays);
+        this.step1Form.controls['noOfNights'].setValue(step1Details.noOfNights);
+        this.step1Form.controls['tourType'].setValue(step1Details.tourType);
+        this.step1Form.controls['tourPace'].setValue(step1Details.tourPace);
+        // this.hasGuide = step1Details.hasGuide;
+      } else {
+        showAlert("Unable to fetch data", "danger");
+      }
       this.error = '';
     }
 
     ngAfterViewChecked() {
       var d = document.getElementById("main");
-      d.className = "supplier-dashboard summary tours booking";
+      d.className = "";
     }
 
     ngOnDestroy() {
@@ -70,10 +83,9 @@ export class CreateComponent extends MeteorComponent implements OnInit {
       if (step1Details) {
         this.ngZone.run(() => {
           this.router.navigate(['/tours/create/step3']);
-            console.log(step1Details);
         });
       } else {
-        showAlert("Please refresh your session and try again.", "danger");
+        showAlert("Error while saving data. Please try after restarting your browser.", "danger");
       }
     }
 }

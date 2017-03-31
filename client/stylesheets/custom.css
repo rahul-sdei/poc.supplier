@@ -13,3 +13,6 @@
 canvas {
     background-color: #ffffff;
 }
+.bottom-btn .green-btn {
+  width: 200px !important;
+}

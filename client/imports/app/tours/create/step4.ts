@@ -15,9 +15,9 @@ import template from "./step4.html";
 export class CreateComponentStep4 extends MeteorComponent implements OnInit {
     step4Form: FormGroup;
     error: string;
-    hasBreakfast = false;
-    hasLunch = false;
-    hasDinner = false;
+    url: string;
+
+    private fileString: any[];
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
@@ -28,17 +28,15 @@ export class CreateComponentStep4 extends MeteorComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.step4Form = this.formBuilder.group({
-        title: ['', Validators.compose([Validators.required])],
-        description: ['', Validators.compose([Validators.required])],
-        hotelType: ['', Validators.compose([Validators.required])],
-        hotelName: ['', Validators.compose([Validators.required])],
-        hasBreakfast: ['', Validators.compose([Validators.required])],
-        hasLunch: ['', Validators.compose([Validators.required])],
-        hasDinner: ['', Validators.compose([Validators.required])],
-      });
-
-      this.error = '';
+      // this.step4Form = this.formBuilder.group({
+      //   title: ['', Validators.compose([Validators.required])],
+      //   description: ['', Validators.compose([Validators.required])],
+      //   hotelType: ['', Validators.compose([Validators.required])],
+      //   hotelName: ['', Validators.compose([Validators.required])],
+      //   hasBreakfast: ['', Validators.compose([Validators.required])],
+      //   hasLunch: ['', Validators.compose([Validators.required])],
+      //   hasDinner: ['', Validators.compose([Validators.required])],
+      // });
     }
 
     ngAfterViewChecked() {
@@ -49,20 +47,15 @@ export class CreateComponentStep4 extends MeteorComponent implements OnInit {
     ngOnDestroy() {
     }
 
-    step3() {
-      if (! this.step4Form.valid) {
-        showAlert("Invalid FormData supplied.", "danger");
-        return;
+    onFileSelect(event) {
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = (event) => {
+          this.url = event.target.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
       }
-      // this.sessionStorage.store("step3Details", details);
-      // let step1Details = this.sessionStorage.retrieve("step3Details");
-      // if (step1Details) {
-      //   this.ngZone.run(() => {
-      //     this.router.navigate(['/tours/create/step5']);
-      //       console.log(step1Details);
-      //   });
-      // } else {
-      //   showAlert("Please refresh your session and try again.", "danger");
-      // }
     }
 }
