@@ -1,0 +1,49 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th data-field="title">Booking Date</th>
+      <th data-field="heading">Tour</th>
+      <th data-field="summary">Departure Date</th>
+      <th data-field="summary">Contact Person</th>
+      <th data-field="summary">Travellers</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  class=""
+      *ngFor="let page of pageArr"
+      [attr.data-page-id]="page._id"
+      [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
+      [hidden]="page.deleted">
+      <td class="date-time">{{page.bookingDate | date}}</td>
+      <td class="tour-name"><a href="javascript:void(0)">{{page.tour.title}}</a></td>
+      <td class="departure-date">{{page.departureDate | date}}</td>
+      <td class="contact-person">
+        <span class="user-img">
+          <img src="/images/user.png" />
+        </span>
+        <span class="name">{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</span>
+      </td>
+      <td class="travellers">{{page.travellers?.length}}</td>
+      <td class="action-td">
+        <div class="btn-group" *ngIf="!activeTab || activeTab=='first'">
+          <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="javascript:void(0);">Approve</a>
+            <a class="dropdown-item" href="javascript:void(0);">Deny</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="itemsSize==0">
+      <td colspan="5">
+        No records have been added yet.
+      </td>
+    </tr>
+  </tbody>
+</table>

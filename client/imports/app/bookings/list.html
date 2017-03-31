@@ -61,67 +61,39 @@
     <div class="row justify-content-sm-center">
       <div class="col-xl-10">
         <ul class="tabs">
-          <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" [ngClass]="{'active': !activeTab || activeTab=='first'}" class="active">New Bookings <span>1</span></li>
-          <li rel="tab2" (click)="activeTab='second'; changeStatus(true)" [ngClass]="{'active': activeTab=='second'}">Pending <span>2</span></li>
-          <li rel="tab2" (click)="activeTab='third'; showCompleted()" [ngClass]="{'active': activeTab=='third'}" class="tab_last">Completed <span>2</span></li>
+          <li rel="tab1" (click)="activeTab='first'; changeStatus(false)" class="active">New Bookings <span>1</span></li>
+          <li rel="tab2" (click)="activeTab='second'; changeStatus(true)">Pending <span>2</span></li>
+          <li rel="tab2" (click)="activeTab='third'; showCompleted()" class="tab_last">Completed <span>2</span></li>
         </ul>
         <div class="right-wrap">
           <div class="tab_container" id="tabContent1">
             <!--tab-1-->
-            <div id="tab1" class="tab_content" style="display: block">
+            <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="activeTab='first'; changeStatus(false)">Approved Tours <span>1</span></h3>
+            <div id="tab1" class="tab_content">
               <div class="table-wrapper">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th data-field="title">Booking Date</th>
-                      <th data-field="heading">Tour</th>
-                      <th data-field="summary">Departure Date</th>
-                      <th data-field="summary">Contact Person</th>
-                      <th data-field="summary">Travellers</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr  class=""
-                    *ngFor="let page of pageArr"
-                    [attr.data-page-id]="page._id"
-                    [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
-                    [hidden]="page.deleted">
-                    <td class="date-time">{{page.bookingDate | date}}</td>
-                    <td class="tour-name"><a href="javascript:void(0)">{{page.tour.title}}</a></td>
-                    <td class="departure-date">{{page.departureDate | date}}</td>
-                    <td class="contact-person">
-                      <span class="user-img">
-                        <img src="/images/user.png" />
-                      </span>
-                      <span class="name">{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</span>
-                    </td>
-                    <td class="travellers">{{page.travellers?.length}}</td>
-                    <td class="action-td">
-                      <div class="btn-group" *ngIf="!activeTab || activeTab=='first'">
-                        <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Action
-                        </button>
-                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="javascript:void(0);">Approve</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Deny</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr *ngIf="itemsSize==0">
-                    <td colspan="4">
-                      No records have been added yet.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
+              </div>
             </div>
+            <!--tab-1-->
+            <!--tab-2-->
+            <h3 class="tab_drawer_heading" rel="tab2" (click)="activeTab='second'; changeStatus(true)">Pending <span>2</span></h3>
+            <div id="tab2" class="tab_content">
+              <div class="table-wrapper">
+                <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
+              </div>
+            </div>
+            <!--tab-2-->
+
+            <!--tab-3-->
+            <h3 class="tab_drawer_heading" rel="tab3" (click)="activeTab='third'; showCompleted()">Completed <span>2</span></h3>
+            <div id="tab3" class="tab_content">
+              <div class="table-wrapper">
+                <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
+              </div>
+            </div>
+            <!--tab-3-->
           </div>
-          <!--tab-1-->
+
         </div>
       </div>
       <div class="pagination-wrap">
