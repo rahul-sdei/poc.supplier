@@ -207,16 +207,16 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     }
 
     ngAfterViewInit() {
+      Meteor.setTimeout(() => {
         jQuery(function($){
-        /*$('select').material_select();
-        $('.tooltipped').tooltip({delay: 50});*/
+          /*$('select').material_select();
+          $('.tooltipped').tooltip({delay: 50});*/
 
-        $(".tab_content").hide();
-        $(".tab_content:first").show();
+          $(".tab_content").hide();
+          $(".tab_content:first").show();
 
 
-        $("ul.tabs li").click(function() {
-        	alert("here");
+          $("ul.tabs li").click(function() {
           $(".tab_content").hide();
           var activeTab = $(this).attr("rel");
           $("#"+activeTab).show();
@@ -226,11 +226,9 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
 
           $(".tab_drawer_heading").removeClass("d_active");
           $(".tab_drawer_heading[rel^='"+activeTab+"']").addClass("d_active");
+          });
 
-        });
-
-        $(".tab_drawer_heading").click(function() {
-
+          $(".tab_drawer_heading").click(function() {
           $(".tab_content").hide();
           var d_activeTab = $(this).attr("rel");
           $("#"+d_activeTab).show();
@@ -240,7 +238,8 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
 
           $("ul.tabs li").removeClass("active");
           $("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
+          });
         });
-        })
+      }, 500);
     }
 }
