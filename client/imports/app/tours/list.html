@@ -66,45 +66,21 @@
         <div class="right-wrap">
           <div class="tab_container" id="tabContent1">
             <!--tab-1-->
-            <div id="tab1" class="tab_content" style="display: block">
+            <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="showPending=false; changeStatus(true)">Approved Tours <span>2</span></h3>
+            <div id="tab1" class="tab_content">
               <div class="table-wrapper">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th data-field="title">Tour</th>
-                      <th data-field="heading">Length</th>
-                      <th data-field="summary">Availability</th>
-                      <th data-field="summary">Price From</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                    <tbody>
-                      <tr  class=""
-                      *ngFor="let page of pageArr"
-                      [attr.data-page-id]="page._id"
-                      [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
-                      [hidden]="page.deleted">
-                      <td class="tour-detail">
-                        <span><img src ="images/random.png" /></span>
-                        <div>
-                          <h5>{{page.name}}</h5>
-                          <p>{{page.departure}}, {{page.destination}}</p>
-                        </div>
-                      </td>
-                      <td>{{page.noOfDays}} Days {{page.noOfNights}} Nights </td>
-                      <td>{{page.dateRange.seats}}/{{page.dateRange.seats}}</td>
-                      <td>USD {{page.startPrice}}</td>
-                    </tr>
-                    <tr *ngIf="itemsSize==0">
-                      <td colspan="4">
-                        No records have been added yet.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize"></tours-table>
               </div>
             </div>
             <!--tab-1-->
+            <!--tab-2-->
+            <h3 class="tab_drawer_heading" rel="tab2" (click)="showPending=true; changeStatus(false);">Pending Approval<span>2</span></h3>
+            <div id="tab2" class="tab_content">
+              <div class="table-wrapper">
+                <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize"></tours-table>
+              </div>
+            </div>
+            <!--tab-2-->
           </div>
         </div>
         <div class="pagination-wrap">

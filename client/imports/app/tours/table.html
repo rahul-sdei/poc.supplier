@@ -1,0 +1,34 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th data-field="title">Tour</th>
+      <th data-field="heading">Length</th>
+      <th data-field="summary">Availability</th>
+      <th data-field="summary">Price From</th>
+      <th></th>
+    </tr>
+  </thead>
+    <tbody>
+      <tr  class=""
+      *ngFor="let page of pageArr"
+      [attr.data-page-id]="page._id"
+      [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
+      [hidden]="page.deleted">
+      <td class="tour-detail">
+        <span><img src ="images/random.png" /></span>
+        <div>
+          <h5>{{page.name}}</h5>
+          <p>{{page.departure}}, {{page.destination}}</p>
+        </div>
+      </td>
+      <td>{{page.noOfDays}} Days {{page.noOfNights}} Nights </td>
+      <td>{{page.dateRange.seats}}/{{page.dateRange.seats}}</td>
+      <td>USD {{page.startPrice}}</td>
+    </tr>
+    <tr *ngIf="itemsSize==0">
+      <td colspan="4">
+        No records have been added yet.
+      </td>
+    </tr>
+  </tbody>
+</table>
