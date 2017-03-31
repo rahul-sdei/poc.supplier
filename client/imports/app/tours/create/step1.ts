@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
-import { showAlert } from "../shared/show-alert";
+import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
 import template from "./step1.html";
 
@@ -49,6 +49,11 @@ export class CreateComponent extends MeteorComponent implements OnInit {
     }
 
     step1() {
+      if (! this.step1Form.valid) {
+        showAlert("Invalid FormData supplied.", "danger");
+        return;
+      }
+
       let details = {
         name : this.step1Form.value.name,
         description : this.step1Form.value.description,
@@ -61,5 +66,14 @@ export class CreateComponent extends MeteorComponent implements OnInit {
         hasGuide : this.hasGuide
       };
       this.sessionStorage.store("step1Details", details);
+      let step1Details = this.sessionStorage.retrieve("step1Details");
+      if (step1Details) {
+        this.ngZone.run(() => {
+          this.router.navigate(['/tours/create/step3']);
+            console.log(step1Details);
+        });
+      } else {
+        showAlert("Please refresh your session and try again.", "danger");
+      }
     }
 }

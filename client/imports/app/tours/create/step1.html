@@ -144,7 +144,7 @@
                       <input type="text" class="form-control" id="nights" placeholder="Tour Nights" formControlName="noOfNights"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfNights'].errors && step1Form.controls['noOfNights'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in noOfNightss.</div>
+                      <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in number of nights.</div>
                     </div>
                   </div>
                 </div>
@@ -198,7 +198,7 @@
             </div>
           </section>
           <div class="form-group text-right bottom-btn">
-            <button type="submit" class="btn green-btn">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+            <button type="button" class="btn green-btn" (click)="step1()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
           </div>
         </form>
       </div>
