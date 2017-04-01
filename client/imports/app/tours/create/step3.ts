@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
@@ -12,12 +12,12 @@ import template from "./step3.html";
   selector: '',
   template
 })
-export class CreateComponentStep3 extends MeteorComponent implements OnInit {
+export class CreateTourStep3Component extends MeteorComponent implements OnInit {
     step3Form: FormGroup;
+    step3Details: any;
+    noOfDays: number;
     error: string;
-    hasBreakfast = false;
-    hasLunch = false;
-    hasDinner = false;
+
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
@@ -29,19 +29,47 @@ export class CreateComponentStep3 extends MeteorComponent implements OnInit {
 
     ngOnInit() {
       this.step3Form = this.formBuilder.group({
-        title: ['', Validators.compose([Validators.required])],
-        description: ['', Validators.compose([Validators.required])],
-        hotelType: ['', Validators.compose([Validators.required])],
-        hotelName: ['', Validators.compose([Validators.required])]
+        itenerary: this.formBuilder.array([
+        ])
       });
-      let step3Details = this.sessionStorage.retrieve("step3Details");
-      if (step3Details) {
-        this.step3Form.controls['title'].setValue(step3Details.title);
-        this.step3Form.controls['description'].setValue(step3Details.description);
-        this.step3Form.controls['hotelType'].setValue(step3Details.hotelType);
-        this.step3Form.controls['hotelName'].setValue(step3Details.hotelName);
+      this.step3Details = this.sessionStorage.retrieve("step3Details");
+      if (! this.step3Details) {
+        this.step3Details = {"itenerary": []};
       }
       this.error = '';
+      this.loadItenerary();
+    }
+
+    private loadItenerary() {
+      let step1Details = this.sessionStorage.retrieve("step1Details");
+      let noOfDays = <number>step1Details.noOfDays;
+      for(let i=0; i<noOfDays; i++) {
+        this.addItenerary(i);
+      }
+
+      this.noOfDays = noOfDays;
+    }
+
+    private initItenerary(i) {
+      let step3Details = this.step3Details.itenerary;
+      if (typeof step3Details[i] == "undefined") {
+        step3Details[i] = {};
+      }
+
+      return this.formBuilder.group({
+        title: [step3Details[i].title, Validators.compose([Validators.required])],
+        description: [step3Details[i].description, Validators.compose([Validators.required])],
+        hotelType: [step3Details[i].hotelType, Validators.compose([])],
+        hotelName: [step3Details[i].hotelName, Validators.compose([])],
+        hasBreakfast: [step3Details[i].hasBreakfast],
+        hasLunch: [step3Details[i].hasLunch],
+        hasDinner: [step3Details[i].hasDinner]
+      });
+    }
+
+    private addItenerary(i) {
+      const control = <FormArray>this.step3Form.controls['itenerary'];
+      control.push(this.initItenerary(i));
     }
 
     ngAfterViewChecked() {
@@ -59,13 +87,7 @@ export class CreateComponentStep3 extends MeteorComponent implements OnInit {
       }
 
       let details = {
-        title : this.step3Form.value.title,
-        description : this.step3Form.value.description,
-        hotelType : this.step3Form.value.hotelType,
-        hotelName : this.step3Form.value.hotelName,
-        hasBreakfast : this.hasBreakfast,
-        hasLunch : this.hasLunch,
-        hasDinner : this.hasDinner,
+        itenerary : this.step3Form.value.itenerary
       };
       this.sessionStorage.store("step3Details", details);
       let step3Details = this.sessionStorage.retrieve("step3Details");

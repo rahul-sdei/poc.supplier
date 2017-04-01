@@ -12,7 +12,7 @@ import template from "./step6.html";
   selector: '',
   template
 })
-export class CreateComponentStep6 extends MeteorComponent implements OnInit {
+export class CreateTourStep6Component extends MeteorComponent implements OnInit {
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,

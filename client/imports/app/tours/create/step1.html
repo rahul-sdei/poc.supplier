@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h3 class="tour-head">New Tours</h3>
+        <h3 class="tour-head">New Tour</h3>
       </div>
     </div>
     <div class="row">
@@ -84,7 +84,9 @@
                       <input type="text" class="form-control" id="TourName" placeholder="Tour Name" formControlName="name"/>
                     </div>
                     <div *ngIf="step1Form.controls['name'].errors && step1Form.controls['name'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.name.hasError('required')">You have to fill in tourName.</div>
+                      <div *ngIf="step1Form.controls.name.hasError('required')">You have to fill in Tour Name.</div>
+                      <div *ngIf="step1Form.controls.name.hasError('minlength')">Min 8 characters required.</div>
+                      <div *ngIf="step1Form.controls.name.hasError('maxlength')">Max 255 characters allowed.</div>
                     </div>
                   </div>
                 </div>
@@ -96,7 +98,9 @@
                       <textarea class="form-control" id="Description" placeholder="Tour Description" formControlName="description"></textarea>
                     </div>
                     <div *ngIf="step1Form.controls['description'].errors && step1Form.controls['description'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.description.hasError('required')">You have to fill in namedescription.</div>
+                      <div *ngIf="step1Form.controls.description.hasError('required')">You have to fill in Tour Description.</div>
+                      <div *ngIf="step1Form.controls.description.hasError('minlength')">Min 8 characters required.</div>
+                      <div *ngIf="step1Form.controls.description.hasError('maxlength')">Max 255 characters allowed.</div>
                     </div>
                   </div>
                 </div>
@@ -109,7 +113,9 @@
                       <input type="text" class="form-control" id="Location" placeholder="Departure Location" formControlName="departure"/>
                     </div>
                     <div *ngIf="step1Form.controls['departure'].errors && step1Form.controls['departure'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.departure.hasError('required')">You have to fill in departure.</div>
+                      <div *ngIf="step1Form.controls.departure.hasError('required')">You have to fill in Departure Location.</div>
+                      <div *ngIf="step1Form.controls.departure.hasError('minlength')">Min 5 characters required.</div>
+                      <div *ngIf="step1Form.controls.departure.hasError('maxlength')">Max 50 characters allowed.</div>
                     </div>
                   </div>
                 </div>
@@ -120,7 +126,9 @@
                       <input type="text" class="form-control" id="Destination" placeholder="Destination Location" formControlName="destination"/>
                     </div>
                     <div *ngIf="step1Form.controls['destination'].errors && step1Form.controls['destination'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.destination.hasError('required')">You have to fill in destination.</div>
+                      <div *ngIf="step1Form.controls.destination.hasError('required')">You have to fill in Destination.</div>
+                      <div *ngIf="step1Form.controls.destination.hasError('minlength')">Min 5 characters required.</div>
+                      <div *ngIf="step1Form.controls.destination.hasError('maxlength')">Max 50 characters allowed.</div>
                     </div>
                   </div>
                 </div>
@@ -133,7 +141,9 @@
                       <input type="text" class="form-control" id="days" placeholder="Days of Tour" formControlName="noOfDays"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfDays'].errors && step1Form.controls['noOfDays'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.noOfDays.hasError('required')">You have to fill in noOfDays.</div>
+                      <div *ngIf="step1Form.controls.noOfDays.hasError('required')">You have to fill in Days of Tour.</div>
+                      <div *ngIf="step1Form.controls.noOfDays.hasError('min')">Min value required is 1.</div>
+                      <div *ngIf="step1Form.controls.noOfDays.hasError('max')">Max value allowed is 30.</div>
                     </div>
                   </div>
                 </div>
@@ -144,7 +154,9 @@
                       <input type="text" class="form-control" id="nights" placeholder="Tour Nights" formControlName="noOfNights"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfNights'].errors && step1Form.controls['noOfNights'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in number of nights.</div>
+                      <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in Tour Nights.</div>
+                      <div *ngIf="step1Form.controls.noOfNights.hasError('min')">Min value required is 1.</div>
+                      <div *ngIf="step1Form.controls.noOfNights.hasError('max')">Max value allowed is 30.</div>
                     </div>
                   </div>
                 </div>
@@ -160,7 +172,7 @@
                     </select>
                   </div>
                   <div *ngIf="step1Form.controls['tourType'].errors && step1Form.controls['tourType'].touched" class="has-error">
-                    <div *ngIf="step1Form.controls.tourType.hasError('required')">You have to select in tourType.</div>
+                    <div *ngIf="step1Form.controls.tourType.hasError('required')">You have to select Tour Type.</div>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -173,7 +185,7 @@
                     </select>
                   </div>
                   <div *ngIf="step1Form.controls['tourPace'].errors && step1Form.controls['tourPace'].touched" class="has-error">
-                    <div *ngIf="step1Form.controls.tourPace.hasError('required')">You have to select in tourPace.</div>
+                    <div *ngIf="step1Form.controls.tourPace.hasError('required')">You have to select Tour Pace.</div>
                   </div>
                 </div>
               </div>
@@ -182,7 +194,7 @@
                   <div class="form-group">
                     <div class="checkbox">
                       <label class="switch">
-                        <input type="checkbox" [checked]="hasGuide" (change)="rememberMe = $event.target.checked">
+                        <input type="checkbox" formControlName="hasGuide">
                         <div class="slider">
                           <span class="on">On</span>
                           <span class="off">Off</span>

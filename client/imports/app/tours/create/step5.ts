@@ -12,7 +12,7 @@ import template from "./step5.html";
   selector: '',
   template
 })
-export class CreateComponentStep5 extends MeteorComponent implements OnInit {
+export class CreateTourStep5Component extends MeteorComponent implements OnInit {
     step5Form: FormGroup;
     error: string;
     constructor(private router: Router,
@@ -35,7 +35,7 @@ export class CreateComponentStep5 extends MeteorComponent implements OnInit {
 
     ngAfterViewChecked() {
       var d = document.getElementById("main");
-      d.className = "supplier-dashboard summary tours booking";
+      d.className = "";
     }
 
     ngOnDestroy() {

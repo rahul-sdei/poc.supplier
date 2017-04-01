@@ -39,6 +39,10 @@
 							@media (max-width: $medium-phone) {
 								width: 25%;
               }
+							.active {
+								border-right: none;
+							}
+							border-right: none;
             }
 						a {
 							@extend .block;

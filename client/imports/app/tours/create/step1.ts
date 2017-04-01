@@ -6,16 +6,17 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
+import { CustomValidators as CValidators } from "ng2-validation";
 import template from "./step1.html";
 
 @Component({
   selector: '',
   template
 })
-export class CreateComponent extends MeteorComponent implements OnInit {
+export class CreateTourStep1Component extends MeteorComponent implements OnInit {
     step1Form: FormGroup;
     error: string;
-    hasGuide = false;
+
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
@@ -26,30 +27,18 @@ export class CreateComponent extends MeteorComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.step1Form = this.formBuilder.group({
-        name: ['', Validators.compose([Validators.required])],
-        description: ['', Validators.compose([Validators.required])],
-        departure: ['', Validators.compose([Validators.required])],
-        destination: ['', Validators.compose([Validators.required])],
-        noOfDays: ['', Validators.compose([Validators.required])],
-        noOfNights: ['', Validators.compose([Validators.required])],
-        tourType: ['', Validators.compose([Validators.required])],
-        tourPace: ['', Validators.compose([Validators.required])]
-      });
       let step1Details = this.sessionStorage.retrieve("step1Details");
-      if (step1Details) {
-        this.step1Form.controls['name'].setValue(step1Details.name);
-        this.step1Form.controls['description'].setValue(step1Details.description);
-        this.step1Form.controls['departure'].setValue(step1Details.departure);
-        this.step1Form.controls['destination'].setValue(step1Details.destination);
-        this.step1Form.controls['noOfDays'].setValue(step1Details.noOfDays);
-        this.step1Form.controls['noOfNights'].setValue(step1Details.noOfNights);
-        this.step1Form.controls['tourType'].setValue(step1Details.tourType);
-        this.step1Form.controls['tourPace'].setValue(step1Details.tourPace);
-        // this.hasGuide = step1Details.hasGuide;
-      } else {
-        showAlert("Unable to fetch data", "danger");
-      }
+      this.step1Form = this.formBuilder.group({
+        name: [step1Details.name, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
+        description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
+        departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
+        destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
+        noOfDays: [step1Details.noOfDays, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
+        noOfNights: [step1Details.noOfNights, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
+        tourType: [step1Details.tourType, Validators.compose([Validators.required])],
+        tourPace: [step1Details.tourPace, Validators.compose([Validators.required])],
+        hasGuide: [step1Details.hasGuide]
+      });
       this.error = '';
     }
 
@@ -76,7 +65,7 @@ export class CreateComponent extends MeteorComponent implements OnInit {
         noOfNights : this.step1Form.value.noOfNights,
         tourType : this.step1Form.value.tourType,
         tourPace : this.step1Form.value.tourPace,
-        hasGuide : this.hasGuide
+        hasGuide : this.step1Form.value.hasGuide
       };
       this.sessionStorage.store("step1Details", details);
       let step1Details = this.sessionStorage.retrieve("step1Details");

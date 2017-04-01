@@ -12,7 +12,7 @@ import template from "./step4.html";
   selector: '',
   template
 })
-export class CreateComponentStep4 extends MeteorComponent implements OnInit {
+export class CreateTourStep4Component extends MeteorComponent implements OnInit {
     step4Form: FormGroup;
     error: string;
     url: string;
@@ -28,20 +28,11 @@ export class CreateComponentStep4 extends MeteorComponent implements OnInit {
     }
 
     ngOnInit() {
-      // this.step4Form = this.formBuilder.group({
-      //   title: ['', Validators.compose([Validators.required])],
-      //   description: ['', Validators.compose([Validators.required])],
-      //   hotelType: ['', Validators.compose([Validators.required])],
-      //   hotelName: ['', Validators.compose([Validators.required])],
-      //   hasBreakfast: ['', Validators.compose([Validators.required])],
-      //   hasLunch: ['', Validators.compose([Validators.required])],
-      //   hasDinner: ['', Validators.compose([Validators.required])],
-      // });
     }
 
     ngAfterViewChecked() {
       var d = document.getElementById("main");
-      d.className = "supplier-dashboard summary tours booking";
+      d.className = "";
     }
 
     ngOnDestroy() {
