@@ -82,6 +82,9 @@
                     <label for="INCLUSIONS">TOUR INCLUSIONS *<span>Separate each point with new line</span></label>
                     <div class="input-wrap">
                       <textarea class="form-control" id="INCLUSIONS" placeholder="Tour Inclusions" formControlName="inclusions"></textarea>
+                      <div *ngIf="step5Form.controls.inclusions.errors && step5Form.controls.inclusions.touched" class="has-error">
+                        <div *ngIf="step5Form.controls.inclusions.hasError('required')">You have to fill in Tour Inclusions.</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -91,15 +94,20 @@
                     <label for="EXCLUSIONS">TOUR EXCLUSIONS *<span>Separate each point with new line</span></label>
                     <div class="input-wrap">
                       <textarea class="form-control" id="EXCLUSIONS" placeholder="Tour Exclusions" formControlName="exclusions"></textarea>
+                      <div *ngIf="step5Form.controls.exclusions.errors && step5Form.controls.exclusions.touched" class="has-error">
+                        <div *ngIf="step5Form.controls.exclusions.hasError('required')">You have to fill in Tour Exclusions.</div>
+                      </div>
                     </div>
+
                   </div>
                 </div>
+
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label for="CANCELLATION">YOUR CANCELLATION POLICY *<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input type="file" class="form-control" id="CANCELLATION" placeholder="Attach your cancellation policy"/>
+                        <input type="file" class="form-control" id="CANCELLATION" placeholder="Attach your cancellation policy" (change)="onFileSelect($event, 'cancellationPolicy')" accept="application/pdf" />
                         <span class="pull_left">Attach your cancellation policy</span>
                         <div class="input-group-btn">
                           <button type="button" class="btn green-btn">Upload</button>
@@ -107,6 +115,11 @@
                       </div>
 
                     </div>
+
+                    <div *ngIf="cancellationPolicy">
+                      <a href="{{cancellationPolicy.url}}" download><span>{{cancellationPolicy.name}}</span></a>
+                    </div>
+
                   </div>
                 </div>
 
@@ -115,7 +128,7 @@
                     <label for="Refund">YOUR Refund POLICY *<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input type="file" class="form-control" id="Refund" placeholder="Attach your refund policy"/>
+                        <input type="file" class="form-control" id="Refund" placeholder="Attach your refund policy" (change)="onFileSelect($event, 'refundPolicy')" accept="application/pdf" />
                         <span class="pull_left">Attach your refund policy</span>
                         <div class="input-group-btn">
                           <button type="button" class="btn green-btn">Upload</button>
@@ -123,6 +136,11 @@
                       </div>
                     </div>
                   </div>
+
+                  <div *ngIf="refundPolicy">
+                    <a href="{{refundPolicy.url}}" download><span>{{refundPolicy.name}}</span></a>
+                  </div>
+
                 </div>
               </div>
 

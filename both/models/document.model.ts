@@ -1,4 +1,4 @@
-export interface Image {
+export interface Document {
   _id: string;
   complete: boolean;
   extension: string;
@@ -12,9 +12,4 @@ export interface Image {
   uploading: boolean;
   url: string;
   userId?: string;
-}
-
-export interface Thumb extends Image  {
-  originalStore?: string;
-  originalId?: string;
 }

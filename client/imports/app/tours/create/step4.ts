@@ -12,6 +12,7 @@ import template from "./step4.html";
 interface Image {
   id: string;
   url: string;
+  name: string;
 }
 
 @Component({
@@ -39,7 +40,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
       if (step4Details) {
         this.images = step4Details.images;
       }
-      console.log(this.images);
     }
 
     ngAfterViewChecked() {
@@ -73,7 +73,8 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
             this.isUploaded = true;
             this.images.push({
               id: res._id,
-              url: res.url
+              url: res.url,
+              name: res.name
             });
             console.log("image upload done.")
             console.log("file id:", res._id);

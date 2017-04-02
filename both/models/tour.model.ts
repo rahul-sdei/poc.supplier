@@ -47,8 +47,14 @@ export interface Tour extends CollectionObject {
     /*  step 5*/
     inclusions: string;
     exclusions: string;
-    cancellationPolicy: string;
-    refundPolicy: string;
+    cancellationPolicy: {
+      id: string;
+      url: string;
+    };
+    refundPolicy: {
+      id: string;
+      url: string;
+    };
     /*  default */
     ownerId: string;
     active: boolean;
