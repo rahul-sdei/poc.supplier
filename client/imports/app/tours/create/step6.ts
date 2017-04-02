@@ -6,6 +6,8 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
+import { Tour } from "../../../../../both/models/tour.model";
+import * as _ from 'underscore';
 import template from "./step6.html";
 
 @Component({
@@ -13,6 +15,8 @@ import template from "./step6.html";
   template
 })
 export class CreateTourStep6Component extends MeteorComponent implements OnInit {
+    tourDetails: Tour;
+
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
@@ -23,6 +27,13 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
     }
 
     ngOnInit() {
+      let step1Details = this.sessionStorage.retrieve("step1Details");
+      let step3Details = this.sessionStorage.retrieve("step3Details");
+      let step4Details = this.sessionStorage.retrieve("step4Details");
+      let step5Details = this.sessionStorage.retrieve("step5Details");
+
+      this.tourDetails = _.extend({}, step1Details, step3Details, step4Details, step5Details);
+      console.log("tourDetails:", this.tourDetails);
     }
 
     ngAfterViewChecked() {
