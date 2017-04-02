@@ -6,7 +6,13 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
+import { upload } from '../../../../../both/methods/images.methods';
 import template from "./step4.html";
+
+interface Image {
+  id: string;
+  url: string;
+}
 
 @Component({
   selector: '',
@@ -15,9 +21,10 @@ import template from "./step4.html";
 export class CreateTourStep4Component extends MeteorComponent implements OnInit {
     step4Form: FormGroup;
     error: string;
-    url: string;
+    images: Image[] = [];
+    isUploading: boolean;
+    isUploaded: boolean;
 
-    private fileString: any[];
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
@@ -28,6 +35,11 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     }
 
     ngOnInit() {
+      let step4Details = this.sessionStorage.retrieve("step4Details");
+      if (step4Details) {
+        this.images = step4Details.images;
+      }
+      console.log(this.images);
     }
 
     ngAfterViewChecked() {
@@ -39,14 +51,81 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     }
 
     onFileSelect(event) {
-      if (event.target.files && event.target.files[0]) {
-        var reader = new FileReader();
+      var files = event.srcElement.files;
+      console.log(files);
+      this.startUpload(files[0]);
+    }
 
-        reader.onload = (event) => {
-          this.url = event.target.result;
+    private startUpload(file: File): void {
+        // check for previous upload
+        if (this.isUploading === true) {
+            console.log("aleady uploading...");
+            return;
         }
 
-        reader.readAsDataURL(event.target.files[0]);
+        // start uploading
+        this.isUploaded = false;
+        this.isUploading = true;
+
+        upload(file)
+        .then((res) => {
+            this.isUploading = false;
+            this.isUploaded = true;
+            this.images.push({
+              id: res._id,
+              url: res.url
+            });
+            console.log("image upload done.")
+            console.log("file id:", res._id);
+        })
+        .catch((error) => {
+            this.isUploading = false;
+            console.log('Error in file upload:', error);
+            showAlert(error.reason, "danger");
+        });
+    }
+
+    removeImage(id: string) {
+      if (!confirm("Are you sure, do you want to continue?")) {
+        return false;
+      }
+
+      Meteor.call("images.delete", id, (err, res) => {
+        if (err) {
+            showAlert(err.reason, "danger");
+            return;
+        }
+
+        console.log("image-id:", id);
+        let images = this.images;
+        for (let i=0; i<images.length; i++) {
+          if (images[i].id == id) {
+            images.splice(i, 1);
+          }
+        }
+
+        this.images = images;
+        console.log("images:", images);
+        showAlert("Image has been deleted.", "success");
+      });
+    }
+
+    get imagesArr() {
+      return this.images;
+    }
+
+    step4() {
+      let details = {
+        images : this.images
+      };
+      this.sessionStorage.store("step4Details", details);
+      let step4Details = this.sessionStorage.retrieve("step4Details");
+      if (step4Details) {
+        this.ngZone.run(() => {
+          this.router.navigate(['/tours/create/step5']);
+        });
+      } else {
+        showAlert("Error while saving data. Please try after restarting your browser.", "danger");
       }
     }
 }

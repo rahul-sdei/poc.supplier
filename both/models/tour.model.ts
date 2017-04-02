@@ -41,6 +41,7 @@ export interface Tour extends CollectionObject {
     images: [
       {
         id: string;
+        url: string;
       }
     ],
     /*  step 5*/

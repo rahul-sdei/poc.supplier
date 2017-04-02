@@ -28,6 +28,9 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
 
     ngOnInit() {
       let step1Details = this.sessionStorage.retrieve("step1Details");
+      if (! step1Details) {
+        step1Details = {};
+      }
       this.step1Form = this.formBuilder.group({
         name: [step1Details.name, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
         description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
