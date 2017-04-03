@@ -10,7 +10,7 @@
       <div class="col-md-4">
         <ul class="tab-list">
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step1']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Details</h4>
@@ -19,7 +19,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step2']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Schedule</h4>
@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step3']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Itinerary</h4>
@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step4']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Gallery</h4>
@@ -107,10 +107,10 @@
                     <label for="CANCELLATION">YOUR CANCELLATION POLICY *<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input type="file" class="form-control" id="CANCELLATION" placeholder="Attach your cancellation policy" (change)="onFileSelect($event, 'cancellationPolicy')" accept="application/pdf" />
+                        <input #fileInput type="file" class="form-control" id="CANCELLATION" placeholder="Attach your cancellation policy" (change)="onFileSelect($event, 'cancellationPolicy')" accept="application/pdf" />
                         <span class="pull_left">Attach your cancellation policy</span>
                         <div class="input-group-btn">
-                          <button type="button" class="btn green-btn">Upload</button>
+                          <button type="button" class="btn green-btn" (click)="fileInput.click();">Upload</button>
                         </div>
                       </div>
 
@@ -128,10 +128,10 @@
                     <label for="Refund">YOUR Refund POLICY *<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input type="file" class="form-control" id="Refund" placeholder="Attach your refund policy" (change)="onFileSelect($event, 'refundPolicy')" accept="application/pdf" />
+                        <input #fileInput2 type="file" class="form-control" id="Refund" placeholder="Attach your refund policy" (change)="onFileSelect($event, 'refundPolicy')" accept="application/pdf" />
                         <span class="pull_left">Attach your refund policy</span>
                         <div class="input-group-btn">
-                          <button type="button" class="btn green-btn">Upload</button>
+                          <button type="button" class="btn green-btn" (click)="fileInput2.click();">Upload</button>
                         </div>
                       </div>
                     </div>

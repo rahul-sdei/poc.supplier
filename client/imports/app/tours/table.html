@@ -15,15 +15,17 @@
       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
       [hidden]="page.deleted">
       <td class="tour-detail">
-        <span><img src ="images/random.png" /></span>
+        <span *ngIf="!page.images?.length"><img src="images/random.png" /></span>
+        <span *ngIf="page.images?.length > 0 && page.featuredImage?.url"><img [src]="page.featuredImage?.url" /></span>
+        <span *ngIf="page.images?.length > 0 && !page.featuredImage?.url"><img [src]="page.images[0]?.url" /></span>
         <div>
           <h5>{{page.name}}</h5>
           <p>{{page.departure}}, {{page.destination}}</p>
         </div>
       </td>
       <td>{{page.noOfDays}} Days {{page.noOfNights}} Nights </td>
-      <td>{{page.dateRange.seats}}/{{page.dateRange.seats}}</td>
-      <td>USD {{page.startPrice}}</td>
+      <td>{{page.dateRange[0]?.seats}}/{{page.dateRange[0]?.seats}}</td>
+      <td>USD {{page.dateRange[0]?.price.adult}}</td>
     </tr>
     <tr *ngIf="itemsSize==0">
       <td colspan="4">

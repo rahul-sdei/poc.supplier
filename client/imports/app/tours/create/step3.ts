@@ -16,6 +16,16 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
     step3Form: FormGroup;
     step3Details: any;
     noOfDays: number;
+    icons: string[] = [
+      'images/i1.png',
+      'images/i2.png',
+      'images/i3.png',
+      'images/i4.png',
+      'images/i5.png',
+      'images/i6.png',
+      'images/i7.png',
+      'images/i8.png'
+    ]
     error: string;
 
     constructor(private router: Router,
@@ -57,6 +67,7 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
       }
 
       return this.formBuilder.group({
+        icon: [''],
         title: [step3Details[i].title, Validators.compose([Validators.required])],
         description: [step3Details[i].description, Validators.compose([Validators.required])],
         hotelType: [step3Details[i].hotelType, Validators.compose([])],
@@ -70,6 +81,10 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
     private addItenerary(i) {
       const control = <FormArray>this.step3Form.controls['itenerary'];
       control.push(this.initItenerary(i));
+    }
+
+    setIconUrl(index, url) {
+      this.step3Form.controls.itenerary.controls[index].controls.icon.setValue(url);
     }
 
     ngAfterViewChecked() {
@@ -86,8 +101,22 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
         return;
       }
 
+      let itenerary = this.step3Form.value.itenerary;
+      let totalMeals: number = 0;
+      for (let i=0; i<itenerary.length; i++) {
+        if (itenerary[i].hasBreakfast == true) {
+          totalMeals++;
+        }
+        if (itenerary[i].hasLunch == true) {
+          totalMeals++;
+        }
+        if (itenerary[i].hasDinner == true) {
+          totalMeals++;
+        }
+      }
       let details = {
-        itenerary : this.step3Form.value.itenerary
+        itenerary,
+        totalMeals
       };
       this.sessionStorage.store("step3Details", details);
       let step3Details = this.sessionStorage.retrieve("step3Details");

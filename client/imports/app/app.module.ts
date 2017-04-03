@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { Ng2Webstorage } from 'ng2-webstorage';
+import { FileDropModule } from "angular2-file-drop";
 import { AppComponent } from "./app.component.web";
 import { ACC_DECLARATIONS } from "./account/index";
 import { routes, ROUTES_PROVIDERS } from './app.routes';
@@ -35,7 +36,8 @@ moduleDefinition = {
     AccountsModule,
     Ng2PaginationModule,
     Ng2Webstorage,
-    Ng2Webstorage.forRoot({ prefix: '', separator: '' })
+    Ng2Webstorage.forRoot({ prefix: '', separator: '' }),
+    FileDropModule
   ],
   declarations: [
     AppComponent,

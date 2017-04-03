@@ -138,7 +138,7 @@
                   <div class="form-group">
                     <label for="days">Days of Tour *</label>
                     <div class="input-wrap">
-                      <input type="text" class="form-control" id="days" placeholder="Days of Tour" formControlName="noOfDays"/>
+                      <input type="number" class="form-control" id="days" placeholder="Days of Tour" formControlName="noOfDays"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfDays'].errors && step1Form.controls['noOfDays'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.noOfDays.hasError('required')">You have to fill in Days of Tour.</div>
@@ -151,7 +151,7 @@
                   <div class="form-group">
                     <label for="nights">Tour Nights *</label>
                     <div class="input-wrap">
-                      <input type="text" class="form-control" id="nights" placeholder="Tour Nights" formControlName="noOfNights"/>
+                      <input type="number" class="form-control" id="nights" placeholder="Tour Nights" formControlName="noOfNights"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfNights'].errors && step1Form.controls['noOfNights'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in Tour Nights.</div>

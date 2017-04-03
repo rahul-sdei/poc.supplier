@@ -114,7 +114,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
                     return;
                 }
                 this.items = res.data;
-                //console.log(res.data);
+                // console.log(res.data);
                 this.itemsSize = res.count;
                 this.paginationService.setTotalItems("tours", this.itemsSize);
             })

@@ -74,7 +74,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       let step1Details = this.sessionStorage.retrieve("step1Details");
       if (step1Details) {
         this.ngZone.run(() => {
-          this.router.navigate(['/tours/create/step3']);
+          this.router.navigate(['/tours/create/step2']);
         });
       } else {
         showAlert("Error while saving data. Please try after restarting your browser.", "danger");

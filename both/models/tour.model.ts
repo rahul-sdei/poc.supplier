@@ -36,12 +36,18 @@ export interface Tour extends CollectionObject {
         hasDinner: boolean;
       }
     ];
+    totalMeals: number;
     /* step 4 */
-    featuredImage: string;
+    featuredImage: {
+      id: string;
+      url: string;
+      name: string;
+    };
     images: [
       {
         id: string;
         url: string;
+        name: string;
       }
     ],
     /*  step 5*/

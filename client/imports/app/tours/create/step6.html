@@ -10,7 +10,7 @@
       <div class="col-md-4">
         <ul class="tab-list">
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step1']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Details</h4>
@@ -19,7 +19,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step2']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Schedule</h4>
@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step3']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Itinerary</h4>
@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step4']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Tour Gallery</h4>
@@ -46,7 +46,7 @@
             </a>
           </li>
           <li class="completed">
-            <a href="javascript:void(0)">
+            <a [routerLink]="['/tours/create/step5']">
               <span><i class="fa fa-check" aria-hidden="true"></i></span>
               <div class="tab-detail">
                 <h4>Inclusion & Policy</h4>
@@ -88,7 +88,7 @@
                     </li>
                     <li>
                       <p>Total Meals</p>
-                      <h5>14</h5>
+                      <h5>{{tourDetails.totalMeals}}</h5>
                     </li>
                     <li>
                       <p>TourGuide</p>
@@ -100,67 +100,27 @@
                 </div>
               </div>
             </div>
-            <div class="tour-schedule">
+            <div class="tour-schedule" *ngIf="dateRange.length > 0">
               <h3>Tour Schedule</h3>
               <div class="table-wrapper" style="height: 351px;">
                 <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Availability</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1/12/2016</td>
-                      <td>20</td>
-                      <td>
-                        <p>Adult $2,759</p>
-                        <p>Child $2,159</p>
-                      </td>
-                    </tr>
-                  </tbody>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Availability</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of dateRange">
+                      <tr>
+                        <td>{{item.date | date: 'MM/dd/yyyy'}}</td>
+                        <td>{{item.seats}}</td>
+                        <td>
+                          <p>Adult ${{item.price.adult}}</p>
+                          <p>Child ${{item.price.child}}</p>
+                        </td>
+                      </tr>
+                    </tbody>
                 </table>
               </div>
             </div>
@@ -175,21 +135,25 @@
                       <div class="sub-head">
                         <h4>Hotel</h4>
                         <p>{{item.hotelName}}</p>
+                        <p *ngIf="!item.hotelName">{{item.hotelType}}</p>
                       </div>
                       <div class="sub-head">
                         <h4>Meals</h4>
                         <p>
                           <span class="radio-wrap">
-                            <input [id]="'radio-7-'+i" class="radio-custom" name="radio-group" type="radio" checked>
-                            <label [for]="'radio-7-'+i" class="radio-custom-label">Breakfast</label>
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!item.hasBreakfast">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="item.hasBreakfast">
+                            <label for="breakFast" class="radio-custom-label">Breakfast</label>
                           </span>
                           <span class="radio-wrap">
-                            <input [id]="'radio-8-'+i" class="radio-custom" name="radio-group" type="radio" checked>
-                            <label [for]="'radio-8-'+i" class="radio-custom-label">Lunch</label>
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!item.hasLunch">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="item.hasLunch">
+                            <label for="lunch" class="radio-custom-label">Lunch</label>
                           </span>
                           <span class="radio-wrap">
-                            <input [id]="'radio-9-'+i" class="radio-custom" name="radio-group" type="radio" checked>
-                            <label [for]="'radio-9-'+i" class="radio-custom-label">Dinner</label>
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!item.hasDinner">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="item.hasDinner">
+                            <label for="dinner" class="radio-custom-label">Dinner</label>
                           </span>
                         </p>
                       </div>
@@ -201,7 +165,7 @@
             <div class="gallery-wrap">
               <div class="row">
                 <div class="col-sm-12">
-                  <h3>Galery</h3>
+                  <h3>Gallery</h3>
                 </div>
                 <div class="col-sm-12 second-row">
                   <div class="img-wrap" *ngFor="let image of tourDetails.images;">
@@ -237,8 +201,8 @@
           </div>
         </section>
         <div class="form-group  bottom-btn">
-          <button type="button" class="btn grey-btn pull-left"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
-          <button type="button" class="btn green-btn pull-right">Request Approval</button>
+          <button type="button" class="btn grey-btn pull-left" [routerLink]="['/tours/create/step5']"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
+          <button type="button" class="btn green-btn pull-right" (click)="saveTour()">Request Approval</button>
         </div>
       </div>
     </div>

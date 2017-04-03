@@ -23,6 +23,8 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     step4Form: FormGroup;
     error: string;
     images: Image[] = [];
+    featuredImage: Image;
+    fileIsOver: boolean = false;
     isUploading: boolean;
     isUploaded: boolean;
 
@@ -50,10 +52,17 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     ngOnDestroy() {
     }
 
+    fileOver(fileIsOver: boolean): void {
+      this.fileIsOver = fileIsOver;
+    }
+
     onFileSelect(event) {
       var files = event.srcElement.files;
-      console.log(files);
       this.startUpload(files[0]);
+    }
+
+    onFileDrop(file: File): void {
+      this.startUpload(file);
     }
 
     private startUpload(file: File): void {
@@ -76,7 +85,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
               url: res.url,
               name: res.name
             });
-            console.log("image upload done.")
             console.log("file id:", res._id);
         })
         .catch((error) => {
@@ -106,7 +114,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
         }
 
         this.images = images;
-        console.log("images:", images);
         showAlert("Image has been deleted.", "success");
       });
     }
@@ -115,9 +122,14 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
       return this.images;
     }
 
+    setFeaturedImage(image) {
+      this.featuredImage = image;
+    }
+
     step4() {
       let details = {
-        images : this.images
+        images: this.images,
+        featuredImage: this.featuredImage
       };
       this.sessionStorage.store("step4Details", details);
       let step4Details = this.sessionStorage.retrieve("step4Details");

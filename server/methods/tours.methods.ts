@@ -18,7 +18,7 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         });
-
+        
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
         }
@@ -49,5 +49,12 @@ Meteor.methods({
       where.push({slug: slug});
 
       return Tours.collection.findOne({$and: where});
+    },
+    "tours.insert": (data: Tour) => {
+      data.active = true;
+      data.approved = false;
+      data.deleted = false;
+      let tourId = Tours.collection.insert(data);
+      return tourId;
     }
 });

@@ -10,7 +10,7 @@
     <div class="col-md-4">
       <ul class="tab-list">
         <li class="completed">
-          <a href="javascript:void(0)">
+          <a [routerLink]="['/tours/create/step1']">
             <span><i class="fa fa-check" aria-hidden="true"></i></span>
             <div class="tab-detail">
               <h4>Tour Details</h4>
@@ -19,7 +19,7 @@
           </a>
         </li>
         <li class="completed">
-          <a href="javascript:void(0)">
+          <a [routerLink]="['/tours/create/step2']">
             <span><i class="fa fa-check" aria-hidden="true"></i></span>
             <div class="tab-detail">
               <h4>Tour Schedule</h4>
@@ -90,31 +90,11 @@
                         <div class="row">
                           <div class="col-sm-12">
                             <div class="form-group">
+                              <input type="hidden" formControlName="icon" />
                               <label>Icon</label>
                               <ul class="icon-list">
-                                <li class="active">
-                                  <a href="javascript:void(0)"><img src="images/i1.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i2.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i3.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i4.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i5.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i6.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i7.png" alt="" /></a>
-                                </li>
-                                <li>
-                                  <a href="javascript:void(0)"><img src="images/i8.png" alt="" /></a>
+                                <li [ngClass]="{'active': url==step3Form.value.itenerary[i].icon}" *ngFor="let url of icons" (click)="setIconUrl(i, url)">
+                                  <a href="javascript:void(0)"><img [src]="url" alt="" /></a>
                                 </li>
                               </ul>
                             </div>
@@ -208,7 +188,7 @@
             </div>
         </section>
         <div class="form-group  bottom-btn">
-        <button type="button" class="btn grey-btn pull-left" [routerLink]="['/tours/create/step1']"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
+        <button type="button" class="btn grey-btn pull-left" [routerLink]="['/tours/create/step2']"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
         <button type="button" class="btn green-btn pull-right" (click)="step3()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
         </div>
       </form>
