@@ -18,7 +18,7 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         });
-        
+
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
         }
@@ -54,7 +54,17 @@ Meteor.methods({
       data.active = true;
       data.approved = false;
       data.deleted = false;
+      data.createdAt = new Date();
       let tourId = Tours.collection.insert(data);
       return tourId;
+    },
+    "tours.delete": (id: string) => {
+      let tour = Tours.collection.findOne({_id: id});
+      if (typeof tour == "undefined" || !tour._id) {
+          throw new Meteor.Error(`Invalid tour-id "${id}"`);
+      }
+
+      /* reset data in collections */
+      Tours.collection.update({_id: tour._id}, {$set : {deleted: true } });
     }
 });

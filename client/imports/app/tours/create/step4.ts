@@ -4,8 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
-import { showAlert } from "../../shared/show-alert";
+import { ChangeDetectorRef } from "@angular/core";
 import { SessionStorageService } from 'ng2-webstorage';
+import { showAlert } from "../../shared/show-alert";
 import { upload } from '../../../../../both/methods/images.methods';
 import template from "./step4.html";
 
@@ -32,7 +33,8 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
-        private sessionStorage: SessionStorageService
+        private sessionStorage: SessionStorageService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         super();
     }
@@ -110,6 +112,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
         for (let i=0; i<images.length; i++) {
           if (images[i].id == id) {
             images.splice(i, 1);
+            this.changeDetectorRef.detectChanges();
           }
         }
 

@@ -10,7 +10,7 @@
   </thead>
     <tbody>
       <tr  class=""
-      *ngFor="let page of pageArr"
+      *ngFor="let page of pageArr; let i = index;"
       [attr.data-page-id]="page._id"
       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
       [hidden]="page.deleted">
@@ -26,6 +26,20 @@
       <td>{{page.noOfDays}} Days {{page.noOfNights}} Nights </td>
       <td>{{page.dateRange[0]?.seats}}/{{page.dateRange[0]?.seats}}</td>
       <td>USD {{page.dateRange[0]?.price.adult}}</td>
+      <td class="action-td">
+        <div class="btn-group" *ngIf="showAction == true">
+          <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" *ngIf="canEdit(page)">Edit</a>
+            <a class="dropdown-item" *ngIf="canDelete(page)" (click)="deleteTour(page, i)">Delete</a>
+          </div>
+        </div>
+      </td>
     </tr>
     <tr *ngIf="itemsSize==0">
       <td colspan="4">
