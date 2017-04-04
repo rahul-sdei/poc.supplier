@@ -79,13 +79,13 @@
               <div formArrayName="itenerary">
                 <div *ngFor="let row of step3Form.controls.itenerary.controls; let i=index">
                   <div class="panel panel-default" [ngClass]="{'last-panel': (i+1)==noOfDays}">
-                    <div class="panel-heading">
+                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" attr.href="#collapse{{i}}">
                       <h4 class="panel-title expand">
                         <div class="right-arrow pull-right"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-                        <a data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+(i+1)">Day {{i+1}}</a>
+                        <a href="javascript:void(0);">Day {{i+1}}</a>
                       </h4>
                     </div>
-                    <div [id]="'collapse'+(i+1)" class="panel-collapse collapse">
+                    <div [id]="'collapse'+(i)" class="panel-collapse collapse">
                       <div class="panel-body" [formGroupName]="i">
                         <div class="row">
                           <div class="col-sm-12">

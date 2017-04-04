@@ -108,6 +108,16 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
         return;
       }
 
+      if (! this.cancellationPolicy || ! this.cancellationPolicy.url) {
+        showAlert("Please upload Cancellation Policy document.", "danger");
+        return;
+      }
+
+      if (! this.refundPolicy || ! this.refundPolicy.url) {
+        showAlert("Please upload Refund Policy document.", "danger");
+        return;
+      }
+
       let details = {
         inclusions : this.step5Form.value.inclusions,
         exclusions : this.step5Form.value.exclusions,

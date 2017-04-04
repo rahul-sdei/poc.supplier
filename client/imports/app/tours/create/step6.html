@@ -180,11 +180,11 @@
                   <h3>Inclusion & Policy</h3>
                   <h4>Included:</h4>
                   <ul>
-                    <li>{{tourDetails.inclusions}}</li>
+                    <li *ngFor="let text of tourDetails.inclusions;">{{text}}</li>
                   </ul>
                   <h4>Excluded:</h4>
                   <ul>
-                    <li>{{tourDetails.exclusions}}</li>
+                    <li *ngFor="let text of tourDetails.exclusions">{{text}}</li>
                   </ul>
                   <h4>Attached Policies</h4>
                   <p *ngIf="tourDetails.cancellationPolicy">

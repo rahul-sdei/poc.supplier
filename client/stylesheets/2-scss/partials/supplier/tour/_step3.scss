@@ -6,6 +6,7 @@
     }
 		.panel {
 			.panel-heading {
+				cursor: pointer;
 				padding: 24px 19px;
 				@include border-all (1px, solid, $border-color);
 				@include border-bottom (0px, solid, $border-color);

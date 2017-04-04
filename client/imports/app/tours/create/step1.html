@@ -154,7 +154,6 @@
                       <input type="number" class="form-control" id="nights" placeholder="Tour Nights" formControlName="noOfNights"/>
                     </div>
                     <div *ngIf="step1Form.controls['noOfNights'].errors && step1Form.controls['noOfNights'].touched" class="has-error">
-                      <div *ngIf="step1Form.controls.noOfNights.hasError('required')">You have to fill in Tour Nights.</div>
                       <div *ngIf="step1Form.controls.noOfNights.hasError('min')">Min value required is 1.</div>
                       <div *ngIf="step1Form.controls.noOfNights.hasError('max')">Max value allowed is 30.</div>
                     </div>
@@ -166,9 +165,10 @@
                   <div class="form-group">
                     <label for="exampleSelect1">Tour Type *</label>
                     <select class="form-control" id="exampleSelect1" formControlName="tourType">
-                      <option>Cheap</option>
-                      <option>Medium</option>
-                      <option>Expensive</option>
+                      <option>Family friendly</option>
+                      <option>Honeymoon</option>
+                      <option>Adventure</option>
+                      <option>Designed for Couple</option>
                     </select>
                   </div>
                   <div *ngIf="step1Form.controls['tourType'].errors && step1Form.controls['tourType'].touched" class="has-error">

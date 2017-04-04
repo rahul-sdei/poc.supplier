@@ -44,7 +44,10 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
       let step3Details = this.sessionStorage.retrieve("step3Details");
       let step4Details = this.sessionStorage.retrieve("step4Details");
       let step5Details = this.sessionStorage.retrieve("step5Details");
+
       this.tourDetails = _.extend({}, step1Details, step2Details, step3Details, step4Details, step5Details);
+      this.tourDetails.inclusions = step5Details.inclusions.split('\n');
+      this.tourDetails.exclusions = step5Details.exclusions.split('\n');
       if (step2Details) {
         this.dateRange = step2Details.dateRange;
       }
