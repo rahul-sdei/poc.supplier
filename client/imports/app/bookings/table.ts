@@ -13,7 +13,7 @@ import template from "./table.html";
 export class BookingsTableComponent extends MeteorComponent {
     @Input() pageArr: Booking[];
     @Input() itemsSize: number = -1;
-    
+    @Input() showAction: boolean = false;
   constructor() {
     super();
   }
