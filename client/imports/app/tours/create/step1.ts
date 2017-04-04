@@ -37,7 +37,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
         destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
         noOfDays: [step1Details.noOfDays, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
-        noOfNights: [step1Details.noOfNights, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
+        noOfNights: [step1Details.noOfNights, Validators.compose([CValidators.min(1), CValidators.max(30)])],
         tourType: [step1Details.tourType, Validators.compose([Validators.required])],
         tourPace: [step1Details.tourPace, Validators.compose([Validators.required])],
         hasGuide: [step1Details.hasGuide]
