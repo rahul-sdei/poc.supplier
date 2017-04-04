@@ -104,7 +104,7 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
 
     step5() {
       if (! this.step5Form.valid) {
-        showAlert("Invalid FormData supplied.", "danger");
+        showAlert("Fill Tour Inclusions and Exclusions first.", "danger");
         return;
       }
 

@@ -52,12 +52,12 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],
       companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
       contact: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(15), validatePhoneNum])],
-      address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      address2: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      state: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12), validatePhoneNum])],
-      country: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])]
+      address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), ])],
+      address2: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30)])],
+      suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
+      state: ['', Validators.compose([Validators.required])],
+      postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
+      country: ['', Validators.compose([Validators.required])]
     })
     let callback = (user) => {
       this.profileForm.controls['companyName'].setValue(user.profile.companyName);

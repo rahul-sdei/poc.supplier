@@ -81,6 +81,11 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     step2() {
+      if (! this.step2Form.valid) {
+        showAlert("Invalid FormData supplied.", "danger");
+        return;
+      }
+
       var date = $("#datetimepicker1").datepicker("getDate");
       console.log(date);
       let object = {
@@ -116,6 +121,11 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     next() {
+      if (this.dateRange.length <= 0) {
+        showAlert("Fill Tour Schedule first.", "danger");
+        return;
+      }
+
       let details = {
         dateRange: this.dateRange
       }
