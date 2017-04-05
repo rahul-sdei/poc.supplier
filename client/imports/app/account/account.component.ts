@@ -33,44 +33,34 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paramsSub = this.route.params
-    .map(params => params['userId'])
-    .subscribe(userId => {
-      this.userId = userId;
-      //console.log("userId:", userId);
-
-      this.call("users.findOne", userId, (err, res)=> {
-        if (err) {
-          //console.log("error while fetching patient data:", err);
-          return;
+    if (!! Meteor.userId()) {
+      this.profileForm = this.formBuilder.group({
+        email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],
+        companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
+        contact: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(15), validatePhoneNum])],
+        address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), ])],
+        address2: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30)])],
+        suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
+        state: ['', Validators.compose([Validators.required])],
+        postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
+        country: ['', Validators.compose([Validators.required])]
+      })
+      let callback = (user) => {
+        this.profileForm.controls['companyName'].setValue(user.profile.companyName);
+        this.profileForm.controls['email'].setValue(user.emails[0].address);
+        this.profileForm.controls['contact'].setValue(user.profile.contact);
+        if (typeof user.profile.address == "undefined") {
+          user.profile.address = {};
         }
-        this.user= res;
-      });
-
-    });
-    this.profileForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],
-      companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])],
-      contact: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(15), validatePhoneNum])],
-      address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), ])],
-      address2: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30)])],
-      suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
-      state: ['', Validators.compose([Validators.required])],
-      postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
-      country: ['', Validators.compose([Validators.required])]
-    })
-    let callback = (user) => {
-      this.profileForm.controls['companyName'].setValue(user.profile.companyName);
-      this.profileForm.controls['email'].setValue(user.emails[0].address);
-      this.profileForm.controls['contact'].setValue(user.profile.contact);
-      this.profileForm.controls['state'].setValue(user.profile.address.state);
-      this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
-      this.profileForm.controls['country'].setValue(user.profile.address.country);
-      this.profileForm.controls['address2'].setValue(user.profile.address.address2);
-      this.profileForm.controls['address1'].setValue(user.profile.address.address1);
-      this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
-    };
-    this.fetchUser(callback);
+        this.profileForm.controls['state'].setValue(user.profile.address.state);
+        this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
+        this.profileForm.controls['country'].setValue(user.profile.address.country);
+        this.profileForm.controls['address2'].setValue(user.profile.address.address2);
+        this.profileForm.controls['address1'].setValue(user.profile.address.address1);
+        this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
+      };
+      this.fetchUser(callback);
+    }
   }
 
   private fetchUser(callback) {

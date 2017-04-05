@@ -14,7 +14,7 @@
   }
 	.price-table {
 		@include border-all(1px, solid, $border-color);
-		margin-bottom: 70px;
+
 		.table {
 			margin: 0;
 			th {
@@ -40,6 +40,9 @@
       }
     }
   }
+	.price-table + .bottom-btn {
+		margin-bottom: 70px;
+	}
 	.status-table {
 		th,
 		td,

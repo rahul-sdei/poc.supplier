@@ -16,7 +16,7 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
     step3Form: FormGroup;
     step3Details: any;
     noOfDays: number;
-    icons: string[] = [
+    icons: {css: string; url: string} [] = [
       {
         css: 'green-icon',
         url: '/images/i1.png'

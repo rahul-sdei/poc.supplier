@@ -10,7 +10,7 @@
             <div class="col-md-4">
                 <ul class="tab-list">
                     <li class="completed">
-                        <a href="javascript:void(0)">
+                        <a [routerLink]="['/tours/create/step1']">
                             <span><i class="fa fa-check" aria-hidden="true"></i></span>
                             <div class="tab-detail">
                                 <h4>Tour Details</h4>
@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                       <label for="datetimepicker1">START DATE *</label>
                                         <div class="input-wrap">
-                                            <input type="text" class="form-control" id="datetimepicker1" placeholder="Pick Departure Date"/>
+                                            <input type="text" class="form-control" id="datetimepicker1" formControlName="startDate" placeholder="Pick Departure Date"/>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                                 <div class="form-group">
                                       <label for="datetimepicker2">END DATE *</label>
                                         <div class="input-wrap">
-                                            <input type="text" class="form-control" id="datetimepicker2" placeholder="Pick Return Date"/>
+                                            <input type="text" class="form-control" id="datetimepicker2" formControlName="endDate" placeholder="Pick Return Date"/>
                                         </div>
                                     </div>
                                 </div>
@@ -121,25 +121,25 @@
                                             <th>Above 4</th>
                                           </tr>
                                         </thead>
-                                        <tbody>
-                                          <tr formArrayName="adult">
+                                        <tbody formArrayName="price">
+                                          <tr >
                                             <td>Adult Price (USD$)</td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
+                                            <td *ngFor="let row of step2Form.controls.price.controls; let i=index" [formGroupName]="i">
+                                              <input type="hidden" formControlName="numOfPersons" [value]="(i+1)" />
+                                              <input type="text" class="form-control" formControlName="adult"/>
+                                            </td>
                                           </tr>
-                                          <tr formArrayName="child">
+                                          <tr >
                                             <td>Child Price (USD$)</td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
-                                            <td><input type="text" class="form-control" id="price"/></td>
+                                            <td *ngFor="let row of step2Form.controls.price.controls; let i=index" [formGroupName]="i">
+                                              <input type="text" class="form-control" formControlName="child"/>
+                                            </td>
                                           </tr>
                                         </tbody>
                                       </table>
+                                    </div>
+                                    <div class="form-group  bottom-btn">
+                                      <button type="button" class="btn green-btn pull-right" (click)="step2()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                                     </div>
                                 </div>
                             </div>
@@ -147,91 +147,32 @@
                         <div class="row">
                           <div class="col-sm-12">
                             <div class="table-wrapper table-responsive status-table">
-                          <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Seats</th>
-                            <th>Price(USD$)</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                          <tr>
-                            <td>1/05/2017</td>
-                            <td>7/05/2017</td>
-                            <td>20</td>
-                            <td>
-                              $1,799
-                              <span>
-                                <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                              </span>
-                            </td>
-                            <td>Remove</td>
-                          </tr>
-                        </tbody>
-                        </table>
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Seats</th>
+                                    <th>Price(USD$)</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of dateRange; let i=index;">
+                                    <td>{{item.startDate | date}}</td>
+                                    <td>{{item.endDate | date}}</td>
+                                    <td>{{item.totalSeats}}</td>
+                                    <td>
+                                      ${{item.price[0]?.adult}}
+                                      <span>
+                                        <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                                      </span>
+                                    </td>
+                                    <td>Remove</td>
+                                  </tr>
+
+                                </tbody>
+                                </table>
                               </div>
                           </div>
                         </div>
@@ -239,7 +180,7 @@
                   </section>
                   <div class="form-group  bottom-btn">
                     <button type="button" class="btn grey-btn pull-left"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
-                      <button type="button" class="btn green-btn pull-right" (click)="step2()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+                    <button type="button" class="btn green-btn pull-right" (click)="next()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                     </div>
                 </form>
             </div>

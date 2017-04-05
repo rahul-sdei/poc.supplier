@@ -16,7 +16,8 @@
   ],
   "files": [
     "typings.d.ts",
-    "typings/custom.d.ts"
+    "typings/custom.d.ts",
+    "node_modules/moment/moment.d.ts"
   ],
   "filesGlob": [
     "**/*.ts"

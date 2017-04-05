@@ -68,12 +68,14 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${search}&key=AIzaSyByFK_dYdfuhuZVY8ipkwn9pZYmYD0IidA`;
     }
 
-    getAddress(place:Object) {
+    getAddress(place:Object, control) {
          this.address = place['formatted_address'];
          var location = place['geometry']['location'];
          var lat =  location.lat();
          var lng = location.lng();
          //console.log("Address Object", place);
+
+         this.step1Form.controls[control].setValue(this.address);
      }
 
     step1() {
