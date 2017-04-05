@@ -16,6 +16,10 @@ canvas {
 .bottom-btn .green-btn {
   width: 200px !important;
 }
+.full-btn, .green-btn {
+  width: 200px !important;
+}
+
 .switch-btn {
   margin-bottom: 10px;
 }
