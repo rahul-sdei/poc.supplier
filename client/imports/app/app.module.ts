@@ -6,7 +6,9 @@ import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { FileDropModule } from "angular2-file-drop";
+import { HttpModule } from '@angular/http';
 import { AppComponent } from "./app.component.web";
+import { GoogleplaceDirective } from "../directives/googleplace.directive";
 import { ACC_DECLARATIONS } from "./account/index";
 import { routes, ROUTES_PROVIDERS } from './app.routes';
 import { SHARED_DECLARATIONS } from './shared';
@@ -37,9 +39,11 @@ moduleDefinition = {
     Ng2PaginationModule,
     Ng2Webstorage,
     Ng2Webstorage.forRoot({ prefix: '', separator: '' }),
-    FileDropModule
+    FileDropModule,
+    HttpModule
   ],
   declarations: [
+    GoogleplaceDirective,
     AppComponent,
     ...ACC_DECLARATIONS,
     ...SHARED_DECLARATIONS,

@@ -110,7 +110,7 @@
                   <div class="form-group">
                     <label for="Location">Departure Location *</label>
                     <div class="input-wrap">
-                      <input type="text" class="form-control" id="Location" placeholder="Departure Location" formControlName="departure"/>
+                      <input type="text" class="form-control" id="Location" placeholder="Departure Location" formControlName="departure" #departure  (setAddress) = "getAddress($event)" googleplace/>
                     </div>
                     <div *ngIf="step1Form.controls['departure'].errors && step1Form.controls['departure'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.departure.hasError('required')">You have to fill in Departure Location.</div>
@@ -123,7 +123,7 @@
                   <div class="form-group">
                     <label for="Destination">Destination *</label>
                     <div class="input-wrap">
-                      <input type="text" class="form-control" id="Destination" placeholder="Destination Location" formControlName="destination"/>
+                      <input type="text" class="form-control" id="Destination" placeholder="Destination Location" formControlName="destination" #destination  (setAddress) = "getAddress($event)" googleplace/>
                     </div>
                     <div *ngIf="step1Form.controls['destination'].errors && step1Form.controls['destination'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.destination.hasError('required')">You have to fill in Destination.</div>
