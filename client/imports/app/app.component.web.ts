@@ -14,7 +14,7 @@ declare var jQuery:any;
 @InjectUser('user')
 export class AppComponent implements OnInit, AfterViewInit {
     constructor(private router: Router, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
-      // this.observeWindowHeight();
+      this.observeWindowHeight();
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         // see also
         (function setWindowHeight(){
         	var windowHeight = $(window).height();
-        	$('.table-wrapper').height(windowHeight);
+        	$('.table-wrapper:not(.price-table):not(.status-table)').height(windowHeight);
         	var tableHeight = $('.table-wrapper').height();
         })();
       });
@@ -63,6 +63,8 @@ export class AppComponent implements OnInit, AfterViewInit {
              link += '<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">';
              link += '<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyByFK_dYdfuhuZVY8ipkwn9pZYmYD0IidA"></script>';
              $('head').prepend(link);
-        })
+        });
+
+        this.observeWindowHeight();
     }
 }
