@@ -35,7 +35,7 @@
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" *ngIf="canEdit(page)">Edit</a>
+            <a class="dropdown-item" *ngIf="canEdit(page)" (click)="editTour(page)">Edit</a>
             <a class="dropdown-item" *ngIf="canDelete(page)" (click)="deleteTour(page, i)">Delete</a>
           </div>
         </div>

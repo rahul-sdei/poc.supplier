@@ -66,5 +66,11 @@ Meteor.methods({
 
       /* reset data in collections */
       Tours.collection.update({_id: tour._id}, {$set : {deleted: true } });
+    },
+    "toursEdit.findOne": (id: string) => {
+      return Tours.collection.findOne({_id: id});
+    },
+    "tours.update": (data: Tour, id: string) => {
+      return Tours.collection.update({_id: id}, {$set: data});
     }
 });

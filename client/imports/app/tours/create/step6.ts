@@ -46,8 +46,6 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
       let step5Details = this.sessionStorage.retrieve("step5Details");
 
       this.tourDetails = _.extend({}, step1Details, step2Details, step3Details, step4Details, step5Details);
-      this.tourDetails.inclusions = step5Details.inclusions.split('\n');
-      this.tourDetails.exclusions = step5Details.exclusions.split('\n');
       if (step2Details) {
         this.dateRange = step2Details.dateRange;
       }
@@ -62,19 +60,41 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
     }
 
     saveTour() {
-    this.call("tours.insert", this.tourDetails, (err, res) => {
-      if(! err) {
-        this.ngZone.run(() => {
-          this.sessionStorage.clear("step1Details");
-          this.sessionStorage.clear("step2Details");
-          this.sessionStorage.clear("step3Details");
-          this.sessionStorage.clear("step4Details");
-          this.sessionStorage.clear("step5Details");
-          this.router.navigate(['/tours/list']);
-        })
-      } else {
-        showAlert("Error while saving tour data.", "danger");
+      let tourId = this.sessionStorage.retrieve("tourid");
+      if ( tourId ) {
+        this.call("tours.update", this.tourDetails, tourId , (err, res) => {
+          if(! err) {
+            this.ngZone.run(() => {
+              this.sessionStorage.clear("tourid");
+              this.sessionStorage.clear("step1Details");
+              this.sessionStorage.clear("step2Details");
+              this.sessionStorage.clear("step3Details");
+              this.sessionStorage.clear("step4Details");
+              this.sessionStorage.clear("step5Details");
+              this.router.navigate(['/tours/list']);
+              showAlert("Tour updated successfully.", "success");
+            })
+          } else {
+            showAlert("Error while saving tour data.", "danger");
+          }
+        });
       }
-    });
+      else {
+        this.call("tours.insert", this.tourDetails, (err, res) => {
+          if(! err) {
+            this.ngZone.run(() => {
+              this.sessionStorage.clear("step1Details");
+              this.sessionStorage.clear("step2Details");
+              this.sessionStorage.clear("step3Details");
+              this.sessionStorage.clear("step4Details");
+              this.sessionStorage.clear("step5Details");
+              this.router.navigate(['/tours/list']);
+              showAlert("Tour added successfully.", "success");
+            })
+          } else {
+            showAlert("Error while saving tour data.", "danger");
+          }
+        });
+      }
     }
 }

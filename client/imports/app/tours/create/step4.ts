@@ -43,6 +43,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
       let step4Details = this.sessionStorage.retrieve("step4Details");
       if (step4Details) {
         this.images = step4Details.images;
+        this.featuredImage = step4Details.featuredImage;
       }
     }
 

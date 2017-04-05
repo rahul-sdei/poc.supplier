@@ -45,9 +45,11 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
         this.cancellationPolicy = <Document>step5Details.cancellationPolicy;
       }
 
+      let inclusions = step5Details.inclusions.join("\n");
+      let exclusions = step5Details.exclusions.join("\n");
       this.step5Form = this.formBuilder.group({
-        inclusions: [step5Details.inclusions, Validators.compose([Validators.required])],
-        exclusions: [step5Details.exclusions, Validators.compose([Validators.required])]
+        inclusions: [inclusions, Validators.compose([Validators.required])],
+        exclusions: [exclusions, Validators.compose([Validators.required])]
       });
 
       this.error = '';
@@ -119,8 +121,8 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
       }
 
       let details = {
-        inclusions : this.step5Form.value.inclusions,
-        exclusions : this.step5Form.value.exclusions,
+        inclusions : this.step5Form.value.inclusions.split('\n'),
+        exclusions : this.step5Form.value.exclusions.split('\n'),
         cancellationPolicy: this.cancellationPolicy,
         refundPolicy: this.refundPolicy
       };
