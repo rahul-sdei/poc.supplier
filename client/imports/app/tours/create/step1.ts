@@ -1,9 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
 import { CustomValidators as CValidators } from "ng2-validation";
@@ -16,6 +18,7 @@ import template from "./step1.html";
 export class CreateTourStep1Component extends MeteorComponent implements OnInit {
     step1Form: FormGroup;
     error: string;
+    address : Object;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -50,8 +53,28 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       d.className = "";
     }
 
+    ngAfterViewInit() {
+      Meteor.setTimeout(() => {
+        jQuery(function($){
+        });
+      }, 500);
+    }
+
     ngOnDestroy() {
     }
+
+    locationsUrl(search) {
+      console.log(search);
+      let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${search}&key=AIzaSyByFK_dYdfuhuZVY8ipkwn9pZYmYD0IidA`;
+    }
+
+    getAddress(place:Object) {
+         this.address = place['formatted_address'];
+         var location = place['geometry']['location'];
+         var lat =  location.lat();
+         var lng = location.lng();
+         //console.log("Address Object", place);
+     }
 
     step1() {
       if (! this.step1Form.valid) {
