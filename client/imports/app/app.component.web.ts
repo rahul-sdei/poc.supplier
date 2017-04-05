@@ -14,7 +14,7 @@ declare var jQuery:any;
 @InjectUser('user')
 export class AppComponent implements OnInit, AfterViewInit {
     constructor(private router: Router, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
-      this.observeWindowHeight();
+      // this.observeWindowHeight();
     }
 
     ngOnInit() {

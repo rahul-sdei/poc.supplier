@@ -19,3 +19,6 @@ canvas {
 .switch-btn {
   margin-bottom: 10px;
 }
+.price-table, .status-table {
+  display: block !important;
+}
