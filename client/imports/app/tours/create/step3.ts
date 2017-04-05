@@ -17,14 +17,38 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
     step3Details: any;
     noOfDays: number;
     icons: string[] = [
-      'images/i1.png',
-      'images/i2.png',
-      'images/i3.png',
-      'images/i4.png',
-      'images/i5.png',
-      'images/i6.png',
-      'images/i7.png',
-      'images/i8.png'
+      {
+        css: 'green-icon',
+        url: '/images/i1.png'
+      },
+      {
+        css: 'orange-icon',
+        url: '/images/i2.png'
+      },
+      {
+        css: 'blue-icon',
+        url: '/images/i3.png'
+      },
+      {
+        css: 'yellow-icon',
+        url: '/images/i4.png'
+      },
+      {
+        css:'darkGren-icon',
+        url: '/images/i5.png'
+      },
+      {
+        css: 'purple-icon',
+        url: '/images/i6.png'
+      },
+      {
+        css:'grey-icon',
+        url: '/images/i7.png'
+      },
+      {
+        css:'lightBlue-icon',
+        url: '/images/i8.png'
+      }
     ]
     error: string;
 
@@ -83,8 +107,8 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
       control.push(this.initItenerary(i));
     }
 
-    setIconUrl(index, url) {
-      this.step3Form.controls.itenerary.controls[index].controls.icon.setValue(url);
+    setIconClass(index, css) {
+      this.step3Form.controls.itenerary.controls[index].controls.icon.setValue(css);
     }
 
     ngAfterViewChecked() {

@@ -1,9 +1,9 @@
 // JavaScript Document
 $(document).ready(function() {
-	setWindowHeight();
+	// setWindowHeight();
 });
 $( window ).resize( function () {
-	setWindowHeight();
+	// setWindowHeight();
 });
 
 function setWindowHeight(){
