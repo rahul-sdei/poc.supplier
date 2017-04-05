@@ -178,6 +178,55 @@
 						margin-bottom: 35px;
           }
         }
+				.orange-icon {
+					h2 {
+						&:before {
+							background: url(/images/i2.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.blue-icon {
+					h2 {
+						&:before {
+							background: url(/images/i3.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.yellow-icon {
+					h2 {
+						&:before {
+							background: url(/images/i4.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.darkGreen-icon {
+					h2 {
+						&:before {
+							background: url(/images/i5.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.purple-icon {
+					h2 {
+						&:before {
+							background: url(/images/i6.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.grey-icon {
+					h2 {
+						&:before {
+							background: url(/images/i7.png) 0 0 no-repeat !important;
+            }
+          }
+        }
+				.lightBlue-icon {
+				h2 {
+					&:before {
+						background: url(/images/i8.png) 0 0 no-repeat !important;
+          }
+        }
+      }
       }
     }
 

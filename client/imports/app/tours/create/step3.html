@@ -93,8 +93,8 @@
                               <input type="hidden" formControlName="icon" />
                               <label>Icon</label>
                               <ul class="icon-list">
-                                <li [ngClass]="{'active': url==step3Form.value.itenerary[i].icon}" *ngFor="let url of icons" (click)="setIconUrl(i, url)">
-                                  <a href="javascript:void(0)"><img [src]="url" alt="" /></a>
+                                <li [ngClass]="{'active': icon.css==step3Form.value.itenerary[i].icon}" *ngFor="let icon of icons" (click)="setIconClass(i, icon.css)">
+                                  <a href="javascript:void(0)"><img [src]="icon.url" alt="" /></a>
                                 </li>
                               </ul>
                             </div>

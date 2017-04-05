@@ -129,7 +129,7 @@
                 <div class="col-sm-12">
                   <h3>Tour Itinerary</h3>
                   <div class="day-box">
-                    <div class="day-wrap green-icon" *ngFor="let item of tourDetails.itenerary; let i=index;">
+                    <div class="day-wrap green-icon {{item.icon}}" *ngFor="let item of tourDetails.itenerary; let i=index;">
                       <h2>Day <span [innerHTML]="i+1"></span> : {{item.title}}</h2>
                       <p [innerHTML]="item.description"></p>
                       <div class="sub-head">
