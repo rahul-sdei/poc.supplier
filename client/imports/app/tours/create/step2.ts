@@ -116,7 +116,18 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     step2() {
-      if (! this.step2Form.valid || ! $("#datetimepicker1").val() || ! $("#datetimepicker2").val()) {
+      if (! $("#datetimepicker1").val()) {
+        showAlert('Invalid Start date.', "danger");
+        return;
+      }
+
+      if (! $("#datetimepicker2").val()) {
+        showAlert('Invalid End date.', "danger");
+        return;
+      }
+
+      if (! this.step2Form.valid) {
+        console.log(this.step2Form.value);
         showAlert("Invalid FormData supplied.", "danger");
         return;
       }
