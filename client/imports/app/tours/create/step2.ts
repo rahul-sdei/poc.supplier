@@ -80,7 +80,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         jQuery(function($){
           $('#datetimepicker1')
             .datepicker({
-                format: 'mm/dd/yyyy',
+                format: 'dd/mm/yyyy',
                 autoclose: true
             })
             .on('changeDate', function(e) {
@@ -89,7 +89,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
 
           $('#datetimepicker2')
             .datepicker({
-                format: 'mm/dd/yyyy',
+                format: 'dd/mm/yyyy',
                 autoclose: true
             })
             .on('changeDate', function(e) {

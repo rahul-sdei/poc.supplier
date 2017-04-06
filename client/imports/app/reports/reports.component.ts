@@ -52,7 +52,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       jQuery(function($){
         $('#datetimepicker1')
           .datepicker({
-              format: 'mm/dd/yyyy',
+              format: 'dd/mm/yyyy',
               autoclose: true
           })
           .on('changeDate', function(e) {
@@ -61,7 +61,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
 
         $('#datetimepicker2')
           .datepicker({
-              format: 'mm/dd/yyyy',
+              format: 'dd/mm/yyyy',
               autoclose: true
           })
           .on('changeDate', function(e) {
@@ -74,7 +74,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       jQuery(function($){
         $('#datetimepicker3')
           .datepicker({
-              format: 'mm/dd/yyyy',
+              format: 'dd/mm/yyyy',
               autoclose: true
           })
           .on('changeDate', function(e) {
@@ -83,7 +83,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
 
         $('#datetimepicker4')
           .datepicker({
-              format: 'mm/dd/yyyy',
+              format: 'dd/mm/yyyy',
               autoclose: true
           })
           .on('changeDate', function(e) {
