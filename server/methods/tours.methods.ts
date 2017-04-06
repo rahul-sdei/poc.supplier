@@ -51,6 +51,10 @@ Meteor.methods({
       return Tours.collection.findOne({$and: where});
     },
     "tours.insert": (data: Tour) => {
+      if (! Meteor.userId()) {
+        throw new Meteor.Error(403, "Not authorized!");
+      }
+      data.ownerId = Meteor.userId();
       data.active = true;
       data.approved = false;
       data.deleted = false;

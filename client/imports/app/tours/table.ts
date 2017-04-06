@@ -6,10 +6,8 @@ import { SessionStorageService } from 'ng2-webstorage';
 
 import { ChangeDetectorRef } from "@angular/core";
 import { Tour } from "../../../../both/models/tour.model";
-import * as moment_ from 'moment';
+import * as moment from 'moment';
 import { showAlert } from "../shared/show-alert";
-
-const moment:moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
 import template from "./table.html";
 
@@ -33,8 +31,8 @@ export class ToursTableComponent extends MeteorComponent {
 
   canEdit(tour: Tour) {
     let date = tour.createdAt;
-    let createdDate = new moment.utc(date).add(6, 'hours');
-    let currentDate = new moment.utc();
+    let createdDate = moment.utc(date).add(6, 'hours');
+    let currentDate = moment.utc();
     // console.log(createdDate);
     if (createdDate > currentDate) {
       // console.log("can edit", tour.name);
