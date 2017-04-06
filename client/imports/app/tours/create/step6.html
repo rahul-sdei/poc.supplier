@@ -114,8 +114,8 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of dateRange; let i=index;">
-                        <td>{{item.startDate | date}}</td>
-                        <td>{{item.endDate | date}}</td>
+                        <td>{{item.startDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{item.endDate | date: 'dd/MM/yyyy'}}</td>
                         <td>{{item.numOfSeats}}</td>
                         <td>
                           ${{item.price[0]?.adult}}

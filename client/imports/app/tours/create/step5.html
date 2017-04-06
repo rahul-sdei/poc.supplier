@@ -116,6 +116,8 @@
 
                     </div>
 
+                    <p class="form-text text-muted" *ngIf="isUploading">We are uploading your PDF files.</p>
+
                     <div *ngIf="cancellationPolicy">
                       <a href="{{cancellationPolicy.url}}" download><span>{{cancellationPolicy.name}}</span></a>
                     </div>
@@ -135,6 +137,7 @@
                         </div>
                       </div>
                     </div>
+                    <p class="form-text text-muted" *ngIf="isUploading">We are uploading your PDF files.</p>
 
                     <div *ngIf="refundPolicy">
                       <a href="{{refundPolicy.url}}" download><span>{{refundPolicy.name}}</span></a>

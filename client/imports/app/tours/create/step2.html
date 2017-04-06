@@ -159,8 +159,8 @@
                                 </thead>
                                 <tbody>
                                   <tr *ngFor="let item of dateRange; let i=index;">
-                                    <td>{{item.startDate | date}}</td>
-                                    <td>{{item.endDate | date}}</td>
+                                    <td>{{item.startDate | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{item.endDate | date: 'dd/MM/yyyy'}}</td>
                                     <td>{{item.numOfSeats}}</td>
                                     <td>
                                       ${{item.price[0]?.adult}}
@@ -187,7 +187,7 @@
         </div>
     </div>
 </div>
-<div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: 20%; left: 10%;">
   <div class="modal-dialog" role="document">
     <div class="modal-content arrow_box">
       <div class="modal-header">
@@ -215,13 +215,3 @@
   </div>
 </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datepicker();
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker2').datepicker();
-    });
-</script>
