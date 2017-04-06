@@ -19,6 +19,7 @@ import { Faq_Declarations } from "./faqs/index";
 import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
 import { Tour_Declarations } from "./tours/index";
 import { Booking_Declarations } from './bookings/index';
+import { REPORTS_DECLARATIONS } from './reports/index';
 
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
@@ -53,7 +54,8 @@ moduleDefinition = {
     ...Page_Declarations,
     ...Faq_Declarations,
     ...Tour_Declarations,
-    ...Booking_Declarations
+    ...Booking_Declarations,
+    ...REPORTS_DECLARATIONS
   ],
   providers: [
     ...ROUTES_PROVIDERS,

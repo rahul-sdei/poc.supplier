@@ -27,8 +27,6 @@ html
 
 @import 'partials/profile';
 
-@import 'partials/userProfile';
-
 @import 'partials/supplier/signup';
 
 @import 'partials/supplier/summary';
@@ -37,11 +35,7 @@ html
 
 @import 'partials/supplier/booking';
 
-@import 'partials/supplier/tour';
-
 @import 'partials/supplier/tour/step1';
-
-@import 'partials/supplier/tour/step2';
 
 @import 'partials/supplier/tour/step3';
 
@@ -50,3 +44,9 @@ html
 @import 'partials/supplier/tour/step5';
 
 @import 'partials/supplier/tour/step6';
+
+@import 'partials/userProfile';
+
+@import 'partials/supplier/reports';
+
+@import 'partials/supplier/tour/step2';
