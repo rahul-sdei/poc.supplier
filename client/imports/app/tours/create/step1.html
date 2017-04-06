@@ -115,7 +115,7 @@
                     <div *ngIf="step1Form.controls['departure'].errors && step1Form.controls['departure'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.departure.hasError('required')">You have to fill in Departure Location.</div>
                       <div *ngIf="step1Form.controls.departure.hasError('minlength')">Min 5 characters required.</div>
-                      <div *ngIf="step1Form.controls.departure.hasError('maxlength')">Max 50 characters allowed.</div>
+                      <div *ngIf="step1Form.controls.departure.hasError('maxlength')">Max 255 characters allowed.</div>
                     </div>
                   </div>
                 </div>
@@ -128,7 +128,7 @@
                     <div *ngIf="step1Form.controls['destination'].errors && step1Form.controls['destination'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.destination.hasError('required')">You have to fill in Destination.</div>
                       <div *ngIf="step1Form.controls.destination.hasError('minlength')">Min 5 characters required.</div>
-                      <div *ngIf="step1Form.controls.destination.hasError('maxlength')">Max 50 characters allowed.</div>
+                      <div *ngIf="step1Form.controls.destination.hasError('maxlength')">Max 255 characters allowed.</div>
                     </div>
                   </div>
                 </div>

@@ -37,8 +37,8 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       this.step1Form = this.formBuilder.group({
         name: [step1Details.name, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
         description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
-        departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
-        destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
+        departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
+        destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
         noOfDays: [step1Details.noOfDays, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
         noOfNights: [step1Details.noOfNights, Validators.compose([CValidators.min(1), CValidators.max(30)])],
         tourType: [step1Details.tourType, Validators.compose([Validators.required])],
@@ -69,14 +69,15 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
     }
 
     getAddress(place:Object, control) {
-         this.address = place['formatted_address'];
-         var location = place['geometry']['location'];
-         var lat =  location.lat();
-         var lng = location.lng();
-         //console.log("Address Object", place);
+       //this.address = place['formatted_address'];
+       this.address = place['name'];
+       var location = place['geometry']['location'];
+       var lat =  location.lat();
+       var lng = location.lng();
+       //console.log("Address Object", place);
 
-         this.step1Form.controls[control].setValue(this.address);
-     }
+       this.step1Form.controls[control].setValue(this.address);
+    }
 
     step1() {
       if (! this.step1Form.valid) {
