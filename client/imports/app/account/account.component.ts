@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
@@ -19,7 +19,7 @@ import template from './account.component.html';
   template
 })
 @InjectUser("user")
-export class UserDetailsComponent extends MeteorComponent implements OnInit {
+export class UserDetailsComponent extends MeteorComponent implements OnInit, AfterViewChecked {
   profileForm: FormGroup;
   userId: string;
   user: User;
@@ -61,6 +61,11 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit {
       };
       this.fetchUser(callback);
     }
+  }
+
+  ngAfterViewChecked() {
+    var d = document.getElementById("main");
+    d.className = "";
   }
 
   private fetchUser(callback) {

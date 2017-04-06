@@ -1,0 +1,127 @@
+<header-main></header-main>
+<div class="user-head">
+  <div class="container">
+    <div class="row justify-content-sm-center">
+      <div class="col-xl-10">
+        <div class="row sort-bar">
+          <div class="col-md-2">
+            <h4>Report</h4>
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-lg-9 col-sm-8">
+                <div class="pull_right">
+                  <div class="form-group">
+                    <span class="left-icon"><img src="images/cal.png" alt=""/></span>
+                    <input type="text" id="datetimepicker1" class="form-control"/>
+                    <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                  </div>
+                  <span class="hypen">-</span>
+                  <div class="form-group">
+                    <span class="left-icon"><img src="images/cal.png" alt=""/></span>
+                    <input type="text" id="datetimepicker2" class="form-control"/>
+                    <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-4">
+                <button type="button" class="btn green-btn">Generate Report</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grey-bg">
+  <div class="container">
+    <div class="row justify-content-sm-center">
+      <div class="col-xl-10">
+        <div class="income-statics">
+          <div class="row">
+            <div class="col-md-5">
+              <h3>Income Statistics</h3>
+            </div>
+            <div class="col-md-7">
+              <div class="anchor-list">
+                <a href="javascript:void(0)">Weekly</a>
+                <a href="javascript:void(0)" class="active">Monthly</a>
+                <a href="javascript:void(0)">Yearly</a>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="graph-img">
+                <canvas id="reportChart" width="868" height="206"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sale-history">
+          <div class="hdr">
+            <div class="row">
+              <div class="col-sm-12">
+                <ul>
+                  <li class="active"><a href="javascript:void(0)">Sales</a></li>
+                  <li><a href="javascript:void(0)">Payouts</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="filter-head">
+            <div class="row">
+              <div class="col-lg-4">
+                <h4>Sales History</h4>
+              </div>
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-md-9">
+                    <label>Filter</label>
+                    <div class="form-group">
+                      <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                      <input type="text" id="datetimepicker3" class="form-control" placeholder="Start Date"/>
+                    </div>
+                    <div class="form-group">
+                      <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                      <input type="text" id="datetimepicker4" class="form-control" placeholder="End Date" />
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn green-btn">Filter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrapper table-responsive report-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Tour</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+                  <td>
+                    <span class="date">
+                      01/01/2016
+                    </span>
+                    <span class="time">
+                      1:12 PM
+                    </span>
+                  </td>
+                  <td>Japan and Taiwan 12 Days Super Easter Highlight</td>
+                  <td>Paid</td>
+                  <td>A$ 149.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

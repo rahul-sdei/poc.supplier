@@ -23,6 +23,6 @@ canvas {
 .switch-btn {
   margin-bottom: 10px;
 }
-.price-table, .status-table {
+.price-table, .status-table, .report-table {
   display: block !important;
 }
