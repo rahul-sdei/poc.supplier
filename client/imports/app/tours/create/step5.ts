@@ -39,7 +39,10 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
     ngOnInit() {
       let step5Details = this.sessionStorage.retrieve("step5Details");
       if (! step5Details) {
-        step5Details = {};
+        step5Details = {
+          inclusions: [],
+          exclusions: []
+        };
       } else {
         this.refundPolicy = <Document>step5Details.refundPolicy;
         this.cancellationPolicy = <Document>step5Details.cancellationPolicy;

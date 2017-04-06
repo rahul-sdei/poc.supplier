@@ -82,7 +82,7 @@
                       <span class="close"><a href="javascript:void(0);" (click)="removeImage(image.id)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
                     </div>
                     <div class="radio-wrap">
-                      <input [id]="'radio-'+i" class="radio-custom" name="radio-group" type="radio" (change)="setFeaturedImage(image)" [checked]="(image.url == featuredImage.url ? 'checked' : '')">
+                      <input [id]="'radio-'+i" class="radio-custom" name="radio-group" type="radio" (change)="setFeaturedImage(image)" [checked]="(image.url == featuredImage?.url ? 'checked' : '')">
                       <label [for]="'radio-'+i" class="radio-custom-label">Set as feature image</label>
                     </div>
                   </div>
