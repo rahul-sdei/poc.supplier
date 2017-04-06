@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                       <label for="seats">Available Seats *</label>
                                         <div class="input-wrap">
-                                            <input type="text" class="form-control" id="seats" placeholder="Available Seats" formControlName="seats" />
+                                            <input type="number" class="form-control" id="seats" placeholder="Available Seats" formControlName="seats" />
                                         </div>
                                     </div>
                                 </div>
@@ -126,13 +126,13 @@
                                             <td>Adult Price (USD$)</td>
                                             <td *ngFor="let row of step2Form.controls.price.controls; let i=index" [formGroupName]="i">
                                               <input type="hidden" formControlName="numOfPersons" [value]="(i+1)" />
-                                              <input type="text" class="form-control" formControlName="adult"/>
+                                              <input type="number" class="form-control" formControlName="adult"/>
                                             </td>
                                           </tr>
                                           <tr >
                                             <td>Child Price (USD$)</td>
                                             <td *ngFor="let row of step2Form.controls.price.controls; let i=index" [formGroupName]="i">
-                                              <input type="text" class="form-control" formControlName="child"/>
+                                              <input type="number" class="form-control" formControlName="child"/>
                                             </td>
                                           </tr>
                                         </tbody>
@@ -165,10 +165,10 @@
                                     <td>
                                       ${{item.price[0]?.adult}}
                                       <span>
-                                        <button type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                                        <button (click)="selDateRange=item" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
                                       </span>
                                     </td>
-                                    <td>Remove</td>
+                                    <td><a href="javascript:void(0)" (click)="removeDateRange(i)">Remove</a></td>
                                   </tr>
 
                                 </tbody>
@@ -179,7 +179,7 @@
                       </div>
                   </section>
                   <div class="form-group  bottom-btn">
-                    <button type="button" class="btn grey-btn pull-left"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
+                    <button type="button" class="btn grey-btn pull-left" [routerLink]="['/tours/create/step1']"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>Back</button>
                     <button type="button" class="btn green-btn pull-right" (click)="next()">Next<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                     </div>
                 </form>
@@ -194,7 +194,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Schedule Pricing</h5>
       </div>
       <div class="modal-body">
-        <table class="table hover-table">
+        <table class="table hover-table" *ngIf="selDateRange">
           <thead>
             <tr>
               <th>People</th>
@@ -203,30 +203,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>$1,799</td>
-              <td>$1,399</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>$1,699</td>
-              <td>$1,299</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>$1,599</td>
-              <td>$1,199</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>$1,499</td>
-              <td>$999</td>
-            </tr>
-            <tr>
-              <td>4+</td>
-              <td>$1,399</td>
-              <td>$899</td>
+            <tr *ngFor="let row of selDateRange.price">
+              <td>{{row.numOfPersons}}</td>
+              <td>${{row.adult}}</td>
+              <td>${{row.child}}</td>
             </tr>
           </tbody>
         </table>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import { ChangeDetectorRef } from "@angular/core";
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
@@ -37,7 +38,8 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
-        private sessionStorage: SessionStorageService
+        private sessionStorage: SessionStorageService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         super();
     }
@@ -100,6 +102,17 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     ngOnDestroy() {
+    }
+
+    removeDateRange( index ) {
+      if (!confirm("Are you sure, do you want to continue?")) {
+        return false;
+      }
+
+      let dateRange = this.dateRange;
+      dateRange.splice(index, 1);
+      this.changeDetectorRef.detectChanges();
+      this.dateRange = dateRange;
     }
 
     step2() {

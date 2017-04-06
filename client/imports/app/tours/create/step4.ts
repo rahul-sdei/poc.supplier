@@ -108,7 +108,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
             return;
         }
 
-        console.log("image-id:", id);
         let images = this.images;
         for (let i=0; i<images.length; i++) {
           if (images[i].id == id) {
