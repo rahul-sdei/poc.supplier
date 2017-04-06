@@ -18,9 +18,8 @@ interface DateRange {
     adult: number;
     child: number;
   }],
-  totalSeats: number;
-  availableSeats: number;
-  hasDeparture: any;
+  numOfSeats: number;
+  soldSeats: number;
 }
 
 declare var jQuery:any;
@@ -33,6 +32,8 @@ declare var jQuery:any;
 export class CreateTourStep2Component extends MeteorComponent implements OnInit {
   step2Form: FormGroup;
   dateRange: DateRange[] = [];
+  totalSeats: number = 0;
+  totalSoldSeats: number = 0;
   error: string;
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -51,6 +52,8 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       }
       else {
         this.dateRange = step2Details.dateRange;
+        this.totalSeats = <number>step2Details.totalSeats;
+        this.totalSoldSeats = <number>step2Details.totalSoldSeats;
       }
       this.step2Form = this.formBuilder.group({
         startDate: ['', Validators.compose([])],
@@ -110,6 +113,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       }
 
       let dateRange = this.dateRange;
+      this.totalSeats -= dateRange[index]["numOfSeats"];
       dateRange.splice(index, 1);
       this.changeDetectorRef.detectChanges();
       this.dateRange = dateRange;
@@ -138,31 +142,14 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       let object = {
         startDate,
         endDate,
-        totalSeats: <number>this.step2Form.value.seats,
-        availableSeats: <number>this.step2Form.value.seats,
-        hasDeparture: this.step2Form.value.hasDeparture,
+        numOfSeats: <number>this.step2Form.value.seats,
+        soldSeats: 0,
         price: this.step2Form.value.price
       };
-      // console.log(object);
 
       let dateRange = this.dateRange;
-      let newObject = true;
-      for(let i=0; i<dateRange.length; i++)
-      {
-        if(dateRange[i].startDate == object.startDate) {
-          dateRange[i] = object;
-          newObject = false;
-          break;
-        }
-      }
-
-      if (newObject == true)
-      {
-        this.dateRange.push(object);
-      }
-      else {
-        this.dateRange = dateRange;
-      }
+      this.totalSeats += object.numOfSeats;
+      this.dateRange.push(object);
 
       //this.step2Form.reset();
       $('#datetimepicker1').val('').datepicker('update');
@@ -189,8 +176,11 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       }
 
       let details = {
-        dateRange: this.dateRange
-      }
+        dateRange: this.dateRange,
+        totalSeats: this.totalSeats,
+        totalSoldSeats: this.totalSoldSeats
+      };
+
       this.sessionStorage.store("step2Details", details);
       let step2Details = this.sessionStorage.retrieve("step2Details");
       if (step2Details) {

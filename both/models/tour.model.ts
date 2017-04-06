@@ -18,15 +18,15 @@ export interface Tour extends CollectionObject {
       startDate: Date;
       endDate: Date;
       numOfSeats: number;
-      remainingSeats: number;
+      soldSeats: number;
       price: [{
         numOfPersons: number;
         adult: number;
         child: number;
-      }],
-      totalSeats: number;
-      availableSeats: number;
+      }]
     }];
+    totalSeats: number;
+    totalSoldSeats: number;
     /* step 3 */
     itenerary: [
       {

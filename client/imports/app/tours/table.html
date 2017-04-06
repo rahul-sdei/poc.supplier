@@ -23,9 +23,9 @@
           <p>{{page.departure}}, {{page.destination}}</p>
         </div>
       </td>
-      <td>{{page.noOfDays}} Days {{page.noOfNights}} Nights </td>
-      <td>{{page.dateRange[0]?.seats}}/{{page.dateRange[0]?.seats}}</td>
-      <td>USD {{page.dateRange[0]?.price.adult}}</td>
+      <td>{{page.noOfDays}} Days <span *ngIf="page.noOfNights">{{page.noOfNights}} Nights</span> </td>
+      <td>{{page.totalSeats}}/{{page.totalSoldSeats}}</td>
+      <td>USD {{page.dateRange[0]?.price[0]?.adult}}</td>
       <td class="action-td">
         <div class="btn-group" *ngIf="showAction == true">
           <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
