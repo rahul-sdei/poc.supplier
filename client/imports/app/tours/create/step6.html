@@ -96,65 +96,67 @@
                       <h5 *ngIf="!tourDetails.hasGuide">Not Included</h5>
                     </li>
                   </ul>
-                  <p [innerHTML]="tourDetails.description"></p>
+                  <p [innerHTML]="tourDetails.description | nl2br"></p>
                 </div>
               </div>
             </div>
             <div class="tour-schedule" *ngIf="dateRange.length > 0">
               <h3>Tour Schedule</h3>
-              <div class="table-wrapper" style="height: 351px;">
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Seats</th>
-                        <th>Price(USD$)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of dateRange; let i=index;">
-                        <td>{{item.startDate | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{item.endDate | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{item.numOfSeats}}</td>
-                        <td>
-                          ${{item.price[0]?.adult}}
-                          <span>
-                            <button (click)="selDateRange=item" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                          </span>
-                        </td>
-                      </tr>
+              <div class="row step2-form"><div class="col-sm-12">
+                <div class="table-wrapper table-responsive status-table" style="height: 351px;">
+                  <table class="table table-striped" style="width: 100%; max-width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Seats</th>
+                          <th>Price(USD$)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of dateRange; let i=index;">
+                          <td>{{item.startDate | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.endDate | date: 'dd/MM/yyyy'}}</td>
+                          <td>{{item.numOfSeats}}</td>
+                          <td>
+                            ${{item.price[0]?.adult}}
+                            <span>
+                              <button (click)="selDateRange=item" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                            </span>
+                          </td>
+                        </tr>
 
-                    </tbody>
-                </table>
-                <div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content arrow_box">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Schedule Pricing</h5>
-                      </div>
-                      <div class="modal-body">
-                        <table class="table hover-table" *ngIf="selDateRange">
-                          <thead>
-                            <tr>
-                              <th>People</th>
-                              <th>Adult</th>
-                              <th>Child</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let row of selDateRange.price">
-                              <td>{{row.numOfPersons}}</td>
-                              <td>${{row.adult}}</td>
-                              <td>${{row.child}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      </tbody>
+                  </table>
+                  <div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content arrow_box">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Schedule Pricing</h5>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table hover-table" *ngIf="selDateRange">
+                            <thead>
+                              <tr>
+                                <th>People</th>
+                                <th>Adult</th>
+                                <th>Child</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let row of selDateRange.price">
+                                <td>{{row.numOfPersons}}</td>
+                                <td>${{row.adult}}</td>
+                                <td>${{row.child}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div></div>
             </div>
             <div class="tour-itinerary">
               <div class="row">
@@ -163,7 +165,7 @@
                   <div class="day-box">
                     <div class="day-wrap green-icon {{item.icon}}" *ngFor="let item of tourDetails.itenerary; let i=index;">
                       <h2>Day <span [innerHTML]="i+1"></span> : {{item.title}}</h2>
-                      <p [innerHTML]="item.description"></p>
+                      <p [innerHTML]="item.description | nl2br"></p>
                       <div class="sub-head">
                         <h4>Hotel</h4>
                         <p>{{item.hotelName}}</p>
