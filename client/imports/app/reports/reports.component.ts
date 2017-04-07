@@ -92,6 +92,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       });
     }, 500);
 
+    let dataSet = [100, 50, 150 , 250, 100, 300];
     let ctx = document.getElementById("reportChart");
     let myChart = new Chart(ctx, {
       type: 'line',
@@ -99,7 +100,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [{
           label: 'Reports',
-          data: [100, 500, 750 , 1250, 1500, 2000],
+          data: dataSet,
           backgroundColor: [
             'rgba(231, 245, 243, 1)',
             'rgba(231, 245, 243, 1)',

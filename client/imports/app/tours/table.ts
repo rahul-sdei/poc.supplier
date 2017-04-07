@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { MeteorComponent } from 'angular2-meteor';
-import { Component, Input, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'ng2-webstorage';
 
@@ -19,6 +19,7 @@ export class ToursTableComponent extends MeteorComponent {
     @Input() pageArr: Tour[];
     @Input() itemsSize: number = -1;
     @Input() showAction: boolean = false;
+    @Output() onDelete = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -62,6 +63,7 @@ export class ToursTableComponent extends MeteorComponent {
       for (let i=0; i<pageArr.length; i++) {
         if (pageArr[i]._id == tour._id) {
           pageArr.splice(i, 1);
+          this.onDelete.emit(true);
           this.changeDetectorRef.detectChanges();
         }
       }

@@ -58,7 +58,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       this.step2Form = this.formBuilder.group({
         startDate: ['', Validators.compose([])],
         endDate: ['', Validators.compose([])],
-        seats: ['', Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
+        seats: ['', Validators.compose([Validators.required, CValidators.min(1)])],
         price: this.formBuilder.array([
         ])
       });

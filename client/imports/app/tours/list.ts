@@ -202,6 +202,11 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
       this.whereCond.next({active: true, approved: approved});
     }
 
+    onDelete(result) {
+      this.pendingCount--;
+      this.changeDetectorRef.detectChanges();
+    }
+
     ngOnDestroy() {
         this.optionsSub.unsubscribe();
     }
