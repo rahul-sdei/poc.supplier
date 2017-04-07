@@ -145,6 +145,9 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
       }, 500);
     }
 
+    newTour() {
+      this.sessionStorage.clear("tourId");
+    }
     clearsearch(value: string): void {
         clearTimeout(this.searchTimeout);
     }
