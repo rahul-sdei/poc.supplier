@@ -81,19 +81,27 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
           $('#datetimepicker1')
             .datepicker({
                 format: 'dd/mm/yyyy',
-                autoclose: true
+                autoclose: true,
+                startDate: new Date()
             })
             .on('changeDate', function(e) {
-
+              // console.log($("#datetimepicker1").datepicker("getDate"));
+              // end date
+              // disable dates earlier than departure date
+              $('#datetimepicker2').datepicker("remove");
+              $('#datetimepicker2')
+                .datepicker({
+                    format: 'dd/mm/yyyy',
+                    autoclose: true,
+                    startDate: $("#datetimepicker1").datepicker("getDate")
+                });
             });
 
           $('#datetimepicker2')
             .datepicker({
                 format: 'dd/mm/yyyy',
-                autoclose: true
-            })
-            .on('changeDate', function(e) {
-
+                autoclose: true,
+                startDate: new Date()
             });
         });
       }, 500);

@@ -24,6 +24,8 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
     error: string;
     isUploading: boolean;
     isUploaded: boolean;
+    isUploading1: boolean;
+    isUploaded1: boolean;
     cancellationPolicy: Document;
     refundPolicy: Document;
 
@@ -74,19 +76,29 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
 
     private startUpload(file: File, field): void {
         // check for previous upload
-        if (this.isUploading === true) {
+        if (this.isUploading === true || this.isUploading1 === true) {
             console.log("aleady uploading...");
             return;
         }
 
         // start uploading
-        this.isUploaded = false;
-        this.isUploading = true;
+        if (field == 'cancellationPolicy') {
+          this.isUploaded = false;
+          this.isUploading = true;
+        } else if (field == 'refundPolicy') {
+          this.isUploaded1 = false;
+          this.isUploading1 = true;
+        }
 
         upload(file)
         .then((res) => {
-            this.isUploading = false;
-            this.isUploaded = true;
+            if (field == 'cancellationPolicy') {
+              this.isUploading = false;
+              this.isUploaded = true;
+            } else if (field == 'refundPolicy') {
+              this.isUploaded1 = true;
+              this.isUploading1 = false;
+            }
             let document: Document = {
               id: res._id,
               url: res.url,
@@ -102,6 +114,7 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
         })
         .catch((error) => {
             this.isUploading = false;
+            this.isUploading1 = false;
             console.log('Error in file upload:', error);
             showAlert(error.reason, "danger");
         });

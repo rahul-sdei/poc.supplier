@@ -41,6 +41,8 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     searchString: string = "";
     whereCond: Subject<any> = new Subject<any>();
     searchTimeout: any;
+    pendingCount: number;
+    approvedCount: number;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -52,6 +54,12 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     }
 
     ngOnInit() {
+        this.call("tours.count", {active: true}, (err, res) => {
+          if (! err) {
+            this.pendingCount = res.pendingCount;
+            this.approvedCount = res.approvedCount;
+          }
+        })
         this.setOptions();
     }
 
@@ -116,6 +124,11 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
                 this.items = res.data;
                 // console.log(res.data);
                 this.itemsSize = res.count;
+                if ( where.approved == true ) {
+                  this.approvedCount = res.count;
+                } else {
+                  this.pendingCount = res.count;
+                }
                 this.paginationService.setTotalItems("tours", this.itemsSize);
             })
         });
