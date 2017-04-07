@@ -76,9 +76,12 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
 
     private startUpload(file: File, field): void {
         // check for previous upload
-        if (this.isUploading === true || this.isUploading1 === true) {
-            console.log("aleady uploading...");
-            return;
+        if (this.isUploading === true && field == 'cancellationPolicy') {
+          showAlert("Previous file is already uploading.", "danger");
+          return;
+        } else if (this.isUploading1 === true && field == 'refundPolicy') {
+          showAlert("Previous file is already uploading.", "danger");
+          return;
         }
 
         // start uploading
