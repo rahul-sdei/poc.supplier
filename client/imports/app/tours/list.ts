@@ -175,19 +175,19 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         this.nameOrder.next(-1);
         break;
         case 'Availability (ASC)':
-        this.orderBy.next("active");
+        this.orderBy.next("totalSeats");
         this.nameOrder.next(1);
         break;
         case 'Availability (DESC)':
-        this.orderBy.next("active");
+        this.orderBy.next("totalSeats");
         this.nameOrder.next(-1);
         break;
         case 'Price From (ASC)':
-        this.orderBy.next("startPrice");
+        this.orderBy.next("dateRange.price.adult");
         this.nameOrder.next(1);
         break;
         case 'Price From (DESC)':
-        this.orderBy.next("startPrice");
+        this.orderBy.next("dateRange.price.adult");
         this.nameOrder.next(-1);
         break;
         default:
