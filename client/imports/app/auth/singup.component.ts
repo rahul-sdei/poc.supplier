@@ -26,7 +26,7 @@ export class SignupComponent extends MeteorComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])],
-      companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), validateFirstName])]
+      companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])]
     })
 
   }

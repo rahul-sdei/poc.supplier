@@ -13,11 +13,13 @@ interface Options {
 Meteor.methods({
     "tours.find": (options: Options, criteria: any, searchString: string) => {
         let where:any = [];
+        let userId = Meteor.userId();
         where.push({
             "$or": [{deleted: false}, {deleted: {$exists: false} }]
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
-        });
+        },
+        {"ownerId": userId});
 
         if (!_.isEmpty(criteria)) {
           where.push(criteria);

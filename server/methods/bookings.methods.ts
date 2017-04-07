@@ -14,11 +14,13 @@ Meteor.methods({
 
     "bookings.find": (options: Options, criteria: any, searchString: string) => {
         let where:any = [];
+        let userId = Meteor.userId();
         where.push({
             "$or": [{deleted: false}, {deleted: {$exists: false} }]
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
-        });
+        },
+        {"supplierId": userId});
 
         if ( !_.isEmpty(criteria) ) {
           if ( criteria.completed==true ) {

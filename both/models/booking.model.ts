@@ -3,6 +3,7 @@ import { CollectionObject } from "./collection-object.model";
 export interface Booking extends CollectionObject {
     userId: string;
     tourId: string;
+    supplierId: string;
     tour: {
       title: string;
     };
