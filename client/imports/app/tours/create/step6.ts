@@ -92,6 +92,7 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
               showAlert("Tour added successfully.", "success");
             })
           } else {
+            console.log("error",err);
             showAlert("Error while saving tour data.", "danger");
           }
         });

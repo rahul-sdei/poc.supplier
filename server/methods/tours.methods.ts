@@ -19,7 +19,7 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         },
-        {"ownerId": userId});
+        {"owner.id": userId});
 
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
@@ -59,7 +59,7 @@ Meteor.methods({
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
       },
-      {"ownerId": userId});
+      {"owner.id": userId});
 
       if (_.isEmpty(criteria)) {
         criteria = { };
@@ -93,7 +93,10 @@ Meteor.methods({
       if (! Meteor.userId()) {
         throw new Meteor.Error(403, "Not authorized!");
       }
-      data.ownerId = Meteor.userId();
+      let owner = { };
+      owner["id"] = Meteor.userId();
+      owner["companyName"] = Meteor.user().profile.companyName;
+      data.owner = owner;
       data.active = true;
       data.approved = false;
       data.deleted = false;
@@ -114,6 +117,7 @@ Meteor.methods({
       return Tours.collection.findOne({_id: id});
     },
     "tours.update": (data: Tour, id: string) => {
+      data.modifiedAt = new Date();
       return Tours.collection.update({_id: id}, {$set: data});
     }
 });

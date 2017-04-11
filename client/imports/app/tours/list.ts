@@ -7,6 +7,7 @@ import { InjectUser } from "angular2-meteor-accounts-ui";
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
+import { SessionStorageService } from 'ng2-webstorage';
 import { ChangeDetectorRef } from "@angular/core";
 import { Tour } from "../../../../both/models/tour.model";
 import { showAlert } from "../shared/show-alert";
@@ -49,6 +50,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         private paginationService: PaginationService,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
+        private sessionStorage: SessionStorageService
     ) {
         super();
     }
@@ -146,8 +148,19 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     }
 
     newTour() {
-      this.sessionStorage.clear("tourId");
+      var tourId = this.sessionStorage.retrieve("tourId");
+      if (!! tourId) {
+        this.sessionStorage.clear("tourId");
+        this.sessionStorage.clear("step1Details");
+        this.sessionStorage.clear("step2Details");
+        this.sessionStorage.clear("step3Details");
+        this.sessionStorage.clear("step4Details");
+        this.sessionStorage.clear("step5Details");
+      } else {
+        return;
+      }
     }
+
     clearsearch(value: string): void {
         clearTimeout(this.searchTimeout);
     }
