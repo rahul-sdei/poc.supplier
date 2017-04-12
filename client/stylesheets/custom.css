@@ -26,6 +26,9 @@ canvas {
 .price-table, .status-table, .report-table {
   display: block !important;
 }
+.upload-show {
+  color: #16a085;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

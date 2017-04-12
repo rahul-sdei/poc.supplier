@@ -34,26 +34,28 @@
                     <label for="CANCELLATION">Manager/Owner Name</label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input class="form-control" id="CANCELLATION" placeholder="Manager/Owner name<" type="text">
-
+                        <input type="text" class="form-control" id="CANCELLATION" placeholder="Manager/Owner name" #ownerName>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group upload">
                     <label for="CANCELLATION">ID Verification<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input class="form-control" id="CANCELLATION" placeholder="Attach identification that match the name above" type="file">
+                        <input #fileInput class="form-control" id="CANCELLATION" placeholder="Attach identification that match the name above" type="file" (change)="onFileSelect($event, 'agentIdentity')" accept="application/pdf">
                         <span class="pull_left">Attach identification that match the name above</span>
                         <div class="input-group-btn">
-                          <button type="button" class="btn green-btn">Upload</button>
+                          <button type="button" class="btn green-btn profile-btn" (click)="fileInput.click();">Upload</button>
                         </div>
                       </div>
-
+                    </div>
+                    <p class="form-text text-muted" *ngIf="isUploading">We are uploading your PDF files.</p>
+                    <div *ngIf="agentIdentity">
+                      <a href="{{agentIdentity.url}}" download><span class="upload-show">{{agentIdentity.name}}</span></a>
                     </div>
                   </div>
                   <div class="form-group">
-                    <button type="button" class="btn green-btn full-btn">Finish</button>
+                    <button type="button" class="btn green-btn full-btn" (click)="saveStep2(ownerName.value)">Finish</button>
                   </div>
                 </div>
               </form>

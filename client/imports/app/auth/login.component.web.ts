@@ -44,10 +44,19 @@ export class LoginComponent extends MeteorComponent implements OnInit {
               showAlert(err.message, "danger");
               this.error = err;
             } else {
-                showAlert("You have been logged in successfully.", "success");
                 this.localStorage.store("rememberMeNot", !this.rememberMe);
                 this.sessionStorage.store("Meteor.userId", Meteor.userId());
-                this.router.navigate(['/signup/step1']);
+                let user = Meteor.user();
+                if (typeof user.profile.agentCertificate == "undefined") {
+                    showAlert("Upload your agent certificate to continue.", "info");
+                    this.router.navigate(['/signup/step1']);
+                } else if (typeof user.profile.agentIdentity == "undefined") {
+                    showAlert("Upload your identity to continue.", "info");
+                    this.router.navigate(['/signup/step2']);
+                } else {
+                    showAlert("You have been logged in successfully.", "success");
+                    this.router.navigate(['/dashboard']);
+                }
             }
           });
       });

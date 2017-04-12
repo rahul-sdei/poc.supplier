@@ -1,30 +1,34 @@
 import { Meteor } from "meteor/meteor";
 import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
-import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
-import { PaginationService } from "ng2-pagination";
-import { MeteorObservable } from "meteor-rxjs";
-import { InjectUser } from "angular2-meteor-accounts-ui";
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
-import { ChangeDetectorRef } from "@angular/core";
-import { Booking } from "../../../../both/models/booking.model";
+import { SessionStorageService } from 'ng2-webstorage';
 import { showAlert } from "../shared/show-alert";
+import { upload } from '../../../../both/methods/documents.methods';
 import { Roles } from 'meteor/alanning:roles';
 
 import template from "./step1.component.html";
 
-declare var jQuery:any;
+interface Document {
+  id: string;
+  url: string;
+  name: string;
+}
 
 @Component({
   selector: '',
   template
 })
 export class UploadCertStep1Component extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
+  isUploading: boolean;
+  isUploaded: boolean;
+  agentCertificate: Document;
+
   constructor(private router: Router,
       private route: ActivatedRoute,
       private ngZone: NgZone,
-      private changeDetectorRef: ChangeDetectorRef,
+      private sessionStorage: SessionStorageService
   ) {
       super();
   }
@@ -34,5 +38,62 @@ export class UploadCertStep1Component extends MeteorComponent implements OnInit,
 
   ngAfterViewChecked() {
     var d = document.getElementById("");
+  }
+
+  onFileSelect(event, field) {
+    var files = event.srcElement.files;
+    // console.log(files);
+    this.startUpload(files[0], field);
+  }
+
+  private startUpload(file: File, field): void {
+      // check for previous upload
+      if (this.isUploading === true && field == 'agentCertificate') {
+        showAlert("Previous file is already uploading.", "danger");
+        return;
+      }
+
+      // start uploading
+      if (field == 'agentCertificate') {
+        this.isUploaded = false;
+        this.isUploading = true;
+      }
+      upload(file)
+      .then((res) => {
+          if (field == 'agentCertificate') {
+            this.isUploading = false;
+            this.isUploaded = true;
+          }
+          let document: Document = {
+            id: res._id,
+            url: res.url,
+            name: res.name
+          };
+          if (field == 'agentCertificate') {
+            this.agentCertificate = document;
+          }
+          // console.log("document upload done.");
+          // console.log("file id:", res._id);
+      })
+      .catch((error) => {
+          this.isUploading = false;
+          console.log('Error in file upload:', error);
+          showAlert(error.reason, "danger");
+      });
+  }
+
+  saveStep1() {
+    if (! this.agentCertificate || ! this.agentCertificate.url) {
+      showAlert("Please upload Agent Certificate document.", "danger");
+      return;
+    }
+
+    this.call("users.update", {"profile.agentCertificate" : this.agentCertificate}, (err, res) => {
+      if (! err) {
+        this.router.navigate(['/signup/step2']);
+      } else {
+        showAlert(err.reason, "danger");
+      }
+    })
   }
 }
