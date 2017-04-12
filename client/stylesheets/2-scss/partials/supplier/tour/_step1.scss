@@ -12,6 +12,9 @@
 		font-weight: $weight_700;
 		color: $label-color;
 		margin-bottom: 30px;
+		@media (max-width: $medium-phone) {
+			margin-bottom: 15px;
+		 }
   }
 	.tab-list
 		li {
@@ -149,6 +152,9 @@
 			h3 {
 				font-size: $font_30;
 				margin: 0 0 35px;
+				@media (max-width: $medium-phone){
+					margin-bottom: 15px;
+				}
       }
 			h6 {
 				@extend .text-right;

@@ -310,6 +310,9 @@
 		h3 {
 			font-size: $font-24;
 			margin-bottom: 40px;
+			@media (max-width: $medium-phone){
+				margin-bottom: 15px;
+			}
     }
   }
 }

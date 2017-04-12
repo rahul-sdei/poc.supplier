@@ -26,6 +26,9 @@
     }
 		.input-wrap .input-group {
 			@include border-all(1px, solid, $border-color);
+			@media (max-width: $small_phone) {
+				overflow: hidden;
+			}
 			input {
 				border-right: 0;
 				opacity: 0;

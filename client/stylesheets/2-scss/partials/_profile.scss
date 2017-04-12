@@ -12,6 +12,11 @@
 		}
 		.user-img {
 			@extend .pull_left;
+			height: 102px;
+			width: 102px;
+			line-height: 93px;
+			@extend .text-center;
+			@include border-radius($full, $full, $full, $full);
 			@media (max-width: $medium-phone) {
 				float: none;
 				display: block;
@@ -26,7 +31,7 @@
 		.user-deatil {
 			@extend .inline-block;
 			@extend .pull_left;
-			@include margin(25px, 0, 0, 45px);
+			@include margin(11px, 0, 0, 45px);
 			@media (max-width: $medium-phone) {
 				float: none;
 				display: block;
@@ -76,9 +81,13 @@
 				color: $grey-anchor;
 				margin-bottom: 3px;
 			}
+			.green-btn{
+				@media (max-width: $medium-phone) {
+					width: $full;
+				}
+			}
 		}
 	}
-
 	.customer-support {
 		background: $green-color;
 		color: $white;

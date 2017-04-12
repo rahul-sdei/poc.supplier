@@ -14,15 +14,23 @@
 		font-size: $font-18;
 		font-weight: weight_500;
 		padding-left: 55px;
+		@media (max-width: $medium-phone) {
+			padding-left: 30px;
+		}
 		&:before {
 			@extend .absolute;
 			background: $white;
-			height: 38px;
-			width: 38px;
+			height: 30px;
+			width: 30px;
 			border-radius: $full;
 			@extend .left-0;
 			content: '';
-			top: -7px;
+			top: 0px;
+			@media (max-width: $medium-phone) {
+				height: 20px;
+				width: 20px;
+				top: 2px;
+			}
     }
   }
 }

@@ -13,8 +13,9 @@
 	.id-verfication {
 		background: $white;
 		@include border-all(1px, solid, $border-color);
-		@media (max-width: $ipad) {}
+		@media (max-width: $ipad) {
 			margin-top: 25px;
+		}
 		.hdr {
 			padding: 25px;
 			@include border-bottom(1px, solid, $border-color);
@@ -49,6 +50,9 @@
 			.verfication-info {
 				@extend .vertical-middle;
 				@extend .inline-block;
+				@media (max-width: $laptop){
+					margin-bottom: 10px;
+				}
       }
 			.icn-wrap {
 				margin-right: 5px;
@@ -68,6 +72,11 @@
 			.green-btn {
 				width: auto;
 				padding: 8px 9px;
+				@media (max-width: $laptop){
+					margin: 0 auto;
+					float: none;
+					display: block;
+				}
 				span {
 					margin-right: 3px;
         }
@@ -77,4 +86,17 @@
     }
   }
  }
+}
+.user-profile-head.user-head{
+	.profile{
+		.user-img {
+			@include border-all(1px, solid, $border-color);
+			img{
+				@include border-radius(0, 0, 0, 0);
+				height: auto;
+				width: auto;
+				max-width: 80%;
+			}
+		}
+	}
 }
