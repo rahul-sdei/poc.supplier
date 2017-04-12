@@ -67,7 +67,7 @@
             <!--tab-1-->
             <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="showPending=false; changeStatus(true)">Approved Tours <span *ngIf="approvedCount > 0">{{approvedCount}}</span></h3>
             <div id="tab1" class="tab_content">
-              <div class="table-wrapper">
+              <div class="table-responsive">
                 <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize" (onDelete)="onDelete($event)"></tours-table>
               </div>
             </div>
@@ -75,7 +75,7 @@
             <!--tab-2-->
             <h3 class="tab_drawer_heading" rel="tab2" (click)="showPending=true; changeStatus(false);">Pending Approval<span *ngIf="pendingCount > 0">{{pendingCount}}</span></h3>
             <div id="tab2" class="tab_content">
-              <div class="table-wrapper">
+              <div class="table-responsive">
                 <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize" [showAction]="true" (onDelete)="onDelete($event)"></tours-table>
               </div>
             </div>

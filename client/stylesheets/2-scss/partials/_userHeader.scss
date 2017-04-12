@@ -38,6 +38,15 @@
 			top: 16px;
 			@media (max-width: $laptop) {
 				position: relative
+
+			}
+			.pull-right{
+				li:first-of-type{
+					margin-top: 3px;
+					@media (max-width: $laptop) {
+						margin: 0 auto 15px;
+					}
+				}
 			}
 			.dropdown-menu {
 				@media (max-width: $laptop) {

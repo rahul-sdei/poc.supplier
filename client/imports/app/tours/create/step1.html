@@ -165,12 +165,14 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="exampleSelect1">Tour Type *</label>
-                    <select class="form-control" id="exampleSelect1" formControlName="tourType">
-                      <option>Family friendly</option>
-                      <option>Honeymoon</option>
-                      <option>Adventure</option>
-                      <option>Designed for Couple</option>
-                    </select>
+                    <div class="select-style">
+                      <select class="select" id="exampleSelect1" formControlName="tourType">
+                        <option>Family friendly</option>
+                        <option>Honeymoon</option>
+                        <option>Adventure</option>
+                        <option>Designed for Couple</option>
+                      </select>
+                    </div>
                   </div>
                   <div *ngIf="step1Form.controls['tourType'].errors && step1Form.controls['tourType'].touched" class="has-error">
                     <div *ngIf="step1Form.controls.tourType.hasError('required')">You have to select Tour Type.</div>
@@ -179,11 +181,13 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="exampleSelect1">Tour Pace *</label>
-                    <select class="form-control" id="exampleSelect1" formControlName="tourPace">
-                      <option>Slow</option>
-                      <option>Medium</option>
-                      <option>Fast</option>
-                    </select>
+                    <div class="select-style">
+                      <select class="select" id="exampleSelect1" formControlName="tourPace">
+                        <option>Slow</option>
+                        <option>Medium</option>
+                        <option>Fast</option>
+                      </select>
+                    </div>
                   </div>
                   <div *ngIf="step1Form.controls['tourPace'].errors && step1Form.controls['tourPace'].touched" class="has-error">
                     <div *ngIf="step1Form.controls.tourPace.hasError('required')">You have to select Tour Pace.</div>
