@@ -20,6 +20,7 @@ import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
 import { Tour_Declarations } from "./tours/index";
 import { Booking_Declarations } from './bookings/index';
 import { REPORTS_DECLARATIONS } from './reports/index';
+import { UploadStep1_Declarations } from './upload-certs/index';
 
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
@@ -55,7 +56,8 @@ moduleDefinition = {
     ...Faq_Declarations,
     ...Tour_Declarations,
     ...Booking_Declarations,
-    ...REPORTS_DECLARATIONS
+    ...REPORTS_DECLARATIONS,
+    ...UploadStep1_Declarations
   ],
   providers: [
     ...ROUTES_PROVIDERS,

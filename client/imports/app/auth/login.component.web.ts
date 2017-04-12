@@ -47,7 +47,7 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 showAlert("You have been logged in successfully.", "success");
                 this.localStorage.store("rememberMeNot", !this.rememberMe);
                 this.sessionStorage.store("Meteor.userId", Meteor.userId());
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/signup/step1']);
             }
           });
       });

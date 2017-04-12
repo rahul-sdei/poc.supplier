@@ -14,6 +14,7 @@ import { ResetPassword } from "./auth/resetpassword";
 import { VerifyEmail } from "./auth/verifyemail.component";
 import { routes as bookingRoutes } from "./bookings/routes";
 import { routes as reportsRoutes } from "./reports/routes";
+import { routes as uploadRoutes } from "./upload-certs/routes";
 
 
 let mainRoutes = [
@@ -33,7 +34,8 @@ export const routes: Route[] = [
     ...faqRoutes,
     ...tourRoutes,
     ...bookingRoutes,
-    ...reportsRoutes
+    ...reportsRoutes,
+    ...uploadRoutes
 ];
 
 export const ROUTES_PROVIDERS = [
