@@ -205,7 +205,7 @@
                       <div class="verfication-info">
                         <p>Agent Certificate</p>
                         <h5 *ngIf="!! user?.profile?.agentCertificate?.name">
-                          <a href="{{user.profile.agentCertificate.url}}" download>
+                          <a href="{{user.profile.agentCertificate.url}}" download title="{{user.profile.agentCertificate.name}}">
                             {{user.profile.agentCertificate.name}}
                           </a>
                         </h5>

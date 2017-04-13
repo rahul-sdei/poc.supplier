@@ -68,6 +68,13 @@
 					color: $label-color;
 					font-size: $font-20;
 					font-weight: $weight_700;
+					max-width: 170px;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					a{
+						color: $label-color;
+					}
         }
 			.green-btn {
 				width: auto;
