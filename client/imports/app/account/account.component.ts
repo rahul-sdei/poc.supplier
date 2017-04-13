@@ -104,4 +104,8 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
     });
   }
 
+  resetStateValue() {
+    this.profileForm.controls['state'].setValue(null);
+  }
+
 }
