@@ -65,6 +65,8 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   }
 
   ngAfterViewChecked() {
+    var d = document.getElementById("main");
+    d.className = "";
   }
 
   private fetchUser(callback) {
@@ -97,7 +99,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         if(err) {
           this.error = err;
         } else {
-          showAlert("Your profile has been updated successfully.", "success");
+          showAlert("Your profile has been saved.", "success");
           this.router.navigate(['/account']);
         }
       });
