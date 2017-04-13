@@ -28,6 +28,8 @@ interface Options extends Pagination {
 export class ReportsComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   userId: string;
   items: Booking[];
+  activeTab: string = "Sales";
+  activeTab1: string = "Monthly";
 
   constructor(private router: Router,
     private route: ActivatedRoute,

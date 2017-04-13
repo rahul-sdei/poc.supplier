@@ -45,9 +45,9 @@
             </div>
             <div class="col-md-7">
               <div class="anchor-list">
-                <a href="javascript:void(0)">Weekly</a>
-                <a href="javascript:void(0)" class="active">Monthly</a>
-                <a href="javascript:void(0)">Yearly</a>
+                <a href="javascript:void(0)" (click)="activeTab1 = 'Weekly'" [ngClass]="{'active': activeTab1 == 'Weekly'}">Weekly</a>
+                <a href="javascript:void(0)" (click)="activeTab1 = 'Monthly'" [ngClass]="{'active': activeTab1 == 'Monthly'}">Monthly</a>
+                <a href="javascript:void(0)" (click)="activeTab1 = 'Yearly'" [ngClass]="{'active': activeTab1 == 'Yearly'}">Yearly</a>
               </div>
             </div>
             <div class="col-sm-12">
@@ -62,16 +62,19 @@
             <div class="row">
               <div class="col-sm-12">
                 <ul>
-                  <li class="active"><a href="javascript:void(0)">Sales</a></li>
-                  <li><a href="javascript:void(0)">Payouts</a></li>
+                  <li [ngClass]="{'active': activeTab == 'Sales'}"><a href="javascript:void(0)" (click)="activeTab = 'Sales'">Sales</a></li>
+                  <li [ngClass]="{'active': activeTab == 'Payouts'}"><a href="javascript:void(0)" (click)="activeTab = 'Payouts'">Payouts</a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="filter-head">
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4" *ngIf="activeTab == 'Sales'">
                 <h4>Sales History</h4>
+              </div>
+              <div class="col-lg-4" *ngIf="activeTab == 'Payouts'">
+                <h4>Payout History</h4>
               </div>
               <div class="col-lg-8">
                 <div class="row">
@@ -94,31 +97,8 @@
             </div>
           </div>
           <div class="table-wrapper table-responsive report-table">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Tour</th>
-                  <th>Status</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
-                  <td>
-                    <span class="date">
-                      01/01/2016
-                    </span>
-                    <span class="time">
-                      1:12 PM
-                    </span>
-                  </td>
-                  <td>Japan and Taiwan 12 Days Super Easter Highlight</td>
-                  <td>Paid</td>
-                  <td>A$ 149.00</td>
-                </tr>
-              </tbody>
-            </table>
+            <sales-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Sales'"></sales-table>
+            <payouts-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Payouts'"></payouts-table>
           </div>
         </div>
       </div>
