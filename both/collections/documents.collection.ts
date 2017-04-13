@@ -15,7 +15,7 @@ export const DocumentsStore = new UploadFS.store.Local({
   path: process.env.PWD + '/uploads/documents',
   filter: new UploadFS.Filter({
     maxSize: 1024 * 5 * 1000, // 5MB,
-    contentTypes: ['application/pdf', 'application/msword']
+    contentTypes: ['application/pdf', 'application/msword', 'image/*']
   }),
   permissions: new UploadFS.StorePermissions({
     insert: loggedIn,

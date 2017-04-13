@@ -8,9 +8,11 @@
                          <img src="images/company.png" alt="">
                      </span>
                      <div class="user-deatil">
-                         <h4>Worldwide Travels & Tours</h4>
-                         <p>Member since 01 Jan 2016</p>
-                         <p>Inala, Queensland, Australia</p>
+                         <h4>{{user?.profile?.companyName}}</h4>
+                         <p>Member since {{user?.createdAt | date}}</p>
+                         <p>{{user?.profile?.address?.suburb}},
+                           {{user?.profile?.address?.state}},
+                           {{user?.profile?.address?.country}}</p>
                      </div>
                  </div>
              </div>
@@ -126,15 +128,16 @@
                           <label for="state">STATE/PROVINCE *</label>
                           <div class="form-group">
                             <div class="select-style">
-                              <select class="select" formControlName="state">
+                              <select *ngIf="country.value == 'Australia'" class="select" formControlName="state" id="stateSelect">
                                 <option>Select State</option>
-                                <option value="Value 1">New South Wales</option>
-                                <option value="Value 2">Queensland</option>
-                                <option value="Value 3">Victoria</option>
-                                <option value="Value 3">Tasmania</option>
-                                <option value="Value 3">Western Australia</option>
-                                <option value="Value 3">South Australia</option>
+                                <option>New South Wales</option>
+                                <option>Queensland</option>
+                                <option>Victoria</option>
+                                <option>Tasmania</option>
+                                <option>Western Australia</option>
+                                <option>South Australia</option>
                               </select>
+                              <input *ngIf="country.value != 'Australia'" type="text" class="form-control" id="state" placeholder="State" formControlName="state" #stateValue/>
                             </div>
                             <div class='form-text error has-error' *ngIf="profileForm.controls.state.errors && profileForm.controls.state.touched">
                               <div *ngIf="profileForm.controls.state.hasError('required')">You have to choose State to proceed.</div>
@@ -161,8 +164,11 @@
                           <label for="Country">COUNTRY *</label>
                           <div class="form-group">
                             <div class="select-style">
-                              <select class="select" formControlName="country">
-                                <option value="Australia" selected>Australia</option>
+                              <select class="select" formControlName="country" #country (change)="console.log('m here');stateValue.value = ''">
+                                <option value="Australia">Australia</option>
+                                <option value="China">China</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="New Zealand">New Zealand</option>
                               </select>
                             </div>
                             <div class='form-text error has-error' *ngIf="profileForm.controls.country.errors && profileForm.controls.country.touched">
@@ -199,11 +205,15 @@
                       </div>
                       <div class="verfication-info">
                         <p>Agent Certificate</p>
-                        <h5>X-0001</h5>
+                        <h5 *ngIf="!! user?.profile?.agentCertificate?.name">
+                          <a href="{{user.profile.agentCertificate.url}}" download>
+                            {{user.profile.agentCertificate.name}}
+                          </a>
+                        </h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn"><span><i class="fa fa-check" aria-hidden="true"></i></span>Verified</button>
+                      <button type="button" class="btn "><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
@@ -215,11 +225,11 @@
                       </div>
                       <div class="verfication-info">
                         <p>Manager</p>
-                        <h5>Jane Document</h5>
+                        <h5>{{user?.profile?.ownerName}}</h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn"><span><i class="fa fa-check" aria-hidden="true"></i></span>Verified</button>
+                      <button type="button" class="btn "><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>

@@ -13,6 +13,7 @@ import { CustomValidators as CValidators } from "ng2-validation";
 import { validatePhoneNum, validateFirstName } from "../../validators/common";
 import template from './account.component.html';
 
+declare var jQuery:any;
 
 @Component({
   selector: '',
@@ -64,8 +65,6 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   }
 
   ngAfterViewChecked() {
-    var d = document.getElementById("main");
-    d.className = "";
   }
 
   private fetchUser(callback) {
@@ -99,7 +98,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
           this.error = err;
         } else {
           showAlert("Your profile has been updated successfully.", "success");
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/account']);
         }
       });
     });
