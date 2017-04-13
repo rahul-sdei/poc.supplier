@@ -101,7 +101,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       data: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [{
-          label: 'Reports',
+          label: 'Sales',
           data: dataSet,
           backgroundColor: [
             'rgba(231, 245, 243, 1)',
@@ -123,6 +123,8 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             ticks: {
