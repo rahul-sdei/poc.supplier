@@ -13,7 +13,7 @@
 canvas {
     background-color: #ffffff;
 }
-.bottom-btn {
+.bottom-btn .btn {
   width: 200px !important;
 }
 .profile-btn {
