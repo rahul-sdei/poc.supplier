@@ -40,14 +40,17 @@ Meteor.methods({
         let cursor = Tours.collection.find({$and: where}, options);
         return {count: cursor.count(), data: cursor.fetch()};
     },
-    "tours.findOne": (slug: string) => {
+    "tours.findOne": (criteria: any) => {
       let where:any = [];
       where.push({
           "$or": [{deleted: false}, {deleted: {$exists: false} }]
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
       });
-      where.push({slug: slug});
+      if (_.isEmpty(criteria)) {
+        criteria = { };
+      }
+      where.push(criteria);
 
       return Tours.collection.findOne({$and: where});
     },
@@ -112,9 +115,6 @@ Meteor.methods({
 
       /* reset data in collections */
       Tours.collection.update({_id: tour._id}, {$set : {deleted: true } });
-    },
-    "toursEdit.findOne": (id: string) => {
-      return Tours.collection.findOne({_id: id});
     },
     "tours.update": (data: Tour, id: string) => {
       data.modifiedAt = new Date();

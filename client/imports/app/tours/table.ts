@@ -74,7 +74,7 @@ export class ToursTableComponent extends MeteorComponent {
   }
 
   editTour(tour: Tour) {
-    Meteor.call("toursEdit.findOne", tour._id, (err, res) => {
+    Meteor.call("tours.findOne", {_id: tour._id}, (err, res) => {
       if(err) {
         showAlert(err.reason, "danger");
         return;
