@@ -4,6 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { check } from "meteor/check";
 import { Tours } from "../../both/collections/tours.collection";
 import { Tour } from "../../both/models/tour.model";
+import { User } from "../../both/models/user.model";
 import * as _ from 'underscore';
 
 interface Options {
@@ -96,9 +97,28 @@ Meteor.methods({
       if (! Meteor.userId()) {
         throw new Meteor.Error(403, "Not authorized!");
       }
-      let owner = { };
-      owner["id"] = Meteor.userId();
-      owner["companyName"] = Meteor.user().profile.companyName;
+
+      let user = <User>Meteor.user();
+
+      let owner = {
+        id: user._id,
+        companyName: user.supplier.companyName,
+        agentIdentity: {
+          verified: false
+        },
+        agentCertificate: {
+          verified: false
+        }
+      };
+
+      if (user.supplier.agentIdentity && user.supplier.agentIdentity.verified === true) {
+        owner.agentIdentity.verified = true;
+      }
+
+      if (user.supplier.agentCertificate && user.supplier.agentCertificate.verified === true) {
+        owner.agentCertificate.verified = true;
+      }
+
       data.owner = owner;
       data.active = true;
       data.approved = false;

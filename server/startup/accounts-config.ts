@@ -11,7 +11,17 @@ Accounts.onCreateUser(function(options, user) {
     if (user.profile.firstName && user.profile.lastName && !user.profile.fullName) {
       user.profile.fullName = `${user.profile.firstName} ${user.profile.lastName}`;
     }
+  } else {
+    user.profile = {};
   }
+
+  // supplier data
+  if (typeof options.supplier !== "undefined") {
+    user.supplier = options.supplier || {};
+  } else {
+    user.supplier = {};
+  }
+
   // user status
   if (typeof options.status !== "undefined") {
     user.status = options.status || {};

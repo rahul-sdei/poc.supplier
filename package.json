@@ -20,7 +20,7 @@
     "@types/node": "7.0.10",
     "@types/underscore": "1.8.0",
     "angular-2-local-storage": "1.0.1",
-    "angular2-file-drop": "0.2.0",
+    "angular2-file-drop": "^0.2.0",
     "angular2-meteor": "0.7.1",
     "angular2-meteor-accounts-ui": "1.0.0",
     "angular2-meteor-polyfills": "0.1.1",

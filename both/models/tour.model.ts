@@ -70,6 +70,12 @@ export interface Tour extends CollectionObject {
     owner: {
       id: string;
       companyName: string;
+      agentIdentity: {
+        verified: boolean;
+      };
+      agentCertificate: {
+        verified: boolean;
+      };
     };
     active: boolean;
     approved: boolean;

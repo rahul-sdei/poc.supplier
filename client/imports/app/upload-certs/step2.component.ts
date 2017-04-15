@@ -94,7 +94,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
       return;
     }
 
-    this.call("users.update", {"profile.agentIdentity" : this.agentIdentity, "profile.ownerName": ownerName}, (err, res) => {
+    this.call("users.update", {"supplier.agentIdentity" : this.agentIdentity, "supplier.ownerName": ownerName}, (err, res) => {
       if (! err) {
         showAlert("Your documents have been uploaded successfully.", "success");
         this.router.navigate(['/dashboard']);

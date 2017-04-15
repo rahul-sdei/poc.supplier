@@ -8,7 +8,7 @@
                          <img src="images/company.png" alt="">
                      </span>
                      <div class="user-deatil">
-                         <h4>{{user?.profile?.companyName}}</h4>
+                         <h4>{{user?.supplier?.companyName}}</h4>
                          <p>Member since {{user?.createdAt | date}}</p>
                          <p>{{user?.profile?.address?.suburb}},
                            {{user?.profile?.address?.state}},
@@ -41,24 +41,15 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="form-group">
-                          <label for="CompanyName">COMPANY NAME</label>
+                          <label for="CompanyName">COMPANY NAME *</label>
                           <div class="input-wrap">
                             <input type="text" class="form-control" id="CompanyName" placeholder="Company Name" formControlName="companyName" />
                           </div>
                           <div class='form-text error has-error' *ngIf="profileForm.controls.companyName.errors && profileForm.controls.companyName.touched">
-                        <div *ngIf="profileForm.controls.companyName.hasError('required')">You have to fill in Company Name to proceed.</div>
-                        <div *ngIf="profileForm.controls.companyName.hasError('minlength')">Min 2 characters required.</div>
-                        <div *ngIf="profileForm.controls.companyName.hasError('maxLength')">Max 30 characters required.</div>
-                      </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label for="userEmail">EMAIL</label>
-                          <div class="input-wrap">
-                            <input type="email" class="form-control" id="userEmail" placeholder="Email Address" [readonly]="true" formControlName="email"/>
+                            <div *ngIf="profileForm.controls.companyName.hasError('required')">You have to fill in Company Name to proceed.</div>
+                            <div *ngIf="profileForm.controls.companyName.hasError('minlength')">Min 2 characters required.</div>
+                            <div *ngIf="profileForm.controls.companyName.hasError('maxLength')">Max 30 characters required.</div>
+                            {{profileForm.controls.companyName.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -66,14 +57,28 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <label for="phnNumber">PHONE NUMBER</label>
+                          <label for="userEmail">EMAIL *</label>
+                          <div class="input-wrap">
+                            <input type="email" class="form-control" id="userEmail" placeholder="Email Address" formControlName="email"/>
+                          </div>
+                          <div class='form-text error has-error' *ngIf="profileForm.controls.email.errors && profileForm.controls.email.touched">
+                            {{profileForm.controls.email.errors | json}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="phnNumber">PHONE NUMBER *</label>
                           <div class="input-wrap">
                             <input type="text" class="form-control" id="phnNumber" placeholder="Phone Number" formControlName="contact"/>
                           </div>
-                          <div class='form-text error has-error' *ngIf="profileForm.controls.contact.touched">
+                          <div class='form-text error has-error' *ngIf="profileForm.controls.contact.errors && profileForm.controls.contact.touched">
                             <div *ngIf="profileForm.controls.contact.hasError('minlength')">Min 7 characters required.</div>
                             <div *ngIf="profileForm.controls.contact.hasError('maxlength')">Max 15 characters allowed.</div>
                             <div *ngIf="profileForm.controls.contact.hasError('validatePhoneNum')">Invalid Contact Number.</div>
+                            {{profileForm.controls.contact.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -91,6 +96,7 @@
                             <div *ngIf="profileForm.controls.address1.hasError('required')">You have to fill in Address1 to proceed.</div>
                             <div *ngIf="profileForm.controls.address1.hasError('minlength')">Min 2 characters required.</div>
                             <div *ngIf="profileForm.controls.address1.hasError('maxLength')">Max 30 characters required.</div>
+                            {{profileForm.controls.address1.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -105,6 +111,7 @@
                           <div class='form-text error has-error' *ngIf="profileForm.controls.address2.errors && profileForm.controls.address2.touched">
                             <div *ngIf="profileForm.controls.address2.hasError('minlength')">Min 2 characters required.</div>
                             <div *ngIf="profileForm.controls.address2.hasError('maxLength')">Max 30 characters required.</div>
+                            {{profileForm.controls.address2.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -120,6 +127,7 @@
                             <div *ngIf="profileForm.controls.suburb.hasError('required')">You have to fill in Suburb to proceed.</div>
                             <div *ngIf="profileForm.controls.suburb.hasError('minlength')">Min 2 characters required.</div>
                             <div *ngIf="profileForm.controls.suburb.hasError('maxLength')">Max 30 characters required.</div>
+                            {{profileForm.controls.suburb.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -140,6 +148,7 @@
                             </div>
                             <div class='form-text error has-error' *ngIf="profileForm.controls.state.errors && profileForm.controls.state.touched">
                               <div *ngIf="profileForm.controls.state.hasError('required')">You have to choose State to proceed.</div>
+                              {{profileForm.controls.state.errors | json}}
                             </div>
                           </div>
                         </div>
@@ -150,11 +159,12 @@
                         <div class="form-group">
                           <label for="postCode">POST CODE *</label>
                           <div class="input-wrap">
-                            <input type="number" class="form-control" id="postCode" placeholder="Post Code" formControlName="postCode"/>
+                            <input type="text" class="form-control" id="postCode" placeholder="Post Code" formControlName="postCode"/>
                           </div>
-                          <div class='form-text error has-error' *ngIf="profileForm.controls.postCode.touched">
+                          <div class='form-text error has-error' *ngIf="profileForm.controls.postCode.errors && profileForm.controls.postCode.touched">
                             <div *ngIf="profileForm.controls.postCode.hasError('minlength')">Min 4 characters required.</div>
                             <div *ngIf="profileForm.controls.postCode.hasError('maxlength')">Max 12 characters allowed.</div>
+                            {{profileForm.controls.postCode.errors | json}}
                           </div>
                         </div>
                       </div>
@@ -172,6 +182,7 @@
                             </div>
                             <div class='form-text error has-error' *ngIf="profileForm.controls.country.errors && profileForm.controls.country.touched">
                               <div *ngIf="profileForm.controls.country.hasError('required')">You have to choose Country to proceed.</div>
+                              {{profileForm.controls.country.errors | json}}
                             </div>
                           </div>
                         </div>
@@ -181,7 +192,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="text-right btn-space">
-                        <button type="button" class="btn green-btn profile-btn" (click)="update()">Update</button>
+                        <button type="button" class="btn green-btn profile-btn" (click)="update()" [disabled]="!profileForm.valid">Update</button>
                       </div>
                     </div>
                   </div>
@@ -213,7 +224,7 @@
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
                       <button type="button" class="btn green-btn" *ngIf="user?.profile?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="user?.profile?.agentCertificate?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.profile?.agentCertificate || user?.profile?.agentCertificate?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
@@ -225,12 +236,12 @@
                       </div>
                       <div class="verfication-info">
                         <p>Manager</p>
-                        <h5>{{user?.profile?.ownerName}}</h5>
+                        <h5>{{user?.supplier?.ownerName}}</h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
                       <button type="button" class="btn green-btn" *ngIf="user?.profile?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="user?.profile?.agentIdentity?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.profile?.agentIdentity || user?.profile?.agentIdentity?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>

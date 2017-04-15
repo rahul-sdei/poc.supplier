@@ -40,9 +40,8 @@ export class SignupComponent extends MeteorComponent implements OnInit {
     let userData = {
       email: this.signupForm.value.email,
       passwd: this.signupForm.value.password,
-      profile: {
+      supplier: {
         companyName: this.signupForm.value.companyName,
-        lastName: this.signupForm.value.lastName,
       }
     };
     this.call("users.insert", userData, (err, res) => {
