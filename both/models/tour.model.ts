@@ -3,6 +3,7 @@ import { CollectionObject } from "./collection-object.model";
 export interface Tour extends CollectionObject {
     /* step 1 */
     name: string;
+    slug: string;
     description: string;
     departure: string;
     destination: string;
@@ -19,6 +20,7 @@ export interface Tour extends CollectionObject {
       endDate: Date;
       numOfSeats: number;
       soldSeats: number;
+      availableSeats: number;
       price: [{
         numOfPersons: number;
         adult: number;
@@ -27,6 +29,7 @@ export interface Tour extends CollectionObject {
     }];
     totalSeats: number;
     totalSoldSeats: number;
+    totalAvailableSeats: number;
     /* step 3 */
     itenerary: [
       {

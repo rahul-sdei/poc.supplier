@@ -96,12 +96,12 @@
                     <label for="Description">Tour Description *</label>
                     <div class="input-wrap">
                       <textarea class="form-control" id="Description" placeholder="Tour Description" formControlName="description" #description></textarea>
-                      <small class="form-text text-muted"><code>{{description.value.length}}</code> of <code>{{255}}</code> characters.</small>
+                      <small class="form-text text-muted"><code>{{description.value.length}}</code> of <code>{{755}}</code> characters.</small>
                     </div>
                     <div *ngIf="step1Form.controls['description'].errors && step1Form.controls['description'].touched" class="has-error">
                       <div *ngIf="step1Form.controls.description.hasError('required')">You have to fill in Tour Description.</div>
                       <div *ngIf="step1Form.controls.description.hasError('minlength')">Min 8 characters required.</div>
-                      <div *ngIf="step1Form.controls.description.hasError('maxlength')">Max 255 characters allowed.</div>
+                      <div *ngIf="step1Form.controls.description.hasError('maxlength')">Max 755 characters allowed.</div>
                     </div>
                   </div>
                 </div>

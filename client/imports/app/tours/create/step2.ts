@@ -20,6 +20,7 @@ interface DateRange {
   }],
   numOfSeats: number;
   soldSeats: number;
+  availableSeats: number;
 }
 
 declare var jQuery:any;
@@ -54,6 +55,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         this.dateRange = step2Details.dateRange;
         this.totalSeats = <number>step2Details.totalSeats;
         this.totalSoldSeats = <number>step2Details.totalSoldSeats;
+        this.totalAvailableSeats = <number>step2Details.totalAvailableSeats;
       }
       this.step2Form = this.formBuilder.group({
         startDate: ['', Validators.compose([])],
@@ -116,7 +118,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     removeDateRange( index ) {
-      if (!confirm("Are you sure, do you want to continue?")) {
+      if (!confirm("Are you sure you want to continue?")) {
         return false;
       }
 
@@ -152,6 +154,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         endDate,
         numOfSeats: <number>this.step2Form.value.seats,
         soldSeats: 0,
+        availableSeats: <number>this.step2Form.value.seats,
         price: this.step2Form.value.price
       };
 
@@ -186,7 +189,8 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       let details = {
         dateRange: this.dateRange,
         totalSeats: this.totalSeats,
-        totalSoldSeats: this.totalSoldSeats
+        totalSoldSeats: this.totalSoldSeats,
+        totalAvailableSeats: this.totalSeats
       };
 
       this.sessionStorage.store("step2Details", details);

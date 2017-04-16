@@ -36,7 +36,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       }
       this.step1Form = this.formBuilder.group({
         name: [step1Details.name, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
-        description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
+        description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(755)])],
         departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
         destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
         noOfDays: [step1Details.noOfDays, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
@@ -87,6 +87,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
 
       let details = {
         name : this.step1Form.value.name,
+        slug: this.slugify(this.step1Form.value.name),
         description : this.step1Form.value.description,
         departure : this.step1Form.value.departure,
         destination : this.step1Form.value.destination,
@@ -105,5 +106,15 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
       } else {
         showAlert("Error while saving data. Please try after restarting your browser.", "danger");
       }
+    }
+
+    slugify(text)
+    {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
     }
 }

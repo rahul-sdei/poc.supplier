@@ -12,9 +12,20 @@ export interface User extends Meteor.User {
         firstName: string;
         lastName: string;
         contact: string;
-        imageId: string;
-        imageUrl: string;
-    },
+        image: {
+          id: string;
+          url: string;
+          name: string;
+        };
+        address: {
+          address1: string;
+          address2: string;
+          suburb: string;
+          state: string;
+          country: string;
+          postCode: string;
+        };
+    };
     supplier: {
       companyName: string;
       ownerName: string;
