@@ -40,9 +40,21 @@ export const ImagesStore = new UploadFS.store.Local({
   filter: new UploadFS.Filter({
     contentTypes: ['image/*']
   }),
-  copyTo: [
+  /*copyTo: [
     ThumbsStore
-  ],
+  ],*/
+  transformWrite(from, to, fileId, file) {
+    // Resize to 1280x720
+    const gm = require('gm');
+
+    gm(from, file.name)
+      .resize(1280, 720)
+      .gravity('Center')
+      .extent(1280, 720)
+      .quality(100)
+      .stream()
+      .pipe(to);
+  },
   permissions: new UploadFS.StorePermissions({
     insert: loggedIn,
     update: loggedIn,
