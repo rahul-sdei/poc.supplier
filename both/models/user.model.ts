@@ -11,6 +11,7 @@ export interface User extends Meteor.User {
     profile: {
         firstName: string;
         lastName: string;
+        fullName: string;
         contact: string;
         image: {
           id: string;
