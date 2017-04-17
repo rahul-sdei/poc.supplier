@@ -5,6 +5,7 @@ import { check } from "meteor/check";
 import { Tours } from "../../both/collections/tours.collection";
 import { Tour } from "../../both/models/tour.model";
 import { User } from "../../both/models/user.model";
+import { Email } from 'meteor/email';
 import * as _ from 'underscore';
 
 interface Options {
@@ -12,7 +13,7 @@ interface Options {
 }
 
 Meteor.methods({
-    "tours.find": (options: Options, criteria: any, searchString: string) => {
+    "tours.find": (options: Options, criteria: any, searchString: string = "") => {
         let where:any = [];
         let userId = Meteor.userId();
         where.push({
@@ -124,6 +125,9 @@ Meteor.methods({
       data.approved = false;
       data.deleted = false;
       data.createdAt = new Date();
+      let requestApprovalDate = new Date();
+      requestApprovalDate.setHours(requestApprovalDate.getHours() + 6);
+      data.requestApprovalAt = requestApprovalDate;
       let tourId = Tours.collection.insert(data);
       return tourId;
     },
@@ -139,5 +143,46 @@ Meteor.methods({
     "tours.update": (data: Tour, id: string) => {
       data.modifiedAt = new Date();
       return Tours.collection.update({_id: id}, {$set: data});
+    },
+    "tours.requestApproval": () => {
+      const options: Options = {
+          limit: 0,
+          skip: 0
+      };
+
+      let where:any = [{active: true, approved: false, requestApprovalAt: {$lte: new Date()} }];
+      where.push({
+          "$or": [{deleted: false}, {deleted: {$exists: false} }]
+      }, {
+        "$or": [{active: true}, {active: {$exists: false} }]
+      });
+      where.push({requestApprovalSentAt: {$exists: false} } );
+
+      let tours = Tours.collection.find({$and: where}, options).fetch();
+      let message = `Hi Admin, <br />
+      We have found ${tours.length} new tours that requires approval.<br />
+      <ul>`;
+
+      console.log(`Found ${tours.length} records to request approval.`);
+      let tourIds: string[] = [];
+      for (let i=0; i<tours.length; i++) {
+        let tour = tours[i];
+        tourIds.push(tour._id);
+        // console.log(`${i}: send request approval for tour: ${tour.name}`);
+        let tourURL = Meteor.settings.public.customerAppUrl + '/tours/' + tour.slug;
+        message += `<li><a href="${tourURL}">${tour.name}</a></li>`;
+      }
+      message += `</ul>`;
+
+      let from = "atorvia12@gmail.com";
+      let to = "atorvia.sdei@yopmail.com";
+      let subject = "Tours approval required";
+      let text = message;
+      Meteor.setTimeout(() => {
+        Email.send({ to, from, subject, text});
+      }, 0);
+
+
+      Tours.collection.update({_id: {$in: tourIds}}, {$set: {requestApprovalSentAt: new Date()} }, {multi: true});
     }
 });
