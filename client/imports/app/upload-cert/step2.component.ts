@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import { SessionStorageService } from 'ng2-webstorage';
+import { InjectUser } from "angular2-meteor-accounts-ui";
+import { ChangeDetectorRef } from "@angular/core";
 import { showAlert } from "../shared/show-alert";
 import { upload } from '../../../../both/methods/documents.methods';
 import { Roles } from 'meteor/alanning:roles';
@@ -22,6 +24,7 @@ interface Document {
   selector: '',
   template
 })
+@InjectUser("user")
 export class UploadCertStep2Component extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
   isUploading: boolean;
   isUploaded: boolean;
@@ -29,7 +32,8 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
   constructor(private router: Router,
       private route: ActivatedRoute,
       private ngZone: NgZone,
-      private sessionStorage: SessionStorageService
+      private sessionStorage: SessionStorageService,
+      private changeDetectorRef: ChangeDetectorRef
   ) {
       super();
   }
@@ -72,6 +76,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
           };
           if (field == 'agentIdentity') {
             this.agentIdentity = document;
+            this.changeDetectorRef.detectChanges();
           }
           // console.log("document upload done.");
           console.log("file id:", res._id);

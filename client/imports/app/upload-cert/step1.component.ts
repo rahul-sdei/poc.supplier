@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import { SessionStorageService } from 'ng2-webstorage';
+import { InjectUser } from "angular2-meteor-accounts-ui";
 import { showAlert } from "../shared/show-alert";
 import { upload } from '../../../../both/methods/documents.methods';
 import { Roles } from 'meteor/alanning:roles';
@@ -20,6 +21,7 @@ interface Document {
   selector: '',
   template
 })
+@InjectUser("user")
 export class UploadCertStep1Component extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
   isUploading: boolean;
   isUploaded: boolean;

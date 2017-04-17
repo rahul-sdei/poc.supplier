@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="!! user">
   <div class="login-wrap signup-wrap">
     <div class="container-fluid">
       <div class="row">
@@ -16,7 +16,7 @@
               <form>
                 <div class="white-bg">
                   <h3>Welcome onboard,</h3>
-                  <h3>[Company name]</h3>
+                  <h3>{{user.profile?.supplier.companyName}}</h3>
                   <p>Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit.</p>
                 </div>
                 <div class="grey-bg">
