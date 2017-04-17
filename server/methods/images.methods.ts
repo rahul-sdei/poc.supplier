@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
-import { Images, Thumbs } from "../../both/collections/images.collection";
-import { Image, Thumb } from "../../both/models/image.model";
+import { Images } from "../../both/collections/images.collection";
+import { Image } from "../../both/models/image.model";
 
 Meteor.methods({
   /* delete image by id */
@@ -18,18 +18,18 @@ Meteor.methods({
         });
         /* reset data in collections */
         Images.collection.remove({_id: image._id});
-        
-        /* remove thumb */
-        let thumb = Thumbs.collection.findOne({originalId: image._id});
-        if (typeof thumb == "undefined" || !thumb._id) {
-            return true;
-        }
 
-        let thumbPath = process.env.PWD + '/uploads/thumbs/' + thumb._id + '.' + thumb.extension;
-        fs.unlink(thumbPath, (res) => {
-            //console.log("unlink.thumb:", res);
-        });
-        Thumbs.collection.remove({_id: thumb._id});
+        /* remove thumb */
+        // let thumb = Thumbs.collection.findOne({originalId: image._id});
+        // if (typeof thumb == "undefined" || !thumb._id) {
+        //     return true;
+        // }
+
+        // let thumbPath = process.env.PWD + '/uploads/thumbs/' + thumb._id + '.' + thumb.extension;
+        // fs.unlink(thumbPath, (res) => {
+        //     //console.log("unlink.thumb:", res);
+        // });
+        // Thumbs.collection.remove({_id: thumb._id});
 
         return true;
     }

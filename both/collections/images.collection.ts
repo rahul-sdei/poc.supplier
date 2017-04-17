@@ -1,37 +1,13 @@
 import { MongoObservable } from 'meteor-rxjs';
 import { Meteor } from 'meteor/meteor';
 import { UploadFS } from 'meteor/jalik:ufs';
-import { Thumb, Image } from "../models/image.model";
+import { Image } from "../models/image.model";
 
 export const Images = new MongoObservable.Collection<Image>('images');
-export const Thumbs = new MongoObservable.Collection<Thumb>('thumbs');
 
 function loggedIn(userId) {
   return !!userId;
 }
-
-export const ThumbsStore = new UploadFS.store.Local({
-  collection: Thumbs.collection,
-  name: 'thumbs',
-  path: process.env.PWD + '/uploads/thumbs',
-  permissions: new UploadFS.StorePermissions({
-    insert: loggedIn,
-    update: loggedIn,
-    remove: loggedIn
-  }),
-  transformWrite(from, to, fileId, file) {
-    // Resize to 550x400
-    const gm = require('gm');
-
-    gm(from, file.name)
-      .resize(550, 400)
-      .gravity('Center')
-      .extent(550, 400)
-      .quality(100)
-      .stream()
-      .pipe(to);
-  }
-});
 
 export const ImagesStore = new UploadFS.store.Local({
   collection: Images.collection,
@@ -48,9 +24,8 @@ export const ImagesStore = new UploadFS.store.Local({
     const gm = require('gm');
 
     gm(from, file.name)
-      .resize(1280, 720)
+      .resize(1080, 720)
       .gravity('Center')
-      .extent(1280, 720)
       .quality(100)
       .stream()
       .pipe(to);

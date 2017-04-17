@@ -206,16 +206,16 @@
                       </div>
                       <div class="verfication-info">
                         <p>Agent Certificate</p>
-                        <h5 *ngIf="!! user?.profile?.agentCertificate?.name">
-                          <a href="{{user.profile.agentCertificate.url}}" download title="{{user.profile.agentCertificate.name}}">
-                            {{user.profile.agentCertificate.name}}
+                        <h5 *ngIf="!! user?.supplier?.agentCertificate?.name">
+                          <a href="{{user.supplier.agentCertificate.url}}" download title="{{user.supplier.agentCertificate.name}}">
+                            {{user.supplier.agentCertificate.name}}
                           </a>
                         </h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn" *ngIf="user?.profile?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.profile?.agentCertificate || user?.profile?.agentCertificate?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentCertificate || user?.supplier?.agentCertificate?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
@@ -231,8 +231,8 @@
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn" *ngIf="user?.profile?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.profile?.agentIdentity || user?.profile?.agentIdentity?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentIdentity || user?.supplier?.agentIdentity?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>

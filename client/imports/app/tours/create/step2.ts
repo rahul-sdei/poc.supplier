@@ -35,6 +35,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
   dateRange: DateRange[] = [];
   totalSeats: number = 0;
   totalSoldSeats: number = 0;
+  totalAvailableSeats: number = 0;
   error: string;
     constructor(private router: Router,
         private route: ActivatedRoute,
