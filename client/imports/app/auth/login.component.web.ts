@@ -5,6 +5,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
+import { User } from "../../../../both/models/user.model";
 import template from './login.component.web.html';
 import { showAlert } from "../shared/show-alert";
 import { validateEmail, validatePhoneNum, validateFirstName } from "../../validators/common";
@@ -46,11 +47,11 @@ export class LoginComponent extends MeteorComponent implements OnInit {
             } else {
                 this.localStorage.store("rememberMeNot", !this.rememberMe);
                 this.sessionStorage.store("Meteor.userId", Meteor.userId());
-                let user = Meteor.user();
-                if (typeof user.profile.agentCertificate == "undefined") {
+                let user = <User>Meteor.user();
+                if (typeof user.supplier.agentCertificate == "undefined") {
                     showAlert("Upload your agent certificate to continue.", "info");
                     this.router.navigate(['/signup/step1']);
-                } else if (typeof user.profile.agentIdentity == "undefined") {
+                } else if (typeof user.supplier.agentIdentity == "undefined") {
                     showAlert("Upload your identity to continue.", "info");
                     this.router.navigate(['/signup/step2']);
                 } else {
