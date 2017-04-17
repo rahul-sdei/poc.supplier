@@ -47,7 +47,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         country: ['', Validators.compose([Validators.required])]
       })
       let callback = (user) => {
-        this.profileForm.controls['companyName'].setValue(user.supplier.companyName);
+        this.profileForm.controls['companyName'].setValue(user.profile.supplier.companyName);
         this.profileForm.controls['email'].setValue(user.emails[0].address);
         this.profileForm.controls['contact'].setValue(user.profile.contact);
         if (typeof user.profile.address == "undefined") {
@@ -88,7 +88,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
     }*/
 
     let userData = {
-      "supplier.companyName": this.profileForm.value.companyName,
+      "profile.supplier.companyName": this.profileForm.value.companyName,
       "profile.contact": this.profileForm.value.contact,
       "profile.address": {
         address1: this.profileForm.value.address1,

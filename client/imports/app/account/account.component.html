@@ -8,7 +8,7 @@
                          <img src="images/company.png" alt="">
                      </span>
                      <div class="user-deatil">
-                         <h4>{{user?.supplier?.companyName}}</h4>
+                         <h4>{{user?.profile.supplier?.companyName}}</h4>
                          <p>Member since {{user?.createdAt | date}}</p>
                          <p>{{user?.profile?.address?.suburb}},
                            {{user?.profile?.address?.state}},
@@ -206,16 +206,16 @@
                       </div>
                       <div class="verfication-info">
                         <p>Agent Certificate</p>
-                        <h5 *ngIf="!! user?.supplier?.agentCertificate?.name">
-                          <a href="{{user.supplier.agentCertificate.url}}" download title="{{user.supplier.agentCertificate.name}}">
-                            {{user.supplier.agentCertificate.name}}
+                        <h5 *ngIf="!! user?.profile.supplier?.agentCertificate?.name">
+                          <a href="{{user.profile.supplier.agentCertificate.url}}" download title="{{user.profile.supplier.agentCertificate.name}}">
+                            {{user.profile.supplier.agentCertificate.name}}
                           </a>
                         </h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentCertificate || user?.supplier?.agentCertificate?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn green-btn" *ngIf="user?.profile.supplier?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.profile.supplier?.agentCertificate || user?.profile.supplier?.agentCertificate?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
@@ -227,12 +227,12 @@
                       </div>
                       <div class="verfication-info">
                         <p>Manager</p>
-                        <h5>{{user?.supplier?.ownerName}}</h5>
+                        <h5>{{user?.profile.supplier?.ownerName}}</h5>
                       </div>
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
-                      <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentIdentity || user?.supplier?.agentIdentity?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn green-btn" *ngIf="user?.profile.supplier?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.profile.supplier?.agentIdentity || user?.profile.supplier?.agentIdentity?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>

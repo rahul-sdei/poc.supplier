@@ -15,13 +15,6 @@ Accounts.onCreateUser(function(options, user) {
     user.profile = {};
   }
 
-  // supplier data
-  if (typeof options.supplier !== "undefined") {
-    user.supplier = options.supplier || {};
-  } else {
-    user.supplier = {};
-  }
-
   // user status
   if (typeof options.status !== "undefined") {
     user.status = options.status || {};

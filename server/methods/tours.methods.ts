@@ -103,7 +103,7 @@ Meteor.methods({
 
       let owner = {
         id: user._id,
-        companyName: user.supplier.companyName,
+        companyName: user.profile.supplier.companyName,
         agentIdentity: {
           verified: false
         },
@@ -112,11 +112,11 @@ Meteor.methods({
         }
       };
 
-      if (user.supplier.agentIdentity && user.supplier.agentIdentity.verified === true) {
+      if (user.profile.supplier.agentIdentity && user.profile.supplier.agentIdentity.verified === true) {
         owner.agentIdentity.verified = true;
       }
 
-      if (user.supplier.agentCertificate && user.supplier.agentCertificate.verified === true) {
+      if (user.profile.supplier.agentCertificate && user.profile.supplier.agentCertificate.verified === true) {
         owner.agentCertificate.verified = true;
       }
 

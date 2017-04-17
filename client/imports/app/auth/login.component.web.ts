@@ -49,10 +49,10 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 this.localStorage.store("rememberMeNot", !this.rememberMe);
                 this.sessionStorage.store("Meteor.userId", Meteor.userId());
                 let user = <User>Meteor.user();
-                if (typeof user.supplier.agentCertificate == "undefined") {
+                if (typeof user.profile.supplier.agentCertificate == "undefined") {
                     showAlert("Upload your agent certificate to continue.", "info");
                     this.router.navigate(['/signup/step1']);
-                } else if (typeof user.supplier.agentIdentity == "undefined") {
+                } else if (typeof user.profile.supplier.agentIdentity == "undefined") {
                     showAlert("Upload your identity to continue.", "info");
                     this.router.navigate(['/signup/step2']);
                 } else {
