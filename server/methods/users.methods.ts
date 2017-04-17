@@ -78,34 +78,5 @@ Meteor.methods({
         throw new Meteor.Error(403, "Not authorized!");
       }
       return Meteor.users.findOne({ _id: userId });
-    },
-    "users.resetProfile": () => {
-      let users = Meteor.users.find().fetch();
-      for (let i=0; i<users.length; i++) {
-        let user = users[i];
-        if (! user.profile.companyName) {
-          user.profile.companyName = "";
-        }
-        if (! user.profile.agentCertificate) {
-          user.profile.agentCertificate = {};
-        }
-        if (! user.profile.agentIdentity) {
-          user.profile.agentIdentity = {};
-        }
-        if (! user.profile.ownerName) {
-          user.profile.ownerName = "";
-        }
-
-        Meteor.users.update({_id: user._id}, {
-          $set: {
-            supplier: {
-              companyName: user.profile.companyName,
-              agentCertificate: user.profile.agentCertificate,
-              agentIdentity: user.profile.agentIdentity,
-              ownerName: user.profile.ownerName
-            }
-          }
-        });
-      }
     }
 })

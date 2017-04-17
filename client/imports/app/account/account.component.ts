@@ -82,10 +82,10 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
 
   //update supplier's profile
   update() {
-    if (! this.profileForm.valid) {
+    /*if (! this.profileForm.valid) {
       showAlert("Invalid FormData supplied.", "danger");
       return;
-    }
+    }*/
 
     let userData = {
       "supplier.companyName": this.profileForm.value.companyName,

@@ -183,7 +183,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="text-right btn-space">
-                        <button type="button" class="btn green-btn profile-btn" (click)="update()" [disabled]="!profileForm.valid">Update</button>
+                        <button type="button" class="btn green-btn profile-btn" (click)="update()" >Update</button>
                       </div>
                     </div>
                   </div>
@@ -215,7 +215,7 @@
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
                       <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentCertificate?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentCertificate || user?.supplier?.agentCertificate?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentCertificate || user?.supplier?.agentCertificate?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="col-sm-4 col-md-12 col-lg-4">
                       <button type="button" class="btn green-btn" *ngIf="user?.supplier?.agentIdentity?.verified == true"><span><i class="fa fa-check" aria-hidden="true"></i></span> Verified</button>
-                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentIdentity || user?.supplier?.agentIdentity?.verified == false"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
+                      <button type="button" class="btn" *ngIf="! user?.supplier?.agentIdentity || user?.supplier?.agentIdentity?.verified != true"><span><i class="fa fa-close" aria-hidden="true"></i></span> Verified</button>
                     </div>
                   </div>
                 </li>
