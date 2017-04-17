@@ -14,7 +14,7 @@ import { ResetPassword } from "./auth/resetpassword";
 import { VerifyEmail } from "./auth/verifyemail.component";
 import { routes as bookingRoutes } from "./bookings/routes";
 import { routes as reportsRoutes } from "./reports/routes";
-import { routes as uploadRoutes } from "./upload-certs/routes";
+import { routes as uploadRoutes } from "./upload-cert/routes";
 
 
 let mainRoutes = [
