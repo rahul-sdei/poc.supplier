@@ -51,10 +51,10 @@ Accounts.validateLoginAttempt(function (options) {
       throw new Meteor.Error(403, "You are not allowed to login.");
     }
 
-    if ( options.user.active !== true ) {
+    if ( options.user.active === false ) {
       throw new Meteor.Error(403, "Your account is deactivated.");
     }
-    
+
     var isAdmin = Roles.userIsInRole(options.user, ['supplier'])
     if (!isAdmin) {
       throw new Meteor.Error(403, "Not authorized!");
