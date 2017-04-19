@@ -61,6 +61,10 @@
                             <input type="email" class="form-control" id="userEmail" placeholder="Email Address" formControlName="email"/>
                           </div>
                           <div class='form-text error has-error' *ngIf="profileForm.controls.email.errors && profileForm.controls.email.touched">
+                            <div *ngIf="profileForm.controls.email.hasError('required')">You have to fill in Email to proceed.</div>
+                            <div *ngIf="profileForm.controls.email.hasError('minlength')">Min 5 characters required.</div>
+                            <div *ngIf="profileForm.controls.email.hasError('maxlength')">Max 50 characters required.</div>
+                            <div *ngIf="profileForm.controls.email.hasError('email')">Invalid email address.</div>
                           </div>
                         </div>
                       </div>
@@ -188,6 +192,12 @@
                     </div>
                   </div>
                 </form>
+
+                <div [hidden]="error == ''">
+    							<p class="md-warn" layout="row" layout-fill layout-padding layout-margin>
+    								<p class="md-body-1 has-error">{{ error?.reason }}</p>
+    							</p>
+    						</div>
               </div>
             </div>
           </div>

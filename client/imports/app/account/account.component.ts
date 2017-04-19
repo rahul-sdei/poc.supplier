@@ -23,8 +23,10 @@ declare var jQuery:any;
 export class UserDetailsComponent extends MeteorComponent implements OnInit, AfterViewChecked {
   profileForm: FormGroup;
   userId: string;
+  oldEmailAddress: string;
   user: User;
   error: any;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
@@ -59,6 +61,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         this.profileForm.controls['address2'].setValue(user.profile.address.address2);
         this.profileForm.controls['address1'].setValue(user.profile.address.address1);
         this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
+        this.oldEmailAddress = user.emails[0].address;
       };
       this.fetchUser(callback);
     }
@@ -99,11 +102,18 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         country:  this.profileForm.value.country
       }
     };
-    this.call("users.update", userData, (err, res) => {
+    let emailAddress = {
+      oldAddress: this.oldEmailAddress,
+      newAddress: this.profileForm.value.email
+    };
+
+    this.error = null;
+    this.call("users.update", userData, emailAddress, (err, res) => {
       this.ngZone.run(() => {
         if(err) {
           this.error = err;
         } else {
+          this.oldEmailAddress = emailAddress.newAddress;
           showAlert("Your profile has been saved.", "success");
           this.router.navigate(['/account']);
         }
