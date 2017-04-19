@@ -10,7 +10,7 @@
                      <div class="user-deatil">
                          <h4>{{user?.profile.supplier?.companyName}}</h4>
                          <p>Member since {{user?.createdAt | date}}</p>
-                         <p>{{user?.profile?.address?.suburb}},
+                         <p *ngIf="!! user?.profile?.address?.suburb || !! user?.profile?.address?.state || !! user?.profile?.address?.country">{{user?.profile?.address?.suburb}},
                            {{user?.profile?.address?.state}},
                            {{user?.profile?.address?.country}}</p>
                      </div>
