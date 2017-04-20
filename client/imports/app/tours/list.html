@@ -30,14 +30,14 @@
                         <span *ngIf="!!sortBy" [innerHTML]="sortBy"></span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (A-Z)'; sortOrder=1; changeOrderBy(sortBy);;">Tour (A-Z)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (Z-A)'; sortOrder=-1; changeOrderBy(sortBy);;">Tour (Z-A)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length (ASC)'; sortOrder=1; changeOrderBy(sortBy);">Length (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Length (DESC)'; sortOrder=-1; changeOrderBy(sortBy);">Length (DESC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (ASC)'; sortOrder=1; changeOrderBy(sortBy);">Availability (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (DESC)'; sortOrder=-1; changeOrderBy(sortBy);">Availability (DESC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (ASC)'; sortOrder=1; changeOrderBy(sortBy);">Price From (ASC)</button>
-                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (DESC)'; sortOrder=-1; changeOrderBy(sortBy);">Price From (DESC)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (A - Z)'; sortOrder=1; changeOrderBy('tour_asc');">Tour (A - Z)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Tour (Z - A)'; sortOrder=-1; changeOrderBy('tour_desc');">Tour (Z - A)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length (Low - High)'; sortOrder=1; changeOrderBy('length_asc');">Length (Low - High)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Length (High - Low)'; sortOrder=-1; changeOrderBy('length_desc');">Length (High - Low)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (Min - Max)'; sortOrder=1; changeOrderBy('availability_asc');">Availability (Min - Max)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Availability (Max - Min)'; sortOrder=-1; changeOrderBy('availability_desc');">Availability (Max - Min)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (Min - Max)'; sortOrder=1; changeOrderBy('price_asc');">Price From (Min - Max)</button>
+                        <button class="dropdown-item" type="button" (click)="sortBy='Price From (Max - Min)'; sortOrder=-1; changeOrderBy('price_desc');">Price From (Max - Min)</button>
                       </div>
                     </div>
                   </div>

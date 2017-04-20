@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
@@ -21,7 +21,7 @@ declare var jQuery:any;
   template
 })
 @InjectUser("user")
-export class UserDetailsComponent extends MeteorComponent implements OnInit, AfterViewChecked {
+export class UserDetailsComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   profileForm: FormGroup;
   userId: string;
   oldEmailAddress: string;
@@ -66,6 +66,18 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
       };
       this.fetchUser(callback);
     }
+  }
+
+  ngAfterViewInit() {
+    Meteor.setTimeout(() => {
+      jQuery(function($){
+        var phones = [{ "mask": "(###) ###-####"}];
+            $('#phnNumber').inputmask({
+                mask: phones,
+                greedy: false,
+                definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+      })
+    })
   }
 
   ngAfterViewChecked() {
