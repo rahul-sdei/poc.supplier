@@ -11,6 +11,7 @@ import { User } from "../../../../both/models/user.model";
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { CustomValidators as CValidators } from "ng2-validation";
 import { validatePhoneNum, validateFirstName } from "../../validators/common";
+import { upload } from '../../../../both/methods/images.methods';
 import template from './account.component.html';
 
 declare var jQuery:any;
@@ -123,6 +124,54 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
 
   resetStateValue() {
     this.profileForm.controls['state'].setValue(null);
+  }
+
+  onFileSelect(event) {
+      var files = event.srcElement.files;
+      this.startUpload(files[0]);
+  }
+
+
+  private startUpload(file: File): void {
+      // check for previous upload
+      if (this.isUploading === true) {
+          console.log("aleady uploading...");
+          return;
+      }
+
+      // start uploading
+      this.isUploaded = false;
+      //console.log('file uploading...');
+      this.isUploading = true;
+
+      upload(file)
+      .then((res) => {
+          this.isUploading = false;
+          this.isUploaded = true;
+          this.image = res;
+          this.imageId = res._id;
+          let userData = {
+              "profile.image":{
+                id: this.imageId,
+                url: this.image.url,
+                name: this.image.name
+              }
+          };
+          this.call("users.update", userData, (err, res) => {
+              if (err) {
+                  console.log("Error while updating user picture");
+                  return;
+              }
+              $("#inputFile").val("");
+              this.user.profile.image.url = this.image.url;
+              showAlert("Profile picture updated successfully.", "success");
+          });
+      })
+      .catch((error) => {
+          this.isUploading = false;
+          console.log('Error in file upload:', error);
+          showAlert(error.reason, "danger");
+      });
   }
 
 }

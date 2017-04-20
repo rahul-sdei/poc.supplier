@@ -4,9 +4,19 @@
          <div class="row justify-content-sm-center">
              <div class="col-xl-10">
                  <div class="profile">
+                   <div class="img-wrap">
                      <span class="user-img">
-                         <img src="images/company.png" alt="">
-                     </span>
+                        <img src="images/user.png" alt="" *ngIf="! user?.profile.image?.url" />
+                        <img src="{{user?.profile.image.url}}" alt="" *ngIf="!! user?.profile.image?.url" />
+
+                      </span>
+                      <div class="image-input">
+                          <span class="update-img">
+                              <i class="fa fa-pencil" aria-hidden="true" (click)="fileInput2.click();"></i>
+                          </span>
+                          <input #fileInput2 type="file" (change)="onFileSelect($event)" id="inputFile" accept="image/* " style="line-height: initial;">
+                      </div>
+                    </div>
                      <div class="user-deatil">
                          <h4>{{user?.profile.supplier?.companyName}}</h4>
                          <p>Member since {{user?.createdAt | date}}</p>

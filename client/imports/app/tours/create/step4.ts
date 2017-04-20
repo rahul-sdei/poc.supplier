@@ -67,7 +67,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     onFileDrop(file: File): void {
       this.startUpload(file);
     }
-
     private startUpload(file: File): void {
         // check for previous upload
         if (this.isUploading === true) {
@@ -78,7 +77,6 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
         // start uploading
         this.isUploaded = false;
         this.isUploading = true;
-
         upload(file)
         .then((res) => {
             this.isUploading = false;
