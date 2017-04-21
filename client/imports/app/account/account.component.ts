@@ -27,6 +27,8 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   oldEmailAddress: string;
   user: User;
   error: any;
+  isUploading: boolean = false;
+  isUploaded: boolean = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
