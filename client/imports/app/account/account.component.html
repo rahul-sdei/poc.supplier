@@ -141,21 +141,19 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="state">STATE/PROVINCE *</label>
+                          <label for="Country">COUNTRY *</label>
                           <div class="form-group">
                             <div class="select-style">
-                              <select *ngIf="country.value == 'Australia'" class="select" formControlName="state" id="stateSelect">
-                                <option>New South Wales</option>
-                                <option>Queensland</option>
-                                <option>Victoria</option>
-                                <option>Tasmania</option>
-                                <option>Western Australia</option>
-                                <option>South Australia</option>
+                              <select class="select" formControlName="country" #country (change)="resetStateValue()">
+                                <option value="New Zealand">India</option>
+                                <option value="Australia">Australia</option>
+                                <option value="China">China</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="New Zealand">New Zealand</option>
                               </select>
-                              <input *ngIf="country.value != 'Australia'" type="text" class="form-control" id="state" placeholder="State" formControlName="state" #stateValue/>
                             </div>
-                            <div class='form-text error has-error' *ngIf="profileForm.controls.state.errors && profileForm.controls.state.touched">
-                              <div *ngIf="profileForm.controls.state.hasError('required')">You have to choose State to proceed.</div>
+                            <div class='form-text error has-error' *ngIf="profileForm.controls.country.errors && profileForm.controls.country.touched">
+                              <div *ngIf="profileForm.controls.country.hasError('required')">You have to choose Country to proceed.</div>
                             </div>
                           </div>
                         </div>
@@ -176,18 +174,21 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="Country">COUNTRY *</label>
+                          <label for="state">STATE/PROVINCE *</label>
                           <div class="form-group">
                             <div class="select-style">
-                              <select class="select" formControlName="country" #country (change)="resetStateValue()">
-                                <option value="Australia">Australia</option>
-                                <option value="China">China</option>
-                                <option value="Vietnam">Vietnam</option>
-                                <option value="New Zealand">New Zealand</option>
+                              <select *ngIf="country.value == 'Australia'" class="select" formControlName="state" id="stateSelect">
+                                <option>New South Wales</option>
+                                <option>Queensland</option>
+                                <option>Victoria</option>
+                                <option>Tasmania</option>
+                                <option>Western Australia</option>
+                                <option>South Australia</option>
                               </select>
+                              <input *ngIf="country.value != 'Australia'" type="text" class="form-control" id="state" placeholder="State" formControlName="state" #stateValue/>
                             </div>
-                            <div class='form-text error has-error' *ngIf="profileForm.controls.country.errors && profileForm.controls.country.touched">
-                              <div *ngIf="profileForm.controls.country.hasError('required')">You have to choose Country to proceed.</div>
+                            <div class='form-text error has-error' *ngIf="profileForm.controls.state.errors && profileForm.controls.state.touched">
+                              <div *ngIf="profileForm.controls.state.hasError('required')">You have to choose State to proceed.</div>
                             </div>
                           </div>
                         </div>

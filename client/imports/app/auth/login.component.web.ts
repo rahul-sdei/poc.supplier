@@ -43,7 +43,7 @@ export class LoginComponent extends MeteorComponent implements OnInit {
           this.subscribe("users");
           this.zone.run(() => {
             if (err) {
-              showAlert(err.message, "danger");
+              showAlert(err.reason, "danger");
               this.error = err;
             } else {
                 this.localStorage.store("rememberMeNot", !this.rememberMe);

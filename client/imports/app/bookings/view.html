@@ -1,0 +1,180 @@
+<header-main></header-main>
+<main class="supplier-dashboard summary tours allbooking">
+  <div class="user-head">
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col-xl-10">
+          <div class="row sort-bar">
+            <div class="col-md-2">
+              <h4>Bookings</h4>
+            </div>
+            <div class="col-md-5 offset-md-5">
+              <div class="form-group">
+                <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="search" class="form-control" id="search" placeholder="Search Booking ID, tour name or suppliers..."/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grey-bg">
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col-xl-10">
+          <a [routerLink]="['/bookings/list']" class="green-anchor"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>See all bookings</a>
+        </div>
+        <div class="col-xl-10">
+          <!--booking-details-->
+          <div class="booking-details">
+            <div class="booking-img">
+              <img src="images/trip.png" alt="" />
+            </div>
+            <div class="booking-desc">
+              <div class="hdr">
+                <h3>Japan and Taiwan 12 Days Super Easter Highlight</h3>
+                <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>Osaka, Japan & Taipei, Taiwan</p>
+              </div>
+              <div class="booking-info">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <h6>Booking ID</h6>
+                    <p>AS00000000001</p>
+                  </div>
+                  <div class="col-sm-4">
+                    <h6>Booking date</h6>
+                    <p>01/11/2016</p>
+                  </div>
+                  <div class="col-sm-4">
+                    <h6>Status</h6>
+                    <p>Pending</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <h6>Departure</h6>
+                    <p>01 December 2016 <span class="green-label">Depart in 3 days</span></p>
+                  </div>
+                  <div class="col-md-5">
+                    <h6>Return</h6>
+                    <p>01 December 2016</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--booking-details-->
+          <!--travler-wrap-->
+          <div class="travler-wrap">
+            <div class="row">
+              <div class="col-sm-8">
+                <ul>
+                  <li>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h3>Traveller 1 <span class="green-label pull-right">Main Contact Person</span></h3>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h6>Name</h6>
+                        <p>Martha Kim</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Country</h6>
+                        <p>Australia</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Number</h6>
+                        <p>HA00000000</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h3>Traveller 2 </h3>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h6>Name</h6>
+                        <p>Martha Kim</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Country</h6>
+                        <p>Australia</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Number</h6>
+                        <p>HA00000000</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h3>Traveller 3 </h3>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h6>Name</h6>
+                        <p>Martha Kim</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Country</h6>
+                        <p>Australia</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Number</h6>
+                        <p>HA00000000</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h3>Traveller 4 </h3>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h6>Name</h6>
+                        <p>Martha Kim</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Country</h6>
+                        <p>Australia</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <h6>Passport Number</h6>
+                        <p>HA00000000</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-4">
+                <div class="payment-wrap">
+                  <div class="pay-method">
+                    <p>Payment Method</p>
+                    <h3><span><i class="fa fa-paypal" aria-hidden="true"></i></span>Paypal</h3>
+                  </div>
+                  <div class="special-req">
+                    <p>Special Request</p>
+                    <h3>Vegetarian meal only</h3>
+                  </div>
+                </div>
+                <button class="green-btn full-btn">Confirm Tour</button>
+                <button class="red-btn full-btn">Tour Unavailable</button>
+              </div>
+            </div>
+          </div>
+          <!--travler-wrap-->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

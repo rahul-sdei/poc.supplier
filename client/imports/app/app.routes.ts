@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import {SignupComponent} from "./auth/singup.component";
 import {RecoverComponent} from "./auth/recover.component";
 import {LoginComponent} from "./auth/login.component.web";
+import { ResendEmailComponent } from "./auth/resend-email.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {LandingComponent} from "./layout/landing.component";
 import {accountRoutes} from "./account/account.routes";
@@ -24,7 +25,8 @@ let mainRoutes = [
     { path: 'signup', component: SignupComponent },
     { path: 'recover', component: RecoverComponent },
     { path: 'reset-password/:token',component: ResetPassword },
-    { path: 'verify-email/:token',component: VerifyEmail }
+    { path: 'verify-email/:token',component: VerifyEmail },
+    { path: 'resend-email', component: ResendEmailComponent },
 ];
 
 export const routes: Route[] = [
