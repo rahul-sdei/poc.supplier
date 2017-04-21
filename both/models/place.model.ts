@@ -4,10 +4,11 @@ export interface Place extends CollectionObject {
   name: string;
   slug: string;
   geometry: {
-    lat: float;
-    lng: float;
+    lat: number;
+    lng: number;
   },
   address?: string;
+  country?: string;
   active: boolean;
   deleted: boolean;
   createdAt: Date;
