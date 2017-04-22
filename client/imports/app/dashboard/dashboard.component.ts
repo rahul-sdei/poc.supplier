@@ -154,8 +154,6 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
   }
 
   ngAfterViewChecked() {
-    var d = document.getElementById("main");
-    d.className = "supplier-dashboard summary";
   }
 
   ngOnInit() {

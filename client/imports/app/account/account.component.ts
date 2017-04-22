@@ -83,8 +83,6 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   }
 
   ngAfterViewChecked() {
-    var d = document.getElementById("main");
-    d.className = "";
   }
 
   private fetchUser(callback) {

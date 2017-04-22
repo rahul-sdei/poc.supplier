@@ -42,7 +42,6 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
   }
 
   ngAfterViewChecked() {
-    var d = document.getElementById("");
   }
 
   onFileSelect(event, field) {

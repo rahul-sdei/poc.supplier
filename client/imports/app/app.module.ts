@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { Ng2Webstorage } from 'ng2-webstorage';
+import { Ng2CompleterModule } from "ng2-completer";
 import { FileDropModule } from "angular2-file-drop";
 import { HttpModule } from '@angular/http';
 import { AppComponent } from "./app.component.web";
@@ -42,7 +43,8 @@ moduleDefinition = {
     Ng2Webstorage,
     Ng2Webstorage.forRoot({ prefix: '', separator: '' }),
     FileDropModule,
-    HttpModule
+    HttpModule,
+    Ng2CompleterModule
   ],
   declarations: [
     GoogleplaceDirective,

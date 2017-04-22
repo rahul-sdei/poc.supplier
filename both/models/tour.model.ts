@@ -6,7 +6,9 @@ export interface Tour extends CollectionObject {
     slug: string;
     description: string;
     departure: string;
+    departureId: string;
     destination: string;
+    destinationId: string;
     noOfDays: number;
     noOfNights: number;
     tourType: string;

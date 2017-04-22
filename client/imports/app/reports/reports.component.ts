@@ -44,8 +44,6 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
   }
 
   ngAfterViewChecked() {
-    var d = document.getElementById("main");
-    d.className = "report";
   }
 
   ngAfterViewInit() {

@@ -1,31 +1,33 @@
 <header-main></header-main>
-<div class="user-head">
-  <div class="container">
-    <div class="row justify-content-sm-center">
-      <div class="col-xl-10">
-        <div class="row sort-bar">
-          <div class="col-md-2">
-            <h4>Report</h4>
-          </div>
-          <div class="col-md-10">
-            <div class="row">
-              <div class="col-lg-9 col-sm-8">
-                <div class="pull_right">
-                  <div class="form-group">
-                    <span class="left-icon"><img src="images/cal.png" alt=""/></span>
-                    <input type="text" id="datetimepicker1" class="form-control" placeholder="Start Date"/>
-                    <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-                  </div>
-                  <span class="hypen">-</span>
-                  <div class="form-group">
-                    <span class="left-icon"><img src="images/cal.png" alt=""/></span>
-                    <input type="text" id="datetimepicker2" class="form-control" placeholder="End Date"/>
-                    <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+<main class="report">
+  <div class="user-head">
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col-xl-10">
+          <div class="row sort-bar">
+            <div class="col-md-2">
+              <h4>Report</h4>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-lg-9 col-sm-8">
+                  <div class="pull_right">
+                    <div class="form-group">
+                      <span class="left-icon"><img src="images/cal.png" alt=""/></span>
+                      <input type="text" id="datetimepicker1" class="form-control" placeholder="Start Date"/>
+                      <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                    </div>
+                    <span class="hypen">-</span>
+                    <div class="form-group">
+                      <span class="left-icon"><img src="images/cal.png" alt=""/></span>
+                      <input type="text" id="datetimepicker2" class="form-control" placeholder="End Date"/>
+                      <span class="right-icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-3 col-sm-4">
-                <button type="button" class="btn green-btn">Generate Report</button>
+                <div class="col-lg-3 col-sm-4">
+                  <button type="button" class="btn green-btn">Generate Report</button>
+                </div>
               </div>
             </div>
           </div>
@@ -33,75 +35,75 @@
       </div>
     </div>
   </div>
-</div>
-<div class="grey-bg">
-  <div class="container">
-    <div class="row justify-content-sm-center">
-      <div class="col-xl-10">
-        <div class="income-statics">
-          <div class="row">
-            <div class="col-md-5">
-              <h3>Income Statistics</h3>
-            </div>
-            <div class="col-md-7">
-              <div class="anchor-list">
-                <a href="javascript:void(0)" (click)="activeTab1 = 'Weekly'" [ngClass]="{'active': activeTab1 == 'Weekly'}">Weekly</a>
-                <a href="javascript:void(0)" (click)="activeTab1 = 'Monthly'" [ngClass]="{'active': activeTab1 == 'Monthly'}">Monthly</a>
-                <a href="javascript:void(0)" (click)="activeTab1 = 'Yearly'" [ngClass]="{'active': activeTab1 == 'Yearly'}">Yearly</a>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="graph-img">
-                <canvas id="reportChart" width="868" height="206"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sale-history">
-          <div class="hdr">
+  <div class="grey-bg">
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col-xl-10">
+          <div class="income-statics">
             <div class="row">
+              <div class="col-md-5">
+                <h3>Income Statistics</h3>
+              </div>
+              <div class="col-md-7">
+                <div class="anchor-list">
+                  <a href="javascript:void(0)" (click)="activeTab1 = 'Weekly'" [ngClass]="{'active': activeTab1 == 'Weekly'}">Weekly</a>
+                  <a href="javascript:void(0)" (click)="activeTab1 = 'Monthly'" [ngClass]="{'active': activeTab1 == 'Monthly'}">Monthly</a>
+                  <a href="javascript:void(0)" (click)="activeTab1 = 'Yearly'" [ngClass]="{'active': activeTab1 == 'Yearly'}">Yearly</a>
+                </div>
+              </div>
               <div class="col-sm-12">
-                <ul>
-                  <li [ngClass]="{'active': activeTab == 'Sales'}"><a href="javascript:void(0)" (click)="activeTab = 'Sales'">Sales</a></li>
-                  <li [ngClass]="{'active': activeTab == 'Payouts'}"><a href="javascript:void(0)" (click)="activeTab = 'Payouts'">Payouts</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="filter-head">
-            <div class="row">
-              <div class="col-lg-4" *ngIf="activeTab == 'Sales'">
-                <h4>Sales History</h4>
-              </div>
-              <div class="col-lg-4" *ngIf="activeTab == 'Payouts'">
-                <h4>Payout History</h4>
-              </div>
-              <div class="col-lg-8">
-                <div class="row">
-                  <div class="col-md-9">
-                    <label>Filter</label>
-                    <div class="form-group">
-                      <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                      <input type="text" id="datetimepicker3" class="form-control" placeholder="Start Date"/>
-                    </div>
-                    <div class="form-group">
-                      <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                      <input type="text" id="datetimepicker4" class="form-control" placeholder="End Date" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <button type="button" class="btn green-btn">Filter</button>
-                  </div>
+                <div class="graph-img">
+                  <canvas id="reportChart" width="868" height="206"></canvas>
                 </div>
               </div>
             </div>
           </div>
-          <div class="table-wrapper table-responsive report-table">
-            <sales-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Sales'"></sales-table>
-            <payouts-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Payouts'"></payouts-table>
+          <div class="sale-history">
+            <div class="hdr">
+              <div class="row">
+                <div class="col-sm-12">
+                  <ul>
+                    <li [ngClass]="{'active': activeTab == 'Sales'}"><a href="javascript:void(0)" (click)="activeTab = 'Sales'">Sales</a></li>
+                    <li [ngClass]="{'active': activeTab == 'Payouts'}"><a href="javascript:void(0)" (click)="activeTab = 'Payouts'">Payouts</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="filter-head">
+              <div class="row">
+                <div class="col-lg-4" *ngIf="activeTab == 'Sales'">
+                  <h4>Sales History</h4>
+                </div>
+                <div class="col-lg-4" *ngIf="activeTab == 'Payouts'">
+                  <h4>Payout History</h4>
+                </div>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <label>Filter</label>
+                      <div class="form-group">
+                        <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                        <input type="text" id="datetimepicker3" class="form-control" placeholder="Start Date"/>
+                      </div>
+                      <div class="form-group">
+                        <span class="left-icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                        <input type="text" id="datetimepicker4" class="form-control" placeholder="End Date" />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="button" class="btn green-btn">Filter</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-wrapper table-responsive report-table">
+              <sales-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Sales'"></sales-table>
+              <payouts-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Payouts'"></payouts-table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</main>

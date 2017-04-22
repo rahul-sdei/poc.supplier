@@ -111,8 +111,6 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     ngAfterViewChecked() {
-      var d = document.getElementById("main");
-      d.className = "";
     }
 
     ngOnDestroy() {

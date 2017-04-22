@@ -56,8 +56,6 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     }
 
     ngAfterViewChecked() {
-      var d = document.getElementById("main");
-      d.className = "supplier-dashboard summary tours booking";
     }
 
     private setOptions() {

@@ -9,6 +9,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
 import { CustomValidators as CValidators } from "ng2-validation";
+import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import template from "./step1.html";
 
 @Component({
@@ -18,15 +19,18 @@ import template from "./step1.html";
 export class CreateTourStep1Component extends MeteorComponent implements OnInit {
     step1Form: FormGroup;
     error: string;
-    address : Object;
+    address: string;
+    dataService: CompleterData;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
-        private sessionStorage: SessionStorageService
+        private sessionStorage: SessionStorageService,
+        private completerService: CompleterService
     ) {
         super();
+        this.dataService = completerService.remote('/api/1.0/places/search?searchString=', 'name', 'name');
     }
 
     ngOnInit() {
@@ -38,7 +42,9 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         name: [step1Details.name, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
         description: [step1Details.description, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(755)])],
         departure: [step1Details.departure, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
+        departureId: [step1Details.departureId],
         destination: [step1Details.destination, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(255)])],
+        destinationId: [step1Details.destinationId],
         noOfDays: [step1Details.noOfDays, Validators.compose([Validators.required, CValidators.min(1), CValidators.max(30)])],
         noOfNights: [step1Details.noOfNights, Validators.compose([CValidators.min(1), CValidators.max(30)])],
         tourType: [step1Details.tourType, Validators.compose([Validators.required])],
@@ -49,8 +55,6 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
     }
 
     ngAfterViewChecked() {
-      var d = document.getElementById("main");
-      d.className = "";
     }
 
     ngAfterViewInit() {
@@ -63,20 +67,14 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
     ngOnDestroy() {
     }
 
-    locationsUrl(search) {
-      console.log(search);
-      let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${search}&key=AIzaSyByFK_dYdfuhuZVY8ipkwn9pZYmYD0IidA`;
+    setDeparture(item: CompleterItem): void {
+      let departureId = item.originalObject._id;
+      this.step1Form.controls["departureId"].setValue(departureId);
     }
 
-    getAddress(place:Object, control) {
-       //this.address = place['formatted_address'];
-       this.address = place['name'];
-       var location = place['geometry']['location'];
-       var lat =  location.lat();
-       var lng = location.lng();
-       //console.log("Address Object", place);
-
-       this.step1Form.controls[control].setValue(this.address);
+    setDestination(item: CompleterItem): void {
+      let destinationId = item.originalObject._id;
+      this.step1Form.controls["destinationId"].setValue(destinationId);
     }
 
     step1() {
@@ -90,7 +88,9 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         slug: this.slugify(this.step1Form.value.name),
         description : this.step1Form.value.description,
         departure : this.step1Form.value.departure,
+        departureId: this.step1Form.value.departureId,
         destination : this.step1Form.value.destination,
+        destinationId : this.step1Form.value.destinationId,
         noOfDays : this.step1Form.value.noOfDays,
         noOfNights : this.step1Form.value.noOfNights,
         tourType : this.step1Form.value.tourType,
