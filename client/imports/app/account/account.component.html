@@ -129,24 +129,11 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="SUBURB">SUBURB/TOWN *</label>
-                            <div class="input-wrap">
-                              <input type="text" class="form-control" id="SUBURB" placeholder="Suburb" formControlName="suburb"/>
-                            </div>
-                            <div class='form-text error has-error' *ngIf="profileForm.controls.suburb.errors && profileForm.controls.suburb.touched">
-                              <div *ngIf="profileForm.controls.suburb.hasError('required')">You have to fill in Suburb to proceed.</div>
-                              <div *ngIf="profileForm.controls.suburb.hasError('minlength')">Min 2 characters required.</div>
-                              <div *ngIf="profileForm.controls.suburb.hasError('maxLength')">Max 30 characters required.</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
                             <label for="Country">COUNTRY *</label>
                             <div class="form-group">
                               <div class="select-style">
                                 <select class="select" formControlName="country" #country (change)="resetStateValue()">
-                                  <option value="New Zealand">India</option>
+                                  <option value="India">India</option>
                                   <option value="Australia">Australia</option>
                                   <option value="China">China</option>
                                   <option value="Vietnam">Vietnam</option>
@@ -156,20 +143,6 @@
                               <div class='form-text error has-error' *ngIf="profileForm.controls.country.errors && profileForm.controls.country.touched">
                                 <div *ngIf="profileForm.controls.country.hasError('required')">You have to choose Country to proceed.</div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="postCode">POST CODE *</label>
-                            <div class="input-wrap">
-                              <input type="text" class="form-control" id="postCode" placeholder="Post Code" formControlName="postCode"/>
-                            </div>
-                            <div class='form-text error has-error' *ngIf="profileForm.controls.postCode.errors && profileForm.controls.postCode.touched">
-                              <div *ngIf="profileForm.controls.postCode.hasError('minlength')">Min 4 characters required.</div>
-                              <div *ngIf="profileForm.controls.postCode.hasError('maxlength')">Max 12 characters allowed.</div>
                             </div>
                           </div>
                         </div>
@@ -191,6 +164,33 @@
                               <div class='form-text error has-error' *ngIf="profileForm.controls.state.errors && profileForm.controls.state.touched">
                                 <div *ngIf="profileForm.controls.state.hasError('required')">You have to choose State to proceed.</div>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="SUBURB">SUBURB/TOWN *</label>
+                            <div class="input-wrap">
+                              <input type="text" class="form-control" id="SUBURB" placeholder="Suburb" formControlName="suburb"/>
+                            </div>
+                            <div class='form-text error has-error' *ngIf="profileForm.controls.suburb.errors && profileForm.controls.suburb.touched">
+                              <div *ngIf="profileForm.controls.suburb.hasError('required')">You have to fill in Suburb to proceed.</div>
+                              <div *ngIf="profileForm.controls.suburb.hasError('minlength')">Min 2 characters required.</div>
+                              <div *ngIf="profileForm.controls.suburb.hasError('maxLength')">Max 30 characters required.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="postCode">POST CODE *</label>
+                            <div class="input-wrap">
+                              <input type="text" class="form-control" id="postCode" placeholder="Post Code" formControlName="postCode"/>
+                            </div>
+                            <div class='form-text error has-error' *ngIf="profileForm.controls.postCode.errors && profileForm.controls.postCode.touched">
+                              <div *ngIf="profileForm.controls.postCode.hasError('minlength')">Min 4 characters required.</div>
+                              <div *ngIf="profileForm.controls.postCode.hasError('maxlength')">Max 12 characters allowed.</div>
                             </div>
                           </div>
                         </div>
