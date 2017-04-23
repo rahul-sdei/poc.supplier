@@ -95,15 +95,15 @@
                         [hidden]="page.deleted">
                           <th scope="row"><img src ="images/random.png" /></th>
                           <td class="location">
-                            <h5>{{page.tour.title}}</h5>
-                            <p>Departure {{page.departureDate | date}}</p>
+                            <h5>{{page.tour.name}}</h5>
+                            <p>Departure {{page.startDate | date}}</p>
                           </td>
                           <td class="user-detail">
                             <span class="user-img"><img src ="images/user.png" /></span>
-                            <span class="user-name">{{page.contactDetails.firstName}} {{page.contactDetails.lastName}}</span>
+                            <span class="user-name">{{page.user.firstName}} {{page.user.lastName}}</span>
                           </td>
-                          <td class="total-travellers">4 Travllers</td>
-                          <td class="booking-details"><button type="button" class="btn green-btn">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
+                          <td class="total-travellers">{{page.numOfTravellers}} Travllers</td>
+                          <td class="booking-details"><button type="button" class="btn green-btn" [routerLink]="['/bookings/view', page._id]">Booking Details  <i class="fa fa-angle-right" aria-hidden="true"></i></button></td>
                         </tr>
                         <tr *ngIf="itemsSize==0">
                         <td colspan="4">

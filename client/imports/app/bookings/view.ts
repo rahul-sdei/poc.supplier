@@ -19,19 +19,59 @@ declare var jQuery:any;
   template
 })
 export class BookingsViewComponent extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
+    paramsSub: Subscription;
+    item: Booking;
 
-      constructor(private router: Router,
-          private route: ActivatedRoute,
-          private ngZone: NgZone,
-          private changeDetectorRef: ChangeDetectorRef,
-      ) {
-          super();
-      }
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private ngZone: NgZone,
+        private changeDetectorRef: ChangeDetectorRef,
+    ) {
+        super();
+    }
 
-      ngOnInit() {
-      }
+    ngOnInit() {
+        this.paramsSub = this.route.params
+        .map(params => params['id'])
+        .subscribe(id => {
 
-      ngAfterViewChecked() {
+            if (! id) {
+            showAlert("Invalid booking-id supplied.");
+            return;
+            }
+            
+            this.call("bookings.findOne", {_id: id}, (err, res) => {
+                if (err) {
+                    showAlert(err.reason, "danger");
+                    return;
+                }
+                
+                this.item = res;
+            })
+
+        });
         
-      }
+    }
+
+    ngAfterViewChecked() {
+    
+    }
+
+    get booking() {
+        return this.item;
+    }
+
+    get bookingStatus() {
+        let retVal = null;
+        let booking = this.item;
+        if (booking.confirmed !== true) {
+            retVal = "New";
+        } else if (booking.confirmed === true && this.booking.completed !== true) {
+            retVal = "Pending";
+        } else if (booking.completed === true) {
+            retVal = "Completed";
+        }
+
+        return retVal;
+    }
 }

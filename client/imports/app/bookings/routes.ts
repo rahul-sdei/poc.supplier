@@ -5,5 +5,5 @@ import { BookingsPageComponent } from './list';
 import { BookingsViewComponent } from './view';
 export const routes = [
     {path: "bookings/list", component: BookingsPageComponent },
-    {path: "bookings/view", component: BookingsViewComponent }
+    {path: "bookings/view/:id", component: BookingsViewComponent }
 ];

@@ -20,7 +20,7 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         },
-        {"supplierId": userId});
+        {"tour.supplierId": userId});
 
         if ( !_.isEmpty(criteria) ) {
           if ( criteria.completed==true ) {
@@ -39,9 +39,11 @@ Meteor.methods({
             where.push({
                 "$or": [
                     { "_id": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                    { "tour.title": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                    { "contactDetails.lastName": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                    { "contactDetails.firstName": { $regex: `.*${searchString}.*`, $options: 'i' } }
+                    { "tour.name": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "user.firstName": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "user.lastName": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "travellers.firstName": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { "travellers.lastName": { $regex: `.*${searchString}.*`, $options: 'i' } }
                 ]
             });
         }
@@ -49,14 +51,18 @@ Meteor.methods({
 
         return {count: cursor.count(), data: cursor.fetch()};
     },
-    "bookings.findOne": (slug: string) => {
+    "bookings.findOne": (criteria: any) => {
       let where:any = [];
       where.push({
           "$or": [{deleted: false}, {deleted: {$exists: false} }]
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
       });
-      where.push({slug: slug});
+
+      if (_.isEmpty(criteria)) {
+        criteria = { };
+      }
+      where.push(criteria);
 
       return Bookings.collection.findOne({$and: where});
     }

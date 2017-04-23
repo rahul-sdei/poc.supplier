@@ -1,40 +1,57 @@
 import { CollectionObject } from "./collection-object.model";
 
 export interface Booking extends CollectionObject {
-    userId: string;
-    tourId: string;
-    supplierId: string;
     tour: {
-      title: string;
+      id: string;
+      supplierId: string;
+      name: string;
+      departure: string;
+      destination: string;
+      featuredImage: {
+        id: string;
+        url: string;
+        name: string;
+      };
+      dateRangeId?: string;
     };
-    contactDetails: {
+    user: {
+      id: string;
       firstName: string;
       middleName: string;
       lastName: string;
       email: string;
-      phoneNum: string;
-      specialReq: string;
-    };
-    billingAddress: {
-      addressLine1: string;
-      addressLine2: string;
-      town: string;
-      state: string;
-      postcode: string;
-      country: string;
+      contact: string;
+      image: {
+        id: string;
+        url: string;
+        name: string;
+      };
     };
     numOfTravellers: number;
+    startDate: Date;
+    endDate: Date;
+    numOfAdults: number;
+    numOfChild: number;
+    pricePerAdult: number;
+    pricePerChild: number;
     travellers: [
       {
         firstName: string;
         middleName: string;
         lastName: string;
         email: string;
-        phoneNum: string;
+        contact: string;
+        addressLine1: string;
+        addressLine2: string;
+        town: string;
+        state: string;
+        postCode: string;
+        country: string;
         passport: {
           country: string;
           number: string;
-        }
+        };
+        specialRequest: string;
       }
     ];
     cardDetails: {
@@ -43,7 +60,8 @@ export interface Booking extends CollectionObject {
       type: string;
       expiry: Date;
     };
-    departureDate: Date;
+    totalPrice: number;
+    paymentDate: Date;
     active: boolean;
     confirmed: boolean;
     cancelled: boolean;

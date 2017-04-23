@@ -150,19 +150,19 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
         this.nameOrder.next(-1);
         break;
         case 'Tour (A-Z)':
-        this.orderBy.next("tour.title");
+        this.orderBy.next("tour.name");
         this.nameOrder.next(1);
         break;
         case 'Tour (Z-A)':
-        this.orderBy.next("tour.title");
+        this.orderBy.next("tour.name");
         this.nameOrder.next(-1);
         break;
         case 'Departure Date (ASC)':
-        this.orderBy.next("departureDate");
+        this.orderBy.next("startDate");
         this.nameOrder.next(1);
         break;
         case 'Departure Date (DESC)':
-        this.orderBy.next("departureDate");
+        this.orderBy.next("startDate");
         this.nameOrder.next(-1);
         break;
         case 'Contact Person (A-Z)':
@@ -192,12 +192,18 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
         this.nameOrder.next(parseInt(nameOrder));
     }
 
-    changeStatus(confirmed: boolean): void {
-      this.whereCond.next({active: true, confirmed: confirmed, completed: false});
-    }
-
-    showCompleted(): void {
-      this.whereCond.next({active: true, completed: true})
+    changeStatus(mode: string): void {
+        switch(mode) {
+            case "new":
+            this.whereCond.next({active: true, confirmed: false, completed: false});
+            break;
+            case "pending":
+            this.whereCond.next({active: true, confirmed: true, completed: false});
+            break;
+            case "completed":
+            this.whereCond.next({active: true, completed: true});
+            break;
+        }
     }
 
     ngOnDestroy() {

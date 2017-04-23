@@ -25,16 +25,17 @@
         <div class="col-xl-10">
           <a [routerLink]="['/bookings/list']" class="green-anchor"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>See all bookings</a>
         </div>
-        <div class="col-xl-10">
+        <div class="col-xl-10" *ngIf="!!booking">
           <!--booking-details-->
           <div class="booking-details">
             <div class="booking-img">
-              <img src="images/trip.png" alt="" />
+              <img *ngIf="!booking.tour.featuredImage?.url" src="images/trip.png" alt="" />
+              <img *ngIf="booking.tour.featuredImage?.url" src="{{booking.tour.featuredImage?.url}}" alt="" />
             </div>
             <div class="booking-desc">
               <div class="hdr">
-                <h3>Japan and Taiwan 12 Days Super Easter Highlight</h3>
-                <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>Osaka, Japan & Taipei, Taiwan</p>
+                <h3>{{booking.tour.name}}</h3>
+                <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>{{booking.tour.departure}} & {{booking.tour.destination}}</p>
               </div>
               <div class="booking-info">
                 <div class="row">
@@ -44,21 +45,21 @@
                   </div>
                   <div class="col-sm-4">
                     <h6>Booking date</h6>
-                    <p>01/11/2016</p>
+                    <p>{{booking.createdAt | date}}</p>
                   </div>
                   <div class="col-sm-4">
                     <h6>Status</h6>
-                    <p>Pending</p>
+                    <p [innerHTML]="bookingStatus"></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-7">
                     <h6>Departure</h6>
-                    <p>01 December 2016 <span class="green-label">Depart in 3 days</span></p>
+                    <p>{{booking.startDate | date}} <span class="green-label">Depart in 3 days</span></p>
                   </div>
                   <div class="col-md-5">
                     <h6>Return</h6>
-                    <p>01 December 2016</p>
+                    <p>{{booking.endDate | date}}</p>
                   </div>
                 </div>
               </div>
@@ -70,87 +71,24 @@
             <div class="row">
               <div class="col-sm-8">
                 <ul>
-                  <li>
+                  <li *ngFor="let traveller of booking.travellers; let i = index;">
                     <div class="row">
                       <div class="col-sm-12">
-                        <h3>Traveller 1 <span class="green-label pull-right">Main Contact Person</span></h3>
+                        <h3>Traveller {{i+1}} <span *ngIf="i==0" class="green-label pull-right">Main Contact Person</span></h3>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-4">
                         <h6>Name</h6>
-                        <p>Martha Kim</p>
+                        <p>{{traveller.firstName}} {{traveller.lastName}}</p>
                       </div>
                       <div class="col-sm-4">
                         <h6>Passport Country</h6>
-                        <p>Australia</p>
+                        <p>{{traveller.passport?.country}}</p>
                       </div>
                       <div class="col-sm-4">
                         <h6>Passport Number</h6>
-                        <p>HA00000000</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <h3>Traveller 2 </h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <h6>Name</h6>
-                        <p>Martha Kim</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Country</h6>
-                        <p>Australia</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Number</h6>
-                        <p>HA00000000</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <h3>Traveller 3 </h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <h6>Name</h6>
-                        <p>Martha Kim</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Country</h6>
-                        <p>Australia</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Number</h6>
-                        <p>HA00000000</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <h3>Traveller 4 </h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <h6>Name</h6>
-                        <p>Martha Kim</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Country</h6>
-                        <p>Australia</p>
-                      </div>
-                      <div class="col-sm-4">
-                        <h6>Passport Number</h6>
-                        <p>HA00000000</p>
+                        <p>{{traveller.passport?.number}}</p>
                       </div>
                     </div>
                   </li>
@@ -164,7 +102,7 @@
                   </div>
                   <div class="special-req">
                     <p>Special Request</p>
-                    <h3>Vegetarian meal only</h3>
+                    <h3>{{booking.travellers[0]?.specialRequest}}</h3>
                   </div>
                 </div>
                 <button class="green-btn full-btn">Confirm Tour</button>
