@@ -15,18 +15,19 @@
       [attr.data-page-id]="page._id"
       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
       [hidden]="page.deleted">
-      <td class="date-time">{{page.createdAt | date}}</td>
+      <td class="date-time">{{page.bookingDate | date}}</td>
       <td class="tour-name"><a href="javascript:void(0)">{{page.tour.name}}</a></td>
       <td class="departure-date">{{page.startDate | date}}</td>
       <td class="contact-person">
         <span class="user-img">
-          <img src="/images/user.png" />
+          <img *ngIf="!page.user?.image?.url" src="/images/user.png" />
+          <img *ngIf="!!page.user?.image?.url" src="{{page.user?.image?.url}}" />
         </span>
         <span class="name">{{page.user?.firstName}} {{page.user?.lastName}}</span>
       </td>
       <td class="travellers">{{page.travellers?.length}}</td>
       <td class="action-td">
-        <div class="btn-group" *ngIf="showAction == true">
+        <div class="btn-group" *ngIf="page.confirmed == false && page.cancelled == false">
           <button type="button" class="btn btn-secondary"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Action
           </button>
@@ -34,8 +35,8 @@
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="javascript:void(0);">Approve</a>
-            <a class="dropdown-item" href="javascript:void(0);">Deny</a>
+            <a class="dropdown-item" href="javascript:void(0);" (click)="approveBooking(page)">Approve</a>
+            <a class="dropdown-item" href="javascript:void(0);" (click)="disapproveBooking(page)">Deny</a>
           </div>
         </div>
       </td>

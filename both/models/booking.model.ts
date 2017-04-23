@@ -61,10 +61,13 @@ export interface Booking extends CollectionObject {
       expiry: Date;
     };
     totalPrice: number;
+    bookingDate: Date;
     paymentDate: Date;
     active: boolean;
     confirmed: boolean;
+    confirmedAt: Date;
     cancelled: boolean;
+    cancelledAt: Date;
     completed: boolean;
     cancellationReason: string;
     denied: boolean;

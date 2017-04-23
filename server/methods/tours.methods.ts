@@ -169,7 +169,7 @@ Meteor.methods({
         let tour = tours[i];
         tourIds.push(tour._id);
         // console.log(`${i}: send request approval for tour: ${tour.name}`);
-        let tourURL = Meteor.settings.public.customerAppUrl + '/tours/' + tour.slug;
+        let tourURL = Meteor.settings.public["customerAppUrl"] + '/tours/' + tour.slug;
         message += `<li><a href="${tourURL}">${tour.name}</a></li>`;
       }
       message += `</ul>`;

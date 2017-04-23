@@ -61,9 +61,9 @@
       <div class="row justify-content-sm-center">
         <div class="col-xl-10">
           <ul class="tabs">
-            <li rel="tab1" (click)="activeTab='first'; changeStatus('new')" class="active">New Bookings <span>1</span></li>
-            <li rel="tab2" (click)="activeTab='second'; changeStatus('pending')">Pending <span>2</span></li>
-            <li rel="tab2" (click)="activeTab='third'; changeStatus('completed')" class="tab_last">Completed <span>2</span></li>
+            <li rel="tab1" (click)="activeTab='first'; changeStatus('new')" class="active">New Bookings <span>{{bookingsCount.new}}</span></li>
+            <li rel="tab2" (click)="activeTab='second'; changeStatus('pending')">Pending <span>{{bookingsCount.pending}}</span></li>
+            <li rel="tab2" (click)="activeTab='third'; changeStatus('completed')" class="tab_last">Completed <span>{{bookingsCount.completed}}</span></li>
           </ul>
           <div class="right-wrap">
             <div class="tab_container" id="tabContent1">
@@ -71,7 +71,7 @@
               <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="activeTab='first'; changeStatus('new')">New Bookings <span>1</span></h3>
               <div id="tab1" class="tab_content">
                 <div class="table-wrapper">
-                  <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize" [showAction]="true"></bookings-table>
+                  <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize" [showAction]="true" (onApprove)="onApprove($event)" (onDisapprove)="onDisapprove($event)"></bookings-table>
                 </div>
               </div>
               <!--tab-1-->

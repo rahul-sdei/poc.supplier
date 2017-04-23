@@ -12,7 +12,7 @@ interface Options {
 
 Meteor.methods({
 
-    "bookings.find": (options: Options, criteria: any, searchString: string) => {
+    "bookings.find": (options: Options, criteria: any, searchString: string, count: boolean = false) => {
         let where:any = [];
         let userId = Meteor.userId();
         where.push({
@@ -24,10 +24,10 @@ Meteor.methods({
 
         if ( !_.isEmpty(criteria) ) {
           if ( criteria.completed==true ) {
-            criteria.departureDate = {$lte: new Date()};
+            criteria.startDate = {$lte: new Date()};
             delete criteria["completed"];
           } else if ( criteria.completed==false && criteria.confirmed==true ) {
-            criteria.departureDate = {$gte: new Date()};
+            criteria.startDate = {$gte: new Date()};
             delete criteria["completed"];
           }
           //console.log(criteria);
@@ -49,6 +49,10 @@ Meteor.methods({
         }
         let cursor = Bookings.collection.find({$and: where}, options);
 
+        if (count === true) {
+          return cursor.count();
+        }
+
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "bookings.findOne": (criteria: any) => {
@@ -65,5 +69,21 @@ Meteor.methods({
       where.push(criteria);
 
       return Bookings.collection.findOne({$and: where});
+    },
+    "bookings.count": () => {
+      let bookingsCount: any = {};
+      bookingsCount.new = Meteor.call("bookings.find", {}, {"confirmed": false, "cancelled": false}, "", true);
+      bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
+      bookingsCount.completed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": true}, "", true);
+
+      return bookingsCount;
+    },
+    "bookings.approve": (bookingId) => {
+      let user = Meteor.user();
+      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {confirmed: true, confirmedAt: new Date()} });
+    },
+    "bookings.disapprove": (bookingId) => {
+      let user = Meteor.user();
+      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
     }
 });

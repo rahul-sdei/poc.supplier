@@ -3,7 +3,6 @@ import { MeteorComponent } from 'angular2-meteor';
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'ng2-webstorage';
-
 import { ChangeDetectorRef } from "@angular/core";
 import { Tour } from "../../../../both/models/tour.model";
 import * as moment from 'moment';

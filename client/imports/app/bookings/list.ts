@@ -23,6 +23,12 @@ interface Options extends Pagination {
   [key: string]: any
 }
 
+interface BookingsCount {
+    new: number;
+    pending: number;
+    completed: number;
+}
+
 declare var jQuery:any;
 
 @Component({
@@ -41,6 +47,11 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     searchString: string = "";
     whereCond: Subject<any> = new Subject<any>();
     searchTimeout: any;
+    bookingsCount: BookingsCount = {
+        new: null,
+        pending: null,
+        completed: null
+    };
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -52,6 +63,11 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     }
 
     ngOnInit() {
+        this.call("bookings.count", {active: true}, (err, res) => {
+          if (! err) {
+            this.bookingsCount = res;
+          }
+        })
         this.setOptions();
     }
 
@@ -166,11 +182,11 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
         this.nameOrder.next(-1);
         break;
         case 'Contact Person (A-Z)':
-        this.orderBy.next("contactDetails.firstName");
+        this.orderBy.next("user.firstName");
         this.nameOrder.next(1);
         break;
         case 'Contact Person (Z-A)':
-        this.orderBy.next("contactDetails.firstName");
+        this.orderBy.next("user.firstName");
         this.nameOrder.next(-1);
         break;
         case 'Travellers (ASC)':
@@ -195,7 +211,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     changeStatus(mode: string): void {
         switch(mode) {
             case "new":
-            this.whereCond.next({active: true, confirmed: false, completed: false});
+            this.whereCond.next({active: true, confirmed: false, cancelled: false});
             break;
             case "pending":
             this.whereCond.next({active: true, confirmed: true, completed: false});
@@ -204,6 +220,12 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             this.whereCond.next({active: true, completed: true});
             break;
         }
+    }
+
+    onApprove(result) {
+      this.bookingsCount.new--;
+      this.bookingsCount.pending++;
+      this.changeDetectorRef.detectChanges();
     }
 
     ngOnDestroy() {
