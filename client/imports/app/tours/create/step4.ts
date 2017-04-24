@@ -6,7 +6,9 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
 import { ChangeDetectorRef } from "@angular/core";
 import { SessionStorageService } from 'ng2-webstorage';
+import { UploadFS } from 'meteor/jalik:ufs';
 import { showAlert } from "../../shared/show-alert";
+import { ImagesStore } from '../../../../../both/collections/images.collection';
 import { upload } from '../../../../../both/methods/images.methods';
 import template from "./step4.html";
 

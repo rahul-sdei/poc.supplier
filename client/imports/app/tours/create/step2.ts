@@ -149,6 +149,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       var endDate = $("#datetimepicker2").datepicker("getDate");
 
       let object = {
+        _id: new Meteor.Collection.ObjectID()._str,
         startDate,
         endDate,
         numOfSeats: <number>this.step2Form.value.seats,

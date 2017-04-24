@@ -217,7 +217,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             this.whereCond.next({active: true, confirmed: true, completed: false});
             break;
             case "completed":
-            this.whereCond.next({active: true, completed: true});
+            this.whereCond.next({active: true, confirmed: true, completed: true});
             break;
         }
     }

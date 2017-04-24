@@ -9,7 +9,7 @@ import { ChangeDetectorRef } from "@angular/core";
 import { Booking } from "../../../../both/models/booking.model";
 import { showAlert } from "../shared/show-alert";
 import { Roles } from 'meteor/alanning:roles';
-
+import * as moment from 'moment';
 import template from "./view.html";
 
 declare var jQuery:any;
@@ -39,22 +39,22 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
             showAlert("Invalid booking-id supplied.");
             return;
             }
-            
+
             this.call("bookings.findOne", {_id: id}, (err, res) => {
                 if (err) {
                     showAlert(err.reason, "danger");
                     return;
                 }
-                
+
                 this.item = res;
             })
 
         });
-        
+
     }
 
     ngAfterViewChecked() {
-    
+
     }
 
     get booking() {
@@ -73,5 +73,48 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
         }
 
         return retVal;
+    }
+
+    get departInDays() {
+      let booking = this.item;
+      let a = moment(booking.startDate);
+      let b = moment(booking.endDate);
+      let diff = a.diff(b, 'days');
+      if (diff < 0) {
+        diff = 0;
+      }
+      return diff;
+    }
+
+    approveBooking() {
+      let booking = this.item;
+      booking.confirmed = true;
+
+      this.call("bookings.approve", booking._id, (err, res) => {
+        if (err) {
+          showAlert(err.reason, "danger");
+          return;
+        }
+
+        this.changeDetectorRef.detectChanges();
+
+        showAlert("Booking has been approved successfully.", "success");
+      });
+    }
+
+    disapproveBooking() {
+      let booking = this.item;
+      booking.confirmed = false;
+
+      this.call("bookings.disapprove", booking._id, (err, res) => {
+        if (err) {
+          showAlert(err.reason, "danger");
+          return;
+        }
+
+        this.changeDetectorRef.detectChanges();
+
+        showAlert("Booking has been disapproved successfully.", "success");
+      });
     }
 }

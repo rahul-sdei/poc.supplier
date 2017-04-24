@@ -1,11 +1,25 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
-import { Images } from "../../both/collections/images.collection";
+import { Images, ImagesStore } from "../../both/collections/images.collection";
 import { Image } from "../../both/models/image.model";
 
 Meteor.methods({
+  "images.filterBySize": (imageId: string) => {
+    // check uploaded image dimensions
+    let filePath = ImagesStore.getFilePath(imageId);
+
+    let gm = require("gm");
+    gm(filePath).size(function (err, size) {
+      if (!err) {
+        console.log('width = ' + size.width);
+        console.log('height = ' + size.height);
+      } else {
+        console.log(err);
+      }
+    });
+  },
   /* delete image by id */
-    "images.delete": (imageId) => {
+    "images.delete": (imageId: string) => {
         let fs = require('fs');
         /* remove original image */
         let image = Images.collection.findOne({_id: imageId});

@@ -23,11 +23,13 @@ Meteor.methods({
         {"tour.supplierId": userId});
 
         if ( !_.isEmpty(criteria) ) {
-          if ( criteria.completed==true ) {
+          if ( criteria.confirmed == false ) {
+            criteria.startDate = {$gt: new Date()};
+          } else if ( criteria.completed==true ) {
             criteria.startDate = {$lte: new Date()};
             delete criteria["completed"];
           } else if ( criteria.completed==false && criteria.confirmed==true ) {
-            criteria.startDate = {$gte: new Date()};
+            criteria.startDate = {$gt: new Date()};
             delete criteria["completed"];
           }
           //console.log(criteria);
