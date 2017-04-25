@@ -30,12 +30,7 @@ export class ToursTableComponent extends MeteorComponent {
   }
 
   canEdit(tour: Tour) {
-    let date = tour.createdAt;
-    let createdDate = moment.utc(date).add(6, 'hours');
-    let currentDate = moment.utc();
-    // console.log(createdDate);
-    if (createdDate > currentDate) {
-      // console.log("can edit", tour.name);
+    if (!! tour.requestApprovalSentAt) {
       return true;
     }
   }

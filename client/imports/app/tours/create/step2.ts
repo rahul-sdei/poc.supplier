@@ -31,6 +31,7 @@ declare var jQuery:any;
 })
 
 export class CreateTourStep2Component extends MeteorComponent implements OnInit {
+  step1Details: any;
   step2Form: FormGroup;
   dateRange: DateRange[] = [];
   totalSeats: number = 0;
@@ -67,11 +68,17 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       });
 
       for (let i=0; i<5; i++) {
+        let adultValidators = [CValidators.min(1), CValidators.max(5000)];
+        if (i==0) {
+          adultValidators.push(Validators.required);
+        }
+        let childValidators = [CValidators.min(1), CValidators.max(5000)];
+
         let control = <FormArray>this.step2Form.controls['price'];
         let priceGroup = this.formBuilder.group({
           numOfPersons: [(i+1), Validators.compose([Validators.required, CValidators.min(1), CValidators.max(100)])],
-          adult: ['', Validators.compose([Validators.required, CValidators.min(1), CValidators.max(5000)])],
-          child: ['', Validators.compose([Validators.required, CValidators.min(1), CValidators.max(5000)])]
+          adult: ['', Validators.compose(adultValidators)],
+          child: ['', Validators.compose(childValidators)]
         });
         control.push(priceGroup);
       }
@@ -79,7 +86,9 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     ngAfterViewInit() {
-      Meteor.setTimeout(() => {
+      let step1Details = this.sessionStorage.retrieve("step1Details");
+      let noOfDays = step1Details.noOfDays;
+      let callback = (noOfDays) => {
         jQuery(function($){
           $('#datetimepicker1')
             .datepicker({
@@ -92,12 +101,19 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
               // end date
               // disable dates earlier than departure date
               $('#datetimepicker2').datepicker("remove");
+
+              let startDate = $("#datetimepicker1").datepicker("getDate");
+              let endDate = new Date($("#datetimepicker1").datepicker("getDate"));
+              endDate.setDate(endDate.getDate() + (noOfDays - 1));
+
               $('#datetimepicker2')
                 .datepicker({
                     format: 'dd/mm/yyyy',
                     autoclose: true,
-                    startDate: $("#datetimepicker1").datepicker("getDate")
+                    startDate: startDate
                 });
+
+                $('#datetimepicker2').val(getFormattedDate(endDate)).datepicker('update');
             });
 
           $('#datetimepicker2')
@@ -107,7 +123,22 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
                 startDate: new Date()
             });
         });
-      }, 500);
+
+        function getFormattedDate(today) {
+          var dd = today.getDate();
+          var mm = today.getMonth()+1; //January is 0!
+
+          var yyyy = today.getFullYear();
+          if(dd<10){
+              dd='0'+dd;
+          }
+          if(mm<10){
+              mm='0'+mm;
+          }
+          return dd+'/'+mm+'/'+yyyy;
+        }
+      }
+      setTimeout(`let callback = ${callback}; callback(${noOfDays})`, 500);
     }
 
     ngAfterViewChecked() {
@@ -147,7 +178,19 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
 
       var startDate = $("#datetimepicker1").datepicker("getDate");
       var endDate = $("#datetimepicker2").datepicker("getDate");
-
+      let priceRange = this.step2Form.value.price;
+      if (! priceRange[0] ["child"]) {
+        priceRange[0] ["child"] = priceRange[0] ["adult"];
+      }
+      for (let i=1; i<5; i++) {
+        if (! priceRange[i] ["adult"]) {
+          priceRange[i] ["adult"] = priceRange[i-1] ["adult"];
+        }
+        if (! priceRange[i] ["child"]) {
+          priceRange[i] ["child"] = priceRange[i-1] ["child"];
+        }
+      }
+      
       let object = {
         _id: new Meteor.Collection.ObjectID()._str,
         startDate,
@@ -155,7 +198,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         numOfSeats: <number>this.step2Form.value.seats,
         soldSeats: 0,
         availableSeats: <number>this.step2Form.value.seats,
-        price: this.step2Form.value.price
+        price: priceRange
       };
 
       let dateRange = this.dateRange;
