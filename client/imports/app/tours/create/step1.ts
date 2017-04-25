@@ -49,7 +49,8 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         noOfNights: [step1Details.noOfNights, Validators.compose([CValidators.min(1), CValidators.max(30)])],
         tourType: [step1Details.tourType, Validators.compose([Validators.required])],
         tourPace: [step1Details.tourPace, Validators.compose([Validators.required])],
-        hasGuide: [step1Details.hasGuide]
+        hasGuide: [step1Details.hasGuide],
+        hasFlight: [step1Details.hasFlight]
       });
       this.error = '';
     }
@@ -95,7 +96,8 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         noOfNights : this.step1Form.value.noOfNights,
         tourType : this.step1Form.value.tourType,
         tourPace : this.step1Form.value.tourPace,
-        hasGuide : this.step1Form.value.hasGuide
+        hasGuide : this.step1Form.value.hasGuide,
+        hasFlight: this.step1Form.value.hasFlight
       };
       this.sessionStorage.store("step1Details", details);
       let step1Details = this.sessionStorage.retrieve("step1Details");

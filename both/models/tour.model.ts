@@ -14,6 +14,7 @@ export interface Tour extends CollectionObject {
     tourType: string;
     tourPace: string;
     hasGuide: boolean;
+    hasFlight: boolean;
     /* step 2 */
     startPrice: number;
     dateRange: [{
