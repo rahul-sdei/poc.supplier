@@ -28,6 +28,9 @@ interface Options extends Pagination {
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   userId: string;
   items: Booking[];
+  weekTotal: [];
+  firstWeekTotal: number;
+  week: number = 0;
 
   constructor(private router: Router,
       private route: ActivatedRoute,
@@ -35,46 +38,10 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
       private changeDetectorRef: ChangeDetectorRef,
   ) {
       super();
+      this.getBookingDetails();
   }
 
   ngAfterViewInit() {
-    let ctx = document.getElementById("myChart");
-    let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
-            datasets: [{
-                label: 'Bookings',
-                data: [12, 19, 13, 16, 14, 18],
-                backgroundColor: [
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)'
-                ],
-                borderColor: [
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });
 
     let ctx2 = document.getElementById("myChart2");
     let myChart2 = new Chart(ctx2, {
@@ -178,11 +145,83 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
             return;
         }
         this.items = res.data;
-    })
+    });
+    // for (i =0; i< 6;i++) {
+    //   let curr = new Date;
+    //   curr.setDate(curr.getDate() - this.week);
+    //   let first = curr.getDate(); // First day is the day of the month - the day of the week
+    //   let last = first - 6; // last day is the first day + 6
+    //   let firstday = new Date(curr.setDate(first)).toUTCString();
+    //   let lastday = new Date(curr.setDate(last)).toUTCString();
+    //   this.week += 6;
+    //   this.call("bookings.count", {active: true, createdAt: {'$gt': lastday, '$lt': firstday}}, (err, res) => {
+    //     if (! err) {
+    //       this.weekTotal[i] = res.pending;
+    //     }
+    //   })
+    // }
   }
 
+  getBookingDetails() {
+    let curr = new Date;
+    curr.setDate(curr.getDate());
+    let first = curr.getDate(); // First day is the day of the month - the day of the week
+    let last = first - 6; // last day is the first day + 6
+    let firstday = new Date(curr.setDate(first)).toUTCString();
+    let lastday = new Date(curr.setDate(last)).toUTCString();
+    this.call("bookings.sales", lastday, firstday, (err, res) => {
+      if (! err) {
+        console.log(res);
+        this.firstWeekTotal = res;
+        this.weekTotal = [res,1,2,4,5,7];
+        this.createChart();
+      } else {
+        console.log(err);
+      }
+    });
+  }
   get pageArr() {
       return this.items;
   }
 
+  createChart() {
+    let ctx = document.getElementById("myChart");
+    let data = [1,3,2,4,6,8];
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
+            datasets: [{
+                label: 'Bookings',
+                data: this.weekTotal,
+                backgroundColor: [
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)'
+                ],
+                borderColor: [
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+  }
 }

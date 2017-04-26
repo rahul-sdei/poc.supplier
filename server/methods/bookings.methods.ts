@@ -87,5 +87,11 @@ Meteor.methods({
     "bookings.disapprove": (bookingId) => {
       let user = Meteor.user();
       Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
+    },
+    "bookings.sales": (lastday: Date, firstday: Date) => {
+      let user = Meteor.user();
+      let cursor = Bookings.collection.find({"tour.supplierId": user._id, confirmed: true, completed: false, createdAt: {$gte: lastday, $lte: firstday }});
+      return cursor.count();
     }
+
 });
