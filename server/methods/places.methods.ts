@@ -30,9 +30,9 @@ Meteor.methods({
             where.push({
                 "$or": [
                     { "name": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                    { "province": { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    /*{ "province": { $regex: `.*${searchString}.*`, $options: 'i' } },
                     { "country": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                    { "address": { $regex: `.*${searchString}.*`, $options: 'i' } }
+                    { "address": { $regex: `.*${searchString}.*`, $options: 'i' } }*/
                 ]
             });
         }

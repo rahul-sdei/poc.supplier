@@ -26,7 +26,7 @@ Picker.route( '/api/1.0/places/search', function( params, request, response, nex
   const options: Options = {
       limit: 10,
       skip: 0,
-      sort: { "name": -1 },
+      sort: { "sortOrder": 1, "name": 1 },
       fields: {"name": 1}
   };
   let item = this.item;
