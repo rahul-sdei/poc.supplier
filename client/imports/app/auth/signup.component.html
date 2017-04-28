@@ -68,7 +68,7 @@
 								<button type="submit" class="btn green-btn full-btn" [disabled]="!signupForm.valid">Sign Up</button>
 							</div>
 							<div class="form-group signup-option">
-								<p>By clicking ‘Sign Up’, you agree with our <a href="javascript:void(0)">Partnership Terms &  Conditions</a>.</p>
+								<p>By clicking ‘Sign Up’, you agree with our <a [routerLink]="['/terms']">Partnership Terms &  Conditions</a>.</p>
 							</div>
 
 							<div class="form-group add-account">
