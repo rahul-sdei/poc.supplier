@@ -190,7 +190,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
           priceRange[i] ["child"] = priceRange[i-1] ["child"];
         }
       }
-      
+
       let object = {
         _id: new Meteor.Collection.ObjectID()._str,
         startDate,

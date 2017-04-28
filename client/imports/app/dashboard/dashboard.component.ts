@@ -28,8 +28,10 @@ interface Options extends Pagination {
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   userId: string;
   items: Booking[];
-  weekTotal: [];
+  bookingTotal: [];
   firstWeekTotal: number;
+  revenueTotal: number;
+  weekRevenue: number;
   week: number = 0;
 
   constructor(private router: Router,
@@ -42,44 +44,6 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
   }
 
   ngAfterViewInit() {
-
-    let ctx2 = document.getElementById("myChart2");
-    let myChart2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
-            datasets: [{
-                label: 'Revenue',
-                data: [1750, 1550, 1950, 1450, 1850, 2050],
-                backgroundColor: [
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)'
-                ],
-                borderColor: [
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });
 
     let ctx3 = document.getElementById("myChart3");
     let myChart3 = new Chart(ctx3, {
@@ -171,9 +135,16 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
     let lastday = new Date(curr.setDate(last)).toUTCString();
     this.call("bookings.sales", lastday, firstday, (err, res) => {
       if (! err) {
-        console.log(res);
-        this.firstWeekTotal = res;
-        this.weekTotal = [res,1,2,4,5,7];
+        let bookingData = res.data;
+        let length = bookingData.length;
+        let revenue = 0;
+        for (let i=0; i< length; i++) {
+          revenue += bookingData[i].totalPrice;
+        }
+        this.firstWeekTotal = res.count;
+        this.weekRevenue = revenue;
+        this.revenueTotal = [revenue,500,400,650,750,700];
+        this.bookingTotal = [res.count,1,2,4,5,7];
         this.createChart();
       } else {
         console.log(err);
@@ -193,7 +164,45 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
             labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
             datasets: [{
                 label: 'Bookings',
-                data: this.weekTotal,
+                data: this.bookingTotal,
+                backgroundColor: [
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)',
+                    'rgba(22, 160, 133, 1)'
+                ],
+                borderColor: [
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)',
+                  'rgba(22, 160, 133, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+    let ctx2 = document.getElementById("myChart2");
+    let myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
+            datasets: [{
+                label: 'Revenue',
+                data: this.revenueTotal,
                 backgroundColor: [
                     'rgba(22, 160, 133, 1)',
                     'rgba(22, 160, 133, 1)',

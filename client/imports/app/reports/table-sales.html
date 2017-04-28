@@ -8,18 +8,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+    <tr *ngFor="let booking of pageArr; let i= index;">
       <td>
         <span class="date">
-          01/01/2016
+          {{booking.bookingDate | date}}
         </span>
         <span class="time">
-          1:12 PM
+          {{booking.bookingDate | date:'shortTime'}}
         </span>
       </td>
-      <td>Japan and Taiwan 12 Days Super Easter Highlight</td>
-      <td>Paid</td>
-      <td>A$ 149.00</td>
+      <td>{{booking.tour.name}}</td>
+      <td *ngIf="! booking.paymentInfo?.status">Unpaid</td>
+      <td *ngIf="!! booking.paymentInfo?.status">Paid</td>
+      <td>A$ {{booking.totalPrice}}</td>
     </tr>
   </tbody>
 </table>

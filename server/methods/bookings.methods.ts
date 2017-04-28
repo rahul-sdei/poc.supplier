@@ -89,9 +89,11 @@ Meteor.methods({
       Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
     },
     "bookings.sales": (lastday: Date, firstday: Date) => {
+      console.log(firstday, lastday);
+      console.log(new Date(firstday));
       let user = Meteor.user();
-      let cursor = Bookings.collection.find({"tour.supplierId": user._id, confirmed: true, completed: false, createdAt: {$gte: lastday, $lte: firstday }});
-      return cursor.count();
+      let cursor = Bookings.collection.find({"tour.supplierId": user._id, confirmed: true, completed: false, bookingDate:{$gte: lastday, $lte: firstday}});
+      return {count: cursor.count(), data: cursor.fetch()};
     }
 
 });
