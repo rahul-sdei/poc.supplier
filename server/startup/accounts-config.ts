@@ -29,7 +29,11 @@ Accounts.onCreateUser(function(options, user) {
       firstName: fbData.first_name,
       lastName: fbData.last_name,
       age: fbData.age_range.min,
-      gender: fbData.gender
+      gender: fbData.gender,
+      supplier: {
+        agentCertificate: {},
+        agentIdentity: {}
+      }
     }
   }
 

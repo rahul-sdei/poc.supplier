@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { Meteor } from 'meteor/meteor';
+import { AuthService } from "../../services/auth";
 
 import { ListPageComponent } from './list';
 import { CreateTourStep1Component } from './create/step1';

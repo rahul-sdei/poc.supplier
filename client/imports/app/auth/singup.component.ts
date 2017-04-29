@@ -43,6 +43,8 @@ export class SignupComponent extends MeteorComponent implements OnInit {
       profile: {
         supplier: {
           companyName: this.signupForm.value.companyName,
+          agentCertificate: {},
+          agentIdentity: {}
         }
       }
     };
