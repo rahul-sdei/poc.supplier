@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
-import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import { User } from "../../../../both/models/user.model";
-import template from './login.component.web.html';
-import { showAlert } from "../shared/show-alert";
 import { validateEmail, validatePhoneNum, validateFirstName } from "../../validators/common";
+import { showAlert } from "../shared/show-alert";
+import template from './login.component.web.html';
 
 @Component({
   selector: 'login',

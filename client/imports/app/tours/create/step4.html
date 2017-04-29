@@ -101,7 +101,7 @@
                     <p>Drag your image(s) here to upload</p>
                     <h5>OR</h5>
                     <div class="btn-wrap">
-                      <input #fileInput type="file" style="display: none;" (change)="onFileSelect($event)" accept="image/*" />
+                      <input #fileInput type="file" style="display: none;" (change)="onFileSelect($event)" accept="image/*" multiple />
                       <button type="button" class="btn green-btn pull-right" (click)="fileInput.click();">Select photos from computer</button>
                     </div>
                   </div>

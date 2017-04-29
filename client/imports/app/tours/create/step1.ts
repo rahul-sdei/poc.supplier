@@ -69,11 +69,19 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
     }
 
     setDeparture(item: CompleterItem): void {
+      console.log(item);
+      if (! item || ! item.originalObject) {
+        return;
+      }
       let departureId = item.originalObject._id;
       this.step1Form.controls["departureId"].setValue(departureId);
     }
 
     setDestination(item: CompleterItem): void {
+      console.log(item);
+      if (! item || ! item.originalObject) {
+        return;
+      }
       let destinationId = item.originalObject._id;
       this.step1Form.controls["destinationId"].setValue(destinationId);
     }

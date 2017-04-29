@@ -21,7 +21,8 @@ import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
 import { Tour_Declarations } from "./tours/index";
 import { Booking_Declarations } from './bookings/index';
 import { REPORTS_DECLARATIONS } from './reports/index';
-import { UploadStep1_Declarations } from './upload-cert/index';
+import { UploadCert_Declarations } from './upload-cert/index';
+import { Services_Providers } from "../services/index";
 
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
@@ -59,10 +60,11 @@ moduleDefinition = {
     ...Tour_Declarations,
     ...Booking_Declarations,
     ...REPORTS_DECLARATIONS,
-    ...UploadStep1_Declarations
+    ...UploadCert_Declarations
   ],
   providers: [
     ...ROUTES_PROVIDERS,
+    ...Services_Providers
   ],
   bootstrap: [
     AppComponent

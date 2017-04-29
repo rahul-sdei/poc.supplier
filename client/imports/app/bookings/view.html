@@ -84,11 +84,13 @@
                       </div>
                       <div class="col-sm-4">
                         <h6>Passport Country</h6>
-                        <p>{{traveller.passport?.country}}</p>
+                        <p *ngIf="!! traveller.passport?.country">{{traveller.passport?.country}}</p>
+                        <p *ngIf="! traveller.passport?.country">Not Compatible</p>
                       </div>
                       <div class="col-sm-4">
                         <h6>Passport Number</h6>
-                        <p>{{traveller.passport?.number}}</p>
+                        <p *ngIf="!! traveller.passport?.number">{{traveller.passport?.number}}</p>
+                        <p *ngIf="! traveller.passport?.number">Not Compatible</p>
                       </div>
                     </div>
                   </li>

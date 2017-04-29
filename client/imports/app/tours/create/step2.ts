@@ -138,7 +138,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
           return dd+'/'+mm+'/'+yyyy;
         }
       }
-      setTimeout(`let callback = ${callback}; callback(${noOfDays})`, 500);
+      setTimeout(`var callback = ${callback}; callback(${noOfDays})`, 500);
     }
 
     ngAfterViewChecked() {

@@ -16,7 +16,7 @@
       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
       [hidden]="page.deleted">
       <td class="date-time">{{page.bookingDate | date}}</td>
-      <td class="tour-name"><a href="javascript:void(0)">{{page.tour.name}}</a></td>
+      <td class="tour-name"><a [routerLink]="['/bookings/view', page._id]">{{page.tour.name}}</a></td>
       <td class="departure-date">{{page.startDate | date}}</td>
       <td class="contact-person">
         <span class="user-img">

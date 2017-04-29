@@ -27,6 +27,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     error: string;
     images: Image[] = [];
     featuredImage: Image;
+    files: File[];
     fileIsOver: boolean = false;
     isUploading: boolean;
     isUploaded: boolean;
@@ -60,14 +61,22 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     }
 
     onFileSelect(event) {
-      var files = event.srcElement.files;
-      this.startUpload(files[0]);
+      this.files = event.srcElement.files;
+      this.fileUploadMultiple();
+    }
+
+    fileUploadMultiple(i=0) {
+      if (typeof this.files[i] == "undefined") {
+        return;
+      }
+      this.startUpload(this.files[i], i);
     }
 
     onFileDrop(file: File): void {
       this.startUpload(file);
     }
-    private startUpload(file: File): void {
+
+    private startUpload(file: File, i: number = null): void {
         // check for previous upload
         if (this.isUploading === true) {
             showAlert("Previous file is already uploading.", "danger");
@@ -87,6 +96,9 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
               name: res.name
             });
             console.log("file id:", res._id);
+            if (typeof i == "number") {
+              this.fileUploadMultiple(++i);
+            }
         })
         .catch((error) => {
             this.isUploading = false;

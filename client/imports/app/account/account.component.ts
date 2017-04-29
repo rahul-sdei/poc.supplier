@@ -73,11 +73,6 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   ngAfterViewInit() {
     Meteor.setTimeout(() => {
       jQuery(function($){
-        var phones = [{ "mask": "(###) ###-####"}];
-            $('#phnNumber').inputmask({
-                mask: phones,
-                greedy: false,
-                definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
       })
     }, 500);
   }

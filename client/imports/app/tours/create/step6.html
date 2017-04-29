@@ -169,8 +169,9 @@
                         <p [innerHTML]="item.description | nl2br"></p>
                         <div class="sub-head">
                           <h4>Hotel</h4>
-                          <p>{{item.hotelName}}</p>
-                          <p *ngIf="!item.hotelName">{{item.hotelType}}</p>
+                          <p *ngIf="!! item.hotelName">{{item.hotelName}}</p>
+                          <p *ngIf="! item.hotelName && !! item.hotelType">{{item.hotelType}}</p>
+                          <p *ngIf="! item.hotelName && ! item.hotelType">0 Nights</p>
                         </div>
                         <div class="sub-head">
                           <h4>Meals</h4>
