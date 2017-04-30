@@ -28,11 +28,8 @@ interface Options extends Pagination {
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   userId: string;
   items: Booking[];
-  bookingTotal: [];
-  firstWeekTotal: number;
-  revenueTotal: number;
-  weekRevenue: number;
-  week: number = 0;
+  bookingsCount: number[] = [];
+  bookingsValue: number[] = [];
 
   constructor(private router: Router,
       private route: ActivatedRoute,
@@ -40,11 +37,9 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
       private changeDetectorRef: ChangeDetectorRef,
   ) {
       super();
-      this.getBookingDetails();
   }
 
   ngAfterViewInit() {
-
     let ctx3 = document.getElementById("myChart3");
     let myChart3 = new Chart(ctx3, {
         type: 'bar',
@@ -105,66 +100,51 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
     this.call("bookings.find", options, where, "", (err, res) => {
         jQuery(".loading").hide();
         if (err) {
-            showAlert("Error while fetching pages list.", "danger");
+            console.log("Error while fetching recent bookings.", "danger");
             return;
         }
         this.items = res.data;
     });
-    // for (i =0; i< 6;i++) {
-    //   let curr = new Date;
-    //   curr.setDate(curr.getDate() - this.week);
-    //   let first = curr.getDate(); // First day is the day of the month - the day of the week
-    //   let last = first - 6; // last day is the first day + 6
-    //   let firstday = new Date(curr.setDate(first)).toUTCString();
-    //   let lastday = new Date(curr.setDate(last)).toUTCString();
-    //   this.week += 6;
-    //   this.call("bookings.count", {active: true, createdAt: {'$gt': lastday, '$lt': firstday}}, (err, res) => {
-    //     if (! err) {
-    //       this.weekTotal[i] = res.pending;
-    //     }
-    //   })
-    // }
+
+    this.call("bookings.statistics", (err, res) => {
+      if (err) {
+          showAlert("Error while fetching statistics.", "danger");
+          return;
+      }
+
+      this.createChart(res);
+    })
   }
 
-  getBookingDetails() {
-    let curr = new Date;
-    curr.setDate(curr.getDate());
-    let first = curr.getDate(); // First day is the day of the month - the day of the week
-    let last = first - 6; // last day is the first day + 6
-    let firstday = new Date(curr.setDate(first)).toUTCString();
-    let lastday = new Date(curr.setDate(last)).toUTCString();
-    this.call("bookings.sales", lastday, firstday, (err, res) => {
-      if (! err) {
-        let bookingData = res.data;
-        let length = bookingData.length;
-        let revenue = 0;
-        for (let i=0; i< length; i++) {
-          revenue += bookingData[i].totalPrice;
-        }
-        this.firstWeekTotal = res.count;
-        this.weekRevenue = revenue;
-        this.revenueTotal = [revenue,500,400,650,750,700];
-        this.bookingTotal = [res.count,1,2,4,5,7];
-        this.createChart();
-      } else {
-        console.log(err);
-      }
-    });
-  }
   get pageArr() {
       return this.items;
   }
 
-  createChart() {
+  createChart(response) {
+    let bookings = response.bookings;
+    let bookingsCount = this.bookingsCount;
+    let bookingsValue = this.bookingsValue;
+    let groupNames = ["week1", "week2", "week3", "week4", "week5", "week6"];
+    interface BookingStats {count: number; totalValue: number}
+    for (let i=0; i<groupNames.length; i++) {
+      let item: BookingStats = <BookingStats>_.find(bookings, {_id: groupNames[i]});
+      if (_.isEmpty(item)) {
+        bookingsCount.push(0);
+        bookingsValue.push(0);
+      } else {
+        bookingsCount.push(item.count);
+        bookingsValue.push(item.totalValue);
+      }
+    }
+
     let ctx = document.getElementById("myChart");
-    let data = [1,3,2,4,6,8];
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
             datasets: [{
                 label: 'Bookings',
-                data: this.bookingTotal,
+                data: bookingsCount,
                 backgroundColor: [
                     'rgba(22, 160, 133, 1)',
                     'rgba(22, 160, 133, 1)',
@@ -188,7 +168,8 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:true,
+                        stepSize: 1
                     }
                 }]
             }
@@ -202,7 +183,7 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
             labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
             datasets: [{
                 label: 'Revenue',
-                data: this.revenueTotal,
+                data: bookingsValue,
                 backgroundColor: [
                     'rgba(22, 160, 133, 1)',
                     'rgba(22, 160, 133, 1)',
