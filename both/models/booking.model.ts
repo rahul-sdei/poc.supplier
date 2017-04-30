@@ -4,6 +4,20 @@ export interface Booking extends CollectionObject {
     tour: {
       id: string;
       supplierId: string;
+      supplier?: {
+        companyName: string;
+        agentIdentity: {
+          verified: boolean;
+        };
+        agentCertificate: {
+          verified: boolean;
+        };
+        image: {
+          id: string;
+          url: string;
+          name: string;
+        };
+      };
       name: string;
       departure: string;
       destination: string;

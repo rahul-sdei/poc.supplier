@@ -3,6 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { check } from "meteor/check";
 import { Tours } from "../../both/collections/tours.collection";
+import { Bookings } from "../../both/collections/bookings.collection";
 import { Tour } from "../../both/models/tour.model";
 import { User } from "../../both/models/user.model";
 import { Email } from 'meteor/email';
@@ -109,7 +110,8 @@ Meteor.methods({
         },
         agentCertificate: {
           verified: false
-        }
+        },
+        image: user.profile.image
       };
 
       if (user.profile.supplier.agentIdentity && user.profile.supplier.agentIdentity.verified === true) {
@@ -143,6 +145,39 @@ Meteor.methods({
     "tours.update": (data: Tour, id: string) => {
       data.modifiedAt = new Date();
       return Tours.collection.update({_id: id}, {$set: data});
+    },
+    "tours.updateUser": (userId: string) => {
+      let user = Meteor.users.findOne({_id: userId});
+      if (_.isEmpty(user)) {
+        console.log("Error calling bookings.updateUser(). Invalid userId supplied.")
+        return;
+      }
+
+      Tours.collection.update({"owner.id": userId}, {
+        $set: {
+          "owner": {
+            "companyName": user.profile.supplier.companyName,
+            "agentIdentity": {verified: user.profile.supplier.agentIdentity.verified},
+            "agentCertificate": {verified: user.profile.supplier.agentCertificate.verified},
+            "image": user.profile.image
+          }
+        }
+      }, {
+        multi: true
+      });
+
+      Bookings.collection.update({"tour.supplierId": userId}, {
+        $set: {
+          "tour.supplier": {
+            "companyName": user.profile.supplier.companyName,
+            "agentIdentity": {verified: user.profile.supplier.agentIdentity.verified},
+            "agentCertificate": {verified: user.profile.supplier.agentCertificate.verified},
+            "image": user.profile.image
+          }
+        }
+      }, {
+        multi: true
+      });
     },
     "tours.requestApproval": () => {
       const options: Options = {
