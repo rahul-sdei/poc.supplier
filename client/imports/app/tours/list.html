@@ -60,8 +60,8 @@
       <div class="row justify-content-sm-center">
         <div class="col-xl-10">
           <ul class="tabs">
-            <li rel="tab1" (click)="showPending=false; changeStatus(true)" [ngClass]="{'active': !showPending}">Approved Tours <span *ngIf="approvedCount > 0">{{approvedCount}}</span></li>
-            <li rel="tab2" (click)="showPending=true; changeStatus(false);" [ngClass]="{'active': showPending}" class="tab_last">Pending Approval <span *ngIf="pendingCount > 0">{{pendingCount}}</span></li>
+            <li rel="tab1" (click)="showPending=false; changeStatus(true)" [ngClass]="{'active': !showPending}">Approved Tours <span >{{approvedCount}}</span></li>
+            <li rel="tab2" (click)="showPending=true; changeStatus(false);" [ngClass]="{'active': showPending}" class="tab_last">Pending Approval <span >{{pendingCount}}</span></li>
           </ul>
           <div class="right-wrap">
             <div class="tab_container" id="tabContent1">

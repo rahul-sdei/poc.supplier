@@ -98,12 +98,12 @@ Meteor.methods({
     "bookings.statistics": () => {
       let today = new Date(),
           oneDay = ( 1000 * 60 * 60 * 24 ),
-          week6 = new Date( today.valueOf() - ( 6 * 7 * oneDay ) ),
-          week5 = new Date( today.valueOf() - ( 5 * 7 * oneDay ) ),
-          week4 = new Date( today.valueOf() - ( 4 * 7 * oneDay ) ),
-          week3 = new Date( today.valueOf() - ( 3 * 7 * oneDay ) ),
-          week2 = new Date( today.valueOf() - ( 2 * 7 * oneDay ) ),
-          week1 = new Date( today.valueOf() - ( 1 * 7 * oneDay ) );
+          week6 = new Date( today.valueOf() - ( 5 * 7 * oneDay ) ),
+          week5 = new Date( today.valueOf() - ( 4 * 7 * oneDay ) ),
+          week4 = new Date( today.valueOf() - ( 2 * 7 * oneDay ) ),
+          week3 = new Date( today.valueOf() - ( 2 * 7 * oneDay ) ),
+          week2 = new Date( today.valueOf() - ( 1 * 7 * oneDay ) ),
+          week1 = new Date( today.valueOf() - ( 0 * 7 * oneDay ) );
 
       let $cond = {
           "$cond": [

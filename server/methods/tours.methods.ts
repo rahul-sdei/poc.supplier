@@ -14,7 +14,7 @@ interface Options {
 }
 
 Meteor.methods({
-    "tours.find": (options: Options, criteria: any, searchString: string = "") => {
+    "tours.find": (options: Options, criteria: any, searchString: string = "", count: boolean = false) => {
         let where:any = [];
         let userId = Meteor.userId();
         where.push({
@@ -41,6 +41,9 @@ Meteor.methods({
         }
 
         let cursor = Tours.collection.find({$and: where}, options);
+        if (count === true) {
+          return cursor.count();
+        }
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "tours.findOne": (criteria: any) => {
@@ -57,43 +60,15 @@ Meteor.methods({
 
       return Tours.collection.findOne({$and: where});
     },
-    "tours.count": ( criteria: any, searchString: string ) => {
-      let where:any = [];
-      let userId = Meteor.userId();
-      where.push({
-          "$or": [{deleted: false}, {deleted: {$exists: false} }]
-      }, {
-        "$or": [{active: true}, {active: {$exists: false} }]
-      },
-      {"owner.id": userId});
+    "tours.count": ( ) => {
+      let toursCount: any = {};
 
-      if (_.isEmpty(criteria)) {
-        criteria = { };
-      }
-      criteria.approved = true;
-      where.push(criteria);
+      let approvedCount =  Meteor.call("tours.find", {}, {active: true, approved: true}, "", true);
+      let pendingCount =  Meteor.call("tours.find", {}, {active: true, approved: false}, "", true);
 
-      // match search string
-      if (typeof searchString === 'string' && searchString.length) {
-          // allow search on firstName, lastName
-          where.push({
-              "$or": [
-                  { "name": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                  { "departure": { $regex: `.*${searchString}.*`, $options: 'i' } },
-                  { "destination": { $regex: `.*${searchString}.*`, $options: 'i' } }
-              ]
-          });
-      }
-
-      let approvedCount =  Tours.collection.find({$and: where}).count();
-
-      // find pending count
-      criteria.approved = false;
-      let pendingCount =  Tours.collection.find({$and: where}).count();
-      let count = { };
-      count["approvedCount"] = approvedCount;
-      count["pendingCount"] = pendingCount;
-      return count;
+      toursCount["approvedCount"] = approvedCount;
+      toursCount["pendingCount"] = pendingCount;
+      return toursCount;
     },
     "tours.insert": (data: Tour) => {
       if (! Meteor.userId()) {

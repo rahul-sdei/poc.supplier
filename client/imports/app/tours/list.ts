@@ -56,7 +56,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     }
 
     ngOnInit() {
-        this.call("tours.count", {active: true}, (err, res) => {
+        this.call("tours.count", (err, res) => {
           if (! err) {
             this.pendingCount = res.pendingCount;
             this.approvedCount = res.approvedCount;
