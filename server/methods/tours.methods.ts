@@ -156,6 +156,7 @@ Meteor.methods({
       Tours.collection.update({"owner.id": userId}, {
         $set: {
           "owner": {
+            "id": userId,
             "companyName": user.profile.supplier.companyName,
             "agentIdentity": {verified: user.profile.supplier.agentIdentity.verified},
             "agentCertificate": {verified: user.profile.supplier.agentCertificate.verified},

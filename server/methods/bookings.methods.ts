@@ -13,22 +13,26 @@ interface Options {
 Meteor.methods({
 
     "bookings.find": (options: Options, criteria: any, searchString: string, count: boolean = false) => {
-        let where:any = [];
         let userId = Meteor.userId();
+        let where:any = [];
+
         where.push({
             "$or": [{deleted: false}, {deleted: {$exists: false} }]
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
-        },
-        {"tour.supplierId": userId});
+        }, {
+          "tour.supplierId": userId
+        });
 
         if ( !_.isEmpty(criteria) ) {
-          if ( criteria.confirmed == false ) {
+          if ( criteria.confirmed == false ) { // new items
             criteria.startDate = {$gt: new Date()};
-          } else if ( criteria.completed==true ) {
+            delete criteria["completed"];
+          } else if ( criteria.completed==true ) { // completed
             criteria.startDate = {$lte: new Date()};
             delete criteria["completed"];
-          } else if ( criteria.completed==false && criteria.confirmed==true ) {
+            delete criteria["confirmed"];
+          } else if ( criteria.completed==false && criteria.confirmed==true ) { // pending
             criteria.startDate = {$gt: new Date()};
             delete criteria["completed"];
           }
@@ -58,11 +62,14 @@ Meteor.methods({
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "bookings.findOne": (criteria: any) => {
+      let userId = Meteor.userId();
       let where:any = [];
       where.push({
           "$or": [{deleted: false}, {deleted: {$exists: false} }]
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
+      }, {
+        "tour.supplierId": userId
       });
 
       if (_.isEmpty(criteria)) {
