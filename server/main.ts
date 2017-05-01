@@ -9,5 +9,5 @@ Meteor.startup(() => {
   // send email notification to admin for tours approval
   Meteor.setInterval(() => {
     Meteor.call("tours.requestApproval");
-  }, 30 * 60 * 1000)
+  }, 5 * 60 * 1000)
 });

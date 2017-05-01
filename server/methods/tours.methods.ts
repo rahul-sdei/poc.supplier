@@ -112,7 +112,8 @@ Meteor.methods({
       data.deleted = false;
       data.createdAt = new Date();
       let requestApprovalDate = new Date();
-      requestApprovalDate.setHours(requestApprovalDate.getHours() + 6);
+      //requestApprovalDate.setHours(requestApprovalDate.getHours() + 6);
+      requestApprovalDate.setMinutes(requestApprovalDate.getMinutes() + 5);
       data.requestApprovalAt = requestApprovalDate;
       let tourId = Tours.collection.insert(data);
       return tourId;
