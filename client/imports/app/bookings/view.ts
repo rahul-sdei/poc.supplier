@@ -46,6 +46,11 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
                     return;
                 }
 
+                // check completed flag
+                if (new Date(res.startDate) < new Date()) {
+                  res.completed = true;
+                }
+
                 this.item = res;
             })
 
@@ -62,17 +67,18 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
     }
 
     get bookingStatus() {
-        let retVal = null;
-        let booking = this.item;
-        if (booking.confirmed !== true) {
-            retVal = "New";
-        } else if (booking.confirmed === true && this.booking.completed !== true) {
-            retVal = "Pending";
-        } else if (booking.completed === true) {
-            retVal = "Completed";
-        }
+      let retVal = null;
+      let booking = this.item;
 
-        return retVal;
+      if (booking.confirmed !== true) {
+          retVal = "Pending";
+      } else if (booking.confirmed === true && booking.completed !== true) {
+          retVal = "Confirmed";
+      } else if (booking.completed === true) {
+          retVal = "Completed";
+      }
+
+      return retVal;
     }
 
     get departInDays() {
