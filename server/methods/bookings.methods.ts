@@ -108,7 +108,8 @@ Meteor.methods({
     "bookings.statistics": () => {
       userIsInRole(["supplier"]);
 
-      let today = new Date(),
+      let userId = Meteor.userId(),
+          today = new Date(),
           oneDay = ( 1000 * 60 * 60 * 24 ),
           week6 = new Date( today.valueOf() - ( 5 * 7 * oneDay ) ),
           week5 = new Date( today.valueOf() - ( 4 * 7 * oneDay ) ),
@@ -143,6 +144,7 @@ Meteor.methods({
 
       let data = Bookings.collection.aggregate([
           { "$match": {
+              "tour.supplierId": userId,
               "bookingDate": { "$gte": week6 }
           }},
           { "$group": {
