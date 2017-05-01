@@ -2,24 +2,13 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
 import { Images, ImagesStore } from "../../both/collections/images.collection";
 import { Image } from "../../both/models/image.model";
+import { isLoggedIn, userIsInRole } from "../imports/services/auth";
 
 Meteor.methods({
-  "images.filterBySize": (imageId: string) => {
-    // check uploaded image dimensions
-    let filePath = ImagesStore.getFilePath(imageId);
-
-    let gm = require("gm");
-    gm(filePath).size(function (err, size) {
-      if (!err) {
-        console.log('width = ' + size.width);
-        console.log('height = ' + size.height);
-      } else {
-        console.log(err);
-      }
-    });
-  },
   /* delete image by id */
     "images.delete": (imageId: string) => {
+        userIsInRole(["supplier"]);
+
         let fs = require('fs');
         /* remove original image */
         let image = Images.collection.findOne({_id: imageId});
@@ -32,18 +21,6 @@ Meteor.methods({
         });
         /* reset data in collections */
         Images.collection.remove({_id: image._id});
-
-        /* remove thumb */
-        // let thumb = Thumbs.collection.findOne({originalId: image._id});
-        // if (typeof thumb == "undefined" || !thumb._id) {
-        //     return true;
-        // }
-
-        // let thumbPath = process.env.PWD + '/uploads/thumbs/' + thumb._id + '.' + thumb.extension;
-        // fs.unlink(thumbPath, (res) => {
-        //     //console.log("unlink.thumb:", res);
-        // });
-        // Thumbs.collection.remove({_id: thumb._id});
 
         return true;
     }

@@ -4,6 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { check } from "meteor/check";
 import { Bookings } from "../../both/collections/bookings.collection";
 import { Booking } from "../../both/models/booking.model";
+import { isLoggedIn, userIsInRole } from "../imports/services/auth";
 import * as _ from 'underscore';
 
 interface Options {
@@ -11,8 +12,9 @@ interface Options {
 }
 
 Meteor.methods({
-
     "bookings.find": (options: Options, criteria: any, searchString: string, count: boolean = false) => {
+        userIsInRole(["supplier"]);
+
         let userId = Meteor.userId();
         let where:any = [];
 
@@ -62,6 +64,8 @@ Meteor.methods({
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "bookings.findOne": (criteria: any) => {
+      userIsInRole(["supplier"]);
+
       let userId = Meteor.userId();
       let where:any = [];
       where.push({
@@ -80,6 +84,8 @@ Meteor.methods({
       return Bookings.collection.findOne({$and: where});
     },
     "bookings.count": () => {
+      userIsInRole(["supplier"]);
+
       let bookingsCount: any = {};
       bookingsCount.new = Meteor.call("bookings.find", {}, {"confirmed": false, "cancelled": false}, "", true);
       bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
@@ -88,14 +94,20 @@ Meteor.methods({
       return bookingsCount;
     },
     "bookings.approve": (bookingId) => {
+      userIsInRole(["supplier"]);
+
       let user = Meteor.user();
       Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {confirmed: true, confirmedAt: new Date()} });
     },
     "bookings.disapprove": (bookingId) => {
+      userIsInRole(["supplier"]);
+
       let user = Meteor.user();
       Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
     },
     "bookings.statistics": () => {
+      userIsInRole(["supplier"]);
+
       let today = new Date(),
           oneDay = ( 1000 * 60 * 60 * 24 ),
           week6 = new Date( today.valueOf() - ( 5 * 7 * oneDay ) ),

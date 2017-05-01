@@ -7,6 +7,7 @@ import { Bookings } from "../../both/collections/bookings.collection";
 import { Tour } from "../../both/models/tour.model";
 import { User } from "../../both/models/user.model";
 import { Email } from 'meteor/email';
+import { isLoggedIn, userIsInRole } from "../imports/services/auth";
 import * as _ from 'underscore';
 
 interface Options {
@@ -15,14 +16,17 @@ interface Options {
 
 Meteor.methods({
     "tours.find": (options: Options, criteria: any, searchString: string = "", count: boolean = false) => {
-        let where:any = [];
+        userIsInRole(["supplier"]);
+
         let userId = Meteor.userId();
+        let where:any = [];
         where.push({
             "$or": [{deleted: false}, {deleted: {$exists: false} }]
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
-        },
-        {"owner.id": userId});
+        }, {
+          "owner.id": userId
+        });
 
         if (!_.isEmpty(criteria)) {
           where.push(criteria);
@@ -47,11 +51,16 @@ Meteor.methods({
         return {count: cursor.count(), data: cursor.fetch()};
     },
     "tours.findOne": (criteria: any) => {
+      userIsInRole(["supplier"]);
+
+      let userId = Meteor.userId();
       let where:any = [];
       where.push({
           "$or": [{deleted: false}, {deleted: {$exists: false} }]
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
+      }, {
+        "owner.id": userId
       });
       if (_.isEmpty(criteria)) {
         criteria = { };
@@ -61,6 +70,8 @@ Meteor.methods({
       return Tours.collection.findOne({$and: where});
     },
     "tours.count": ( ) => {
+      userIsInRole(["supplier"]);
+
       let toursCount: any = {};
 
       let approvedCount =  Meteor.call("tours.find", {}, {active: true, approved: true}, "", true);
@@ -71,9 +82,7 @@ Meteor.methods({
       return toursCount;
     },
     "tours.insert": (data: Tour) => {
-      if (! Meteor.userId()) {
-        throw new Meteor.Error(403, "Not authorized!");
-      }
+      userIsInRole(["supplier"]);
 
       let user = <User>Meteor.user();
 
@@ -109,6 +118,8 @@ Meteor.methods({
       return tourId;
     },
     "tours.delete": (id: string) => {
+      userIsInRole(["supplier"]);
+
       let tour = Tours.collection.findOne({_id: id});
       if (typeof tour == "undefined" || !tour._id) {
           throw new Meteor.Error(`Invalid tour-id "${id}"`);
@@ -118,6 +129,8 @@ Meteor.methods({
       Tours.collection.update({_id: tour._id}, {$set : {deleted: true } });
     },
     "tours.update": (data: Tour, id: string) => {
+      userIsInRole(["supplier"]);
+
       data.modifiedAt = new Date();
       return Tours.collection.update({_id: id}, {$set: data});
     },
