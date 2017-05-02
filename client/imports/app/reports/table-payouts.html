@@ -8,18 +8,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+    <tr *ngFor="let item of pageArr; let i = index;">
       <td>
         <span class="date">
-          01/01/2016
+          {{item.fromDate | date}}
         </span>
         <span class="time">
-          08/01/2016
+          {{item.toDate | date}}
         </span>
       </td>
-      <td>Weekly payout to account x-0001</td>
-      <td>Proceeded</td>
-      <td>A$  4,568</td>
+      <td>{{item.comments}}</td>
+      <td>{{item.status}}</td>
+      <td>${{item.amount}}</td>
     </tr>
   </tbody>
 </table>

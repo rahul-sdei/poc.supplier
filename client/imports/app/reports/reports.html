@@ -98,8 +98,8 @@
               </div>
             </div>
             <div class="table-wrapper table-responsive report-table">
-              <sales-table [pageArr]="pageArr" [itemsSize]="itemsSize" *ngIf="activeTab == 'Sales'"></sales-table>
-              <payouts-table [itemsSize]="itemsSize" *ngIf="activeTab == 'Payouts'"></payouts-table>
+              <sales-table [where]="whereCond" *ngIf="activeTab == 'Sales'"></sales-table>
+              <payouts-table [where]="whereCond" *ngIf="activeTab == 'Payouts'"></payouts-table>
             </div>
           </div>
         </div>
