@@ -88,38 +88,6 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
 
 
   ngAfterViewInit() {
-
-    Meteor.setTimeout(() => {
-      jQuery(function($){
-        $('#datetimepicker1')
-          .datepicker({
-              format: 'dd/mm/yyyy',
-              autoclose: true
-          })
-          .on('changeDate', function(e) {
-            $('#datetimepicker2').datepicker("remove");
-
-            let startDate = $("#datetimepicker1").datepicker("getDate");
-
-            $('#datetimepicker2')
-              .datepicker({
-                  format: 'dd/mm/yyyy',
-                  autoclose: true,
-                  startDate: startDate
-              });
-          });
-
-        $('#datetimepicker2')
-          .datepicker({
-              format: 'dd/mm/yyyy',
-              autoclose: true,
-          })
-          .on('changeDate', function(e) {
-
-          });
-      });
-    }, 500);
-
     Meteor.setTimeout(() => {
       jQuery(function($){
         $('#datetimepicker3')
@@ -149,46 +117,5 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
           });
       });
     }, 500);
-
-    let dataSet = [100, 50, 150 , 250, 100, 300];
-    let ctx = document.getElementById("reportChart");
-    let myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        datasets: [{
-          label: 'Sales',
-          data: dataSet,
-          backgroundColor: [
-            'rgba(231, 245, 243, 1)',
-            'rgba(231, 245, 243, 1)',
-            'rgba(231, 245, 243, 1)',
-            'rgba(231, 245, 243, 1)',
-            'rgba(231, 245, 243, 1)',
-            'rgba(231, 245, 243, 1)'
-          ],
-          borderColor: [
-            'rgba(22, 160, 133, 1)',
-            'rgba(22, 160, 133, 1)',
-            'rgba(22, 160, 133, 1)',
-            'rgba(22, 160, 133, 1)',
-            'rgba(22, 160, 133, 1)',
-            'rgba(22, 160, 133, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero:true
-            }
-          }]
-        }
-      }
-    });
   }
 }

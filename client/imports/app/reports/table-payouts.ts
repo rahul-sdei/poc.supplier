@@ -77,8 +77,6 @@ export class PayoutsTableComponent extends MeteorComponent {
           where: this.whereCond
       }
 
-      this.setOptionsSub();
-
       this.paginationService.register({
       id: "payouts",
       itemsPerPage: 10,
@@ -92,6 +90,8 @@ export class PayoutsTableComponent extends MeteorComponent {
       this.nameOrder.next(options.nameOrder);
       this.searchSubject.next(options.searchString);
       this.whereSub.next(options.where);
+
+      this.setOptionsSub();
   }
 
   private setOptionsSub() {

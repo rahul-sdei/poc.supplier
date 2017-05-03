@@ -1,0 +1,19 @@
+<div class="income-statics">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>Income Statistics</h3>
+    </div>
+    <div class="col-md-7">
+      <div class="anchor-list">
+        <a href="javascript:void(0)" (click)="activeTab1 = 'Weekly'" [ngClass]="{'active': activeTab1 == 'Weekly'}">Weekly</a>
+        <a href="javascript:void(0)" (click)="activeTab1 = 'Monthly'" [ngClass]="{'active': activeTab1 == 'Monthly'}">Monthly</a>
+        <a href="javascript:void(0)" (click)="activeTab1 = 'Yearly'" [ngClass]="{'active': activeTab1 == 'Yearly'}">Yearly</a>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="graph-img">
+        <canvas id="reportChart" width="868" height="206"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

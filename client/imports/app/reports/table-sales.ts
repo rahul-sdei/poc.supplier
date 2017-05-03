@@ -79,8 +79,6 @@ export class SalesTableComponent extends MeteorComponent implements OnInit, OnCh
           where: this.whereCond
       }
 
-      this.setOptionsSub();
-
       this.paginationService.register({
       id: "bookings",
       itemsPerPage: 10,
@@ -94,6 +92,8 @@ export class SalesTableComponent extends MeteorComponent implements OnInit, OnCh
       this.nameOrder.next(options.nameOrder);
       this.searchSubject.next(options.searchString);
       this.whereSub.next(options.where);
+
+      this.setOptionsSub();
   }
 
   private setOptionsSub() {
