@@ -70,6 +70,22 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
 
   }
 
+  get paginationId() {
+    if (this.activeTab == "Sales") {
+      return "bookings";
+    } else {
+      return "payouts";
+    }
+  }
+
+  onPageChanged(page: number) {
+    if (this.activeTab == "Sales") {
+      this.salesTable.onPageChanged(page);
+    } else {
+      this.payoutsTable.onPageChanged(page);
+    }
+  }
+
 
   ngAfterViewInit() {
 

@@ -129,6 +129,10 @@ export class PayoutsTableComponent extends MeteorComponent {
       });
   }
 
+  onPageChanged(page: number) {
+    this.curPage.next(page);
+  }
+
   get pageArr() {
       return this.items;
   }
