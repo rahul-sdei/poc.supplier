@@ -113,26 +113,26 @@ Meteor.methods({
           oneDay = ( 1000 * 60 * 60 * 24 ),
           week6 = new Date( today.valueOf() - ( 5 * 7 * oneDay ) ),
           week5 = new Date( today.valueOf() - ( 4 * 7 * oneDay ) ),
-          week4 = new Date( today.valueOf() - ( 2 * 7 * oneDay ) ),
+          week4 = new Date( today.valueOf() - ( 3 * 7 * oneDay ) ),
           week3 = new Date( today.valueOf() - ( 2 * 7 * oneDay ) ),
           week2 = new Date( today.valueOf() - ( 1 * 7 * oneDay ) ),
           week1 = new Date( today.valueOf() - ( 0 * 7 * oneDay ) );
 
       let $cond = {
           "$cond": [
-              { "$lt": [ "$bookingDate", week6 ] },
+              { "$lte": [ "$bookingDate", week6 ] },
               "week6",
               { "$cond": [
-                  { "$lt": [ "$bookingDate", week5 ] },
+                  { "$lte": [ "$bookingDate", week5 ] },
                   "week5",
                   { "$cond": [
-                      { "$lt": [ "$bookingDate", week4 ] },
+                      { "$lte": [ "$bookingDate", week4 ] },
                       "week4",
                       { "$cond": [
-                          { "$lt": [ "$bookingDate", week3 ] },
+                          { "$lte": [ "$bookingDate", week3 ] },
                           "week3",
                           { "$cond": [
-                              { "$lt": [ "$bookingDate", week2 ] },
+                              { "$lte": [ "$bookingDate", week2 ] },
                               "week2",
                               "week1"
                           ]}
@@ -154,7 +154,72 @@ Meteor.methods({
           }}
       ]);
 
-      return {bookings: data};
+      let bookings = data;
+      let bookingsCount = [];
+      let bookingsValue = [];
+      let groupNames = ["week1", "week2", "week3", "week4", "week5", "week6"];
+      interface BookingStats {count: number; totalValue: number}
+      for (let i=0; i<groupNames.length; i++) {
+        let item: BookingStats = <BookingStats>_.find(bookings, {_id: groupNames[i]});
+        if (_.isEmpty(item)) {
+          bookingsCount.push(0);
+          bookingsValue.push(0);
+        } else {
+          bookingsCount.push(item.count);
+          bookingsValue.push(item.totalValue);
+        }
+      }
+
+      return {bookingsCount, bookingsValue};
+    },
+    "bookings.statistics.new":(criteria: any = {}, mode: string = "monthly") => {
+      userIsInRole(["supplier"]);
+      // console.log(criteria);
+
+      let userId = Meteor.userId(),
+        today = new Date(),
+        oneDay = ( 1000 * 60 * 60 * 24 ),
+        _id: any = {"year":"$year","month":"$month"};
+
+      if (mode == "yearly") {
+        _id = {"year":"$year"};
+      } else if (mode == "weekly") {
+        _id = {"year":"$year","month":"$month","week":"$week"};
+      }
+
+      let data = Bookings.collection.aggregate([
+        {
+        "$match":
+          {
+            "tour.supplierId": userId
+          }},
+        {
+        "$project":
+          {
+            "tour.supplierId":1,
+            "totalPrice":1,
+            "month": {"$month":"$bookingDate"},
+            "year": {"$year": "$bookingDate"},
+            "week": {"$week": "$bookingDate"},
+            "bookingDate": 1
+          }},
+        {
+        "$match": criteria
+          },
+        {
+        "$group":
+          {
+            _id,
+            "totalPrice":{"$sum":"$totalPrice"},
+            "count":{"$sum":1}
+          }},
+          {
+          "$sort":
+           {
+             "_id.year": 1, "_id.month": 1, "_id.week": 1
+           }}
+      ])
+      return data;
     }
 
 });

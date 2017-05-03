@@ -9,6 +9,7 @@ import { ChangeDetectorRef } from "@angular/core";
 import { Chart } from 'chart.js';
 import { SalesTableComponent } from "./table-sales";
 import { PayoutsTableComponent } from "./table-payouts";
+import { IncomeStatisticsComponent } from "./income-statistics.component";
 import * as _ from 'underscore';
 import { showAlert } from "../shared/show-alert";
 import template from "./reports.html";
@@ -31,10 +32,10 @@ declare var jQuery:any;
 @InjectUser('user')
 export class ReportsComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   activeTab: string = "Sales";
-  activeTab1: string = "Monthly";
   whereCond: any = {};
   @ViewChild (SalesTableComponent) salesTable:SalesTableComponent;
   @ViewChild (PayoutsTableComponent) payoutsTable:PayoutsTableComponent;
+  @ViewChild (IncomeStatisticsComponent) incomeStats:IncomeStatisticsComponent;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -51,7 +52,7 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
   ngAfterViewChecked() {
   }
 
-  filterDate(startDate, endDate) {
+  filterSales(startDate, endDate) {
     let where = this.whereCond;
 
     if (startDate && endDate) {
@@ -67,7 +68,20 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
     } else {
       this.payoutsTable.setWhereCond(where);
     }
+  }
 
+  filterStats(startDate, endDate) {
+    let where = {};
+
+    if (startDate && endDate) {
+      startDate = new Date(startDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
+      endDate = new Date(endDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
+      where["bookingDate"] = {$gte: startDate, $lte: endDate};
+    } else {
+      delete where["bookingDate"];
+    }
+
+    this.incomeStats.setWhereCond(where);
   }
 
   get paginationId() {

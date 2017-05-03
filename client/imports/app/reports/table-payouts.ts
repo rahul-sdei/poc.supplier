@@ -103,8 +103,8 @@ export class PayoutsTableComponent extends MeteorComponent {
           this.whereSub,
           this.searchSubject
       ).subscribe(([pageSize, curPage, orderBy, nameOrder, where, searchString]) => {
-          console.log("inside subscribe");
-          console.log(where);
+          // console.log("inside subscribe");
+          // console.log(where);
           const options: Options = {
               limit: pageSize as number,
               skip: ((curPage as number) - 1) * (pageSize as number),

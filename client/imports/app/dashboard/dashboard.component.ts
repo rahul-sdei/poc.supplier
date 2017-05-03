@@ -112,7 +112,9 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
           return;
       }
 
-      this.createChart(res);
+      this.bookingsCount = res.bookingsCount;
+      this.bookingsValue = res.bookingsValue;
+      this.createChart();
     })
   }
 
@@ -120,22 +122,9 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
       return this.items;
   }
 
-  createChart(response) {
-    let bookings = response.bookings;
+  createChart() {
     let bookingsCount = this.bookingsCount;
     let bookingsValue = this.bookingsValue;
-    let groupNames = ["week1", "week2", "week3", "week4", "week5", "week6"];
-    interface BookingStats {count: number; totalValue: number}
-    for (let i=0; i<groupNames.length; i++) {
-      let item: BookingStats = <BookingStats>_.find(bookings, {_id: groupNames[i]});
-      if (_.isEmpty(item)) {
-        bookingsCount.push(0);
-        bookingsValue.push(0);
-      } else {
-        bookingsCount.push(item.count);
-        bookingsValue.push(item.totalValue);
-      }
-    }
 
     let ctx = document.getElementById("myChart");
     let myChart = new Chart(ctx, {

@@ -5,9 +5,9 @@
     </div>
     <div class="col-md-7">
       <div class="anchor-list">
-        <a href="javascript:void(0)" (click)="activeTab1 = 'Weekly'" [ngClass]="{'active': activeTab1 == 'Weekly'}">Weekly</a>
-        <a href="javascript:void(0)" (click)="activeTab1 = 'Monthly'" [ngClass]="{'active': activeTab1 == 'Monthly'}">Monthly</a>
-        <a href="javascript:void(0)" (click)="activeTab1 = 'Yearly'" [ngClass]="{'active': activeTab1 == 'Yearly'}">Yearly</a>
+        <a href="javascript:void(0)" (click)="activeTab = 'Weekly'; showWeeklyChart();" [ngClass]="{'active': activeTab == 'Weekly'}">Weekly</a>
+        <a href="javascript:void(0)" (click)="activeTab = 'Monthly'; showMonthlyChart();" [ngClass]="{'active': activeTab == 'Monthly'}">Monthly</a>
+        <a href="javascript:void(0)" (click)="activeTab = 'Yearly'; showYearlyChart();" [ngClass]="{'active': activeTab == 'Yearly'}">Yearly</a>
       </div>
     </div>
     <div class="col-sm-12">
