@@ -103,6 +103,9 @@
                                           <div class="input-wrap">
                                               <input type="number" class="form-control" id="seats" placeholder="Available Seats" formControlName="seats" />
                                           </div>
+                                          <div *ngIf="step2Form.controls['seats'].errors && step2Form.controls['seats'].touched" class="has-error">
+                                            <div *ngIf="step2Form.controls.seats.hasError('min')">Min value required is 1.</div>
+                                          </div>
                                       </div>
                                   </div>
                               </div>
@@ -140,7 +143,7 @@
                                         </table>
                                       </div>
                                       <div class="form-group  bottom-btn">
-                                        <button type="button" class="btn green-btn pull-right" (click)="step2()">Add Schedule<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+                                        <button type="button" class="btn green-btn pull-right" (click)="step2()" [disabled]="!this.step2Form.valid">Add Schedule<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                                       </div>
                                   </div>
                               </div>
