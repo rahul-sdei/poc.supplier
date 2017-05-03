@@ -104,6 +104,7 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
             return;
         }
         this.items = res.data;
+        this.changeDetectorRef.detectChanges();
     });
 
     this.call("bookings.statistics", (err, res) => {

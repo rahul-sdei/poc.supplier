@@ -50,8 +50,8 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
                 if (new Date(res.startDate) < new Date()) {
                   res.completed = true;
                 }
-
                 this.item = res;
+                this.changeDetectorRef.detectChanges();
             })
 
         });
