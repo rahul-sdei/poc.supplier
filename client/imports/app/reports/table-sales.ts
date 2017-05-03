@@ -131,6 +131,10 @@ export class SalesTableComponent extends MeteorComponent implements OnInit, OnCh
       });
   }
 
+  onPageChanged(page: number) {
+    this.curPage.next(page);
+  }
+
   get pageArr() {
       return this.items;
   }
