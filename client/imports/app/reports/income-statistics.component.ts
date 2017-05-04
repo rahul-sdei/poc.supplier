@@ -123,8 +123,8 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
         let year = res[i]._id["year"];
         let month = res[i]._id["month"];
         let week = res[i]._id["week"];
-        let date = getDateFromWeekNumber(year, week);
-        let date2 = getDateFromWeekNumber(year, week);
+        let date = getDateFromWeekNumber(year, week-1);
+        let date2 = getDateFromWeekNumber(year, week-1);
         date2.setDate(date2.getDate() + 6);
 
         let dayNum = date.getDate();

@@ -145,6 +145,7 @@ Meteor.methods({
       let data = Bookings.collection.aggregate([
           { "$match": {
               "tour.supplierId": userId,
+              "confirmed": true,
               "bookingDate": { "$gte": week6 }
           }},
           { "$group": {
@@ -191,7 +192,8 @@ Meteor.methods({
         {
         "$match":
           {
-            "tour.supplierId": userId
+            "tour.supplierId": userId,
+            "confirmed": true
           }},
         {
         "$project":
