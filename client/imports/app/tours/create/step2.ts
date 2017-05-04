@@ -176,8 +176,8 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         return;
       }
 
-      var startDate = $("#datetimepicker1").datepicker("getDate");
-      var endDate = $("#datetimepicker2").datepicker("getDate");
+      var startDate = convertToUTC($("#datetimepicker1").datepicker("getDate"));
+      var endDate = convertToUTC($("#datetimepicker2").datepicker("getDate"));
       let priceRange = this.step2Form.value.price;
       if (! priceRange[0] ["child"]) {
         priceRange[0] ["child"] = priceRange[0] ["adult"];
@@ -246,4 +246,11 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         showAlert("Error while saving data. Please try after restarting your browser.", "danger");
       }
     }
+}
+
+function convertToUTC(date: Date) {
+  var d = new Date();
+  let offset = d.getTimezoneOffset();
+  let time = date.getTime() - (offset * 60 * 1000);
+  return new Date(time);
 }

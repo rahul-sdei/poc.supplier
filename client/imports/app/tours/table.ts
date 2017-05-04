@@ -84,7 +84,8 @@ export class ToursTableComponent extends MeteorComponent {
         noOfNights : res.noOfNights,
         tourType : res.tourType,
         tourPace : res.tourPace,
-        hasGuide : res.hasGuide
+        hasGuide : res.hasGuide,
+        hasFlight: res.hasFlight
       };
       this.sessionStorage.store("step1Details", detailstep1);
       let detailstep2 = {
