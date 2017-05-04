@@ -10,6 +10,9 @@ interface Options {
 }
 
 Meteor.methods({
+    "places.findCountries": () => {
+      return Places.collection.find({"active": true, "country": {$exists: false}}, {sort: {"sortOrder": 1}, fields: {name: 1}}).fetch();
+    },
     /* find place and search */
     "places.find": (options: Options, criteria: any, searchString: string) => {
         let where:any = [];

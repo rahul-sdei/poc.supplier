@@ -8,6 +8,7 @@ import { showAlert } from "../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
 import { Observable, Subscription, Subject } from "rxjs";
 import { User } from "../../../../both/models/user.model";
+import { Place } from "../../../../both/models/place.model";
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { CustomValidators as CValidators } from "ng2-validation";
 import { validatePhoneNum, validateFirstName } from "../../validators/common";
@@ -29,6 +30,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   error: any
   isUploading: boolean = false;
   isUploaded: boolean = false;
+  countries: Place[] = [];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -39,35 +41,42 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   }
 
   ngOnInit() {
-    if (!! Meteor.userId()) {
-      this.profileForm = this.formBuilder.group({
-        email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],
-        companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
-        contact: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(15), validatePhoneNum])],
-        address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
-        address2: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(50)])],
-        suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
-        state: ['', Validators.compose([Validators.required])],
-        postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
-        country: ['', Validators.compose([Validators.required])]
-      })
-      let callback = (user) => {
-        this.profileForm.controls['companyName'].setValue(user.profile.supplier.companyName);
-        this.profileForm.controls['email'].setValue(user.emails[0].address);
-        this.profileForm.controls['contact'].setValue(user.profile.contact);
-        if (typeof user.profile.address == "undefined") {
-          user.profile.address = {};
-        }
-        this.profileForm.controls['state'].setValue(user.profile.address.state);
-        this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
-        this.profileForm.controls['country'].setValue(user.profile.address.country);
-        this.profileForm.controls['address2'].setValue(user.profile.address.address2);
-        this.profileForm.controls['address1'].setValue(user.profile.address.address1);
-        this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
-        this.oldEmailAddress = user.emails[0].address;
-      };
-      this.fetchUser(callback);
-    }
+    if (! Meteor.userId()) { return; }
+    this.profileForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],
+      companyName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      contact: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(15), validatePhoneNum])],
+      address1: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      address2: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(50)])],
+      suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
+      state: ['', Validators.compose([Validators.required])],
+      postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
+      country: ['', Validators.compose([Validators.required])]
+    })
+    let callback = (user) => {
+      this.profileForm.controls['companyName'].setValue(user.profile.supplier.companyName);
+      this.profileForm.controls['email'].setValue(user.emails[0].address);
+      this.profileForm.controls['contact'].setValue(user.profile.contact);
+      if (typeof user.profile.address == "undefined") {
+        user.profile.address = {};
+      }
+      this.profileForm.controls['state'].setValue(user.profile.address.state);
+      this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
+      this.profileForm.controls['country'].setValue(user.profile.address.country);
+      this.profileForm.controls['address2'].setValue(user.profile.address.address2);
+      this.profileForm.controls['address1'].setValue(user.profile.address.address1);
+      this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
+      this.oldEmailAddress = user.emails[0].address;
+    };
+    this.fetchUser(callback);
+
+    this.call("places.findCountries", (err, res) => {
+      if (err) {
+        console.log(err.reason);
+        return;
+      }
+      this.countries = res;
+    });
   }
 
   ngAfterViewInit() {
