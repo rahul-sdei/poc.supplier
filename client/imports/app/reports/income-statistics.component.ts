@@ -70,7 +70,7 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
   showChart() {
     let filter = this.filter;
     let criteria: any = {};
-    criteria = {month: (Number(filter.month)+1), year: filter.year};
+    criteria = {month: (Number(filter.month)+1), year: Number(filter.year)};
     // console.log(criteria);
 
     let labels = [];
@@ -105,7 +105,7 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
       } else {
         this.chart.data.labels = labels;
         this.chart.data.datasets[0].data = dataSet;
-        console.log(this.chart.data);
+        // console.log(this.chart.data);
         this.chart.update();
       }
     })
