@@ -80,8 +80,6 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
     } else {
       delete where["bookingDate"];
     }
-
-    this.incomeStats.setWhereCond(where);
   }
 
   get paginationId() {

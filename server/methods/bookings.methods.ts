@@ -173,20 +173,14 @@ Meteor.methods({
 
       return {bookingsCount, bookingsValue};
     },
-    "bookings.statistics.new":(criteria: any = {}, mode: string = "monthly") => {
+    "bookings.statistics.new":(criteria: any = {}) => {
       userIsInRole(["supplier"]);
       // console.log(criteria);
 
       let userId = Meteor.userId(),
         today = new Date(),
         oneDay = ( 1000 * 60 * 60 * 24 ),
-        _id: any = {"year":"$year","month":"$month"};
-
-      if (mode == "yearly") {
-        _id = {"year":"$year"};
-      } else if (mode == "weekly") {
-        _id = {"year":"$year","month":"$month","week":"$week"};
-      }
+        _id: any = {"year":"$year","month":"$month","day":"$day"};
 
       let data = Bookings.collection.aggregate([
         {
@@ -202,7 +196,7 @@ Meteor.methods({
             "totalPrice":1,
             "month": {"$month":"$bookingDate"},
             "year": {"$year": "$bookingDate"},
-            "week": {"$week": "$bookingDate"},
+            "day": {"$dayOfMonth": "$bookingDate"},
             "bookingDate": 1
           }},
         {
@@ -218,7 +212,7 @@ Meteor.methods({
           {
           "$sort":
            {
-             "_id.year": 1, "_id.month": 1, "_id.week": 1
+             "_id.year": 1, "_id.month": 1, "_id.day": 1
            }}
       ])
       return data;

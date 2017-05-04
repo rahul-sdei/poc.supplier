@@ -18,11 +18,8 @@ import template from "./income-statistics.html";
 })
 @InjectUser('user')
 export class IncomeStatisticsComponent extends MeteorComponent implements OnInit, AfterViewInit {
-  whereCond: any = {};
-  activeTab: string = "Monthly";
   chart: any = undefined;
   monthsArr: string[] = [
-    "",
     "Jan",
     "Feb",
     "Mar",
@@ -36,6 +33,7 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
     "Nov",
     "Dec",
   ];
+  filter: {month: number; year: number;} = null;
 
   constructor(private ngZone: NgZone,
     private changeDetectorRef: ChangeDetectorRef,
@@ -45,16 +43,17 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
 
   ngOnInit() {
     let date = new Date();
-    date.setMonth(date.getMonth() - 5);
-    date.setDate(1);
-    let criteria: any = {};
-    criteria.bookingDate = {$gte: date, $lte: new Date()};
-    this.whereCond = criteria;
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    this.filter = {
+      month,
+      year
+    };
 
     // console.log(this.chart);
     if (this.chart === undefined) {
       this.chart = null;
-      this.showMonthlyChart();
+      this.showChart();
     }
   }
 
@@ -62,103 +61,43 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
 
     Meteor.setTimeout(() => {
       jQuery(function($){
-        $('#datetimepicker1')
-          .datepicker({
-              format: 'dd/mm/yyyy',
-              autoclose: true
-          })
-          .on('changeDate', function(e) {
-            $('#datetimepicker2').datepicker("remove");
 
-            let startDate = $("#datetimepicker1").datepicker("getDate");
-
-            $('#datetimepicker2')
-              .datepicker({
-                  format: 'dd/mm/yyyy',
-                  autoclose: true,
-                  startDate: startDate
-              });
-          });
-
-        $('#datetimepicker2')
-          .datepicker({
-              format: 'dd/mm/yyyy',
-              autoclose: true,
-          })
-          .on('changeDate', function(e) {
-
-          });
       });
     }, 500);
 
   }
 
-  setWhereCond(where) {
-    this.whereCond = {
-      bookingDate: where.bookingDate
-    };
-    switch(this.activeTab) {
-      case 'Weekly':
-      this.showWeeklyChart();
-      break;
-      case 'Monthly':
-      this.showMonthlyChart();
-      break;
-      case 'Yearly':
-      this.showYearlyChart();
-      break;
-    }
-  }
+  showChart() {
+    let filter = this.filter;
+    let criteria: any = {};
+    criteria = {month: (Number(filter.month)+1), year: filter.year};
+    // console.log(criteria);
 
-  showWeeklyChart() {
     let labels = [];
     let dataSet = [];
-    this.call("bookings.statistics.new", this.whereCond, "weekly", (err, res) => {
-      if (err) {
-        console.log("Error loading weekly statistics.");
-        return;
-      }
-
-      for(let i=0; i<res.length; i++) {
-        let year = res[i]._id["year"];
-        let month = res[i]._id["month"];
-        let week = res[i]._id["week"];
-        let date = getDateFromWeekNumber(year, week-1);
-        let date2 = getDateFromWeekNumber(year, week-1);
-        date2.setDate(date2.getDate() + 6);
-
-        let dayNum = date.getDate();
-        year = date.getFullYear().toString().substr(2);
-        month = this.monthsArr[date.getMonth() + 1];
-
-        let dayNum2 = date2.getDate();
-        let year2 = date2.getFullYear().toString().substr(2);
-        let month2 = this.monthsArr[date2.getMonth() + 1];
-
-        labels.push(`${dayNum} ${month} ${year}`);
-        dataSet.push(res[i].totalPrice);
-      }
-
-      this.chart.data.labels = labels;
-      this.chart.data.datasets[0].data = dataSet;
-      this.chart.update();
-    })
-  }
-
-  showMonthlyChart() {
-    let labels = [];
-    let dataSet = [];
-    this.call("bookings.statistics.new", this.whereCond, (err, res) => {
+    this.call("bookings.statistics.new", criteria, (err, res) => {
       if (err) {
         console.log("Error loading monthly statistics.");
         return;
       }
 
-      for(let i=0; i<res.length; i++) {
-        let month = res[i]._id["month"];
-        let year = res[i]._id["year"];
-        labels.push(`${this.monthsArr[month]} ${year}`);
-        dataSet.push(res[i].totalPrice);
+      let firstDay = new Date(criteria.year, criteria.month, 1);
+      let lastDay = new Date(criteria.year, criteria.month, 0);
+
+      for (let i=1; i<=lastDay.getDate(); i++) {
+        //let srchResponse = _.find(res, {_id: {year: criteria.year, month: criteria.month, day: i} });
+        let srchResponse = _.filter(res, function(obj: any) {
+          if (obj._id["year"] == criteria.year && obj._id["month"] == criteria.month && obj._id["day"] == i) {
+            return true;
+          }
+        });
+        let day = i;
+        labels.push(`${day}`);
+        if (srchResponse.length) {
+          dataSet.push(srchResponse[0] ["totalPrice"]);
+        } else {
+          dataSet.push(0);
+        }
       }
 
       if (this.chart === null) {
@@ -166,29 +105,9 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
       } else {
         this.chart.data.labels = labels;
         this.chart.data.datasets[0].data = dataSet;
+        console.log(this.chart.data);
         this.chart.update();
       }
-    })
-  }
-
-  showYearlyChart() {
-    let labels = [];
-    let dataSet = [];
-    this.call("bookings.statistics.new", this.whereCond, "yearly", (err, res) => {
-      if (err) {
-        console.log("Error loading yearly statistics.");
-        return;
-      }
-
-      for(let i=0; i<res.length; i++) {
-        let year = res[i]._id["year"];
-        labels.push(`${year}`);
-        dataSet.push(res[i].totalPrice);
-      }
-
-      this.chart.data.labels = labels;
-      this.chart.data.datasets[0].data = dataSet;
-      this.chart.update();
     })
   }
 
@@ -199,7 +118,8 @@ export class IncomeStatisticsComponent extends MeteorComponent implements OnInit
       data: {
         labels: labels,
         datasets: [{
-          label: 'Sales',
+          fill: false,
+          label: 'Income',
           data: dataSet,
           backgroundColor: [
             'rgba(231, 245, 243, 1)',
