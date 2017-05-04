@@ -45,10 +45,15 @@ export class CreateTourStep6Component extends MeteorComponent implements OnInit 
       let step4Details = this.sessionStorage.retrieve("step4Details");
       let step5Details = this.sessionStorage.retrieve("step5Details");
 
-      this.tourDetails = _.extend({}, step1Details, step2Details, step3Details, step4Details, step5Details);
       if (step2Details) {
+        // set date fields to date type explicitily in case of any mismatch
+        for (let i=0; i<step2Details.dateRange.length; i++) {
+          step2Details.dateRange[i].startDate = new Date(step2Details.dateRange[i].startDate.toString());
+          step2Details.dateRange[i].endDate = new Date(step2Details.dateRange[i].endDate.toString());
+        }
         this.dateRange = step2Details.dateRange;
       }
+      this.tourDetails = _.extend({}, step1Details, step2Details, step3Details, step4Details, step5Details);
     }
 
     ngAfterViewChecked() {
