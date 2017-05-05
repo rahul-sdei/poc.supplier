@@ -43,6 +43,7 @@
     "ng2-pagination": "2.0.1",
     "ng2-validation": "3.8.0",
     "ng2-webstorage": "1.5.1",
+    "paypal-rest-sdk": "1.7.1",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.2.0",
     "spawn-sync": "1.0.15",

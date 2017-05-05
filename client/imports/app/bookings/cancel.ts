@@ -44,7 +44,7 @@ export class BookingsCancelComponent extends MeteorComponent implements OnInit, 
             return;
             }
 
-            this.call("bookings.findOne", {_id: id, confirmed: false}, (err, res) => {
+            this.call("bookings.findOne", {_id: id, confirmed: false, cancelled: false}, (err, res) => {
                 if (err) {
                     showAlert(err.reason, "danger");
                     return;
