@@ -59,7 +59,7 @@
                             <div class='form-text error has-error' *ngIf="profileForm.controls.companyName.errors && profileForm.controls.companyName.touched">
                               <div *ngIf="profileForm.controls.companyName.hasError('required')">You have to fill in Company Name to proceed.</div>
                               <div *ngIf="profileForm.controls.companyName.hasError('minlength')">Min 2 characters required.</div>
-                              <div *ngIf="profileForm.controls.companyName.hasError('maxLength')">Max 50 characters required.</div>
+                              <div *ngIf="profileForm.controls.companyName.hasError('maxLength')">Max 50 characters allowed.</div>
                             </div>
                           </div>
                         </div>
@@ -74,7 +74,7 @@
                             <div class='form-text error has-error' *ngIf="profileForm.controls.email.errors && profileForm.controls.email.touched">
                               <div *ngIf="profileForm.controls.email.hasError('required')">You have to fill in Email to proceed.</div>
                               <div *ngIf="profileForm.controls.email.hasError('minlength')">Min 5 characters required.</div>
-                              <div *ngIf="profileForm.controls.email.hasError('maxlength')">Max 50 characters required.</div>
+                              <div *ngIf="profileForm.controls.email.hasError('maxlength')">Max 50 characters allowed.</div>
                               <div *ngIf="profileForm.controls.email.hasError('email')">Invalid email address.</div>
                             </div>
                           </div>
@@ -107,7 +107,7 @@
                             <div class='form-text error has-error' *ngIf="profileForm.controls.address1.errors && profileForm.controls.address1.touched">
                               <div *ngIf="profileForm.controls.address1.hasError('required')">You have to fill in Address1 to proceed.</div>
                               <div *ngIf="profileForm.controls.address1.hasError('minlength')">Min 2 characters required.</div>
-                              <div *ngIf="profileForm.controls.address1.hasError('maxLength')">Max 50 characters required.</div>
+                              <div *ngIf="profileForm.controls.address1.hasError('maxLength')">Max 50 characters allowed.</div>
                             </div>
                           </div>
                         </div>
@@ -121,7 +121,7 @@
                             </div>
                             <div class='form-text error has-error' *ngIf="profileForm.controls.address2.errors && profileForm.controls.address2.touched">
                               <div *ngIf="profileForm.controls.address2.hasError('minlength')">Min 2 characters required.</div>
-                              <div *ngIf="profileForm.controls.address2.hasError('maxLength')">Max 50 characters required.</div>
+                              <div *ngIf="profileForm.controls.address2.hasError('maxLength')">Max 50 characters allowed.</div>
                             </div>
                           </div>
                         </div>
@@ -136,7 +136,7 @@
                             <div class='form-text error has-error' *ngIf="profileForm.controls.suburb.errors && profileForm.controls.suburb.touched">
                               <div *ngIf="profileForm.controls.suburb.hasError('required')">You have to fill in Suburb to proceed.</div>
                               <div *ngIf="profileForm.controls.suburb.hasError('minlength')">Min 2 characters required.</div>
-                              <div *ngIf="profileForm.controls.suburb.hasError('maxLength')">Max 30 characters required.</div>
+                              <div *ngIf="profileForm.controls.suburb.hasError('maxLength')">Max 30 characters allowed.</div>
                             </div>
                           </div>
                         </div>

@@ -80,10 +80,12 @@ export interface Booking extends CollectionObject {
     active: boolean;
     confirmed: boolean;
     confirmedAt: Date;
+    completed: boolean;
     cancelled: boolean;
     cancelledAt: Date;
-    completed: boolean;
+    cancelledBy: string;
     cancellationReason: string;
+    cancellationComments: string;
     denied: boolean;
     deniedReason: string;
     deleted: boolean;

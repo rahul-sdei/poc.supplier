@@ -17,8 +17,8 @@ export class BookingsTableComponent extends MeteorComponent {
     @Input() showAction: boolean = false;
     @Output() onApprove = new EventEmitter<boolean>();
     @Output() onDisapprove = new EventEmitter<boolean>();
-    
-    constructor(private changeDetectorRef: ChangeDetectorRef) {
+
+    constructor(private router: Router, private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {
       super();
     }
 
@@ -39,18 +39,8 @@ export class BookingsTableComponent extends MeteorComponent {
     }
 
     disapproveBooking(item: Booking) {
-      item.confirmed = false;
-
-      this.call("bookings.disapprove", item._id, (err, res) => {
-        if (err) {
-          showAlert(err.reason, "danger");
-          return;
-        }
-
-        this.onDisapprove.emit(true);
-        this.changeDetectorRef.detectChanges();
-
-        showAlert("Booking has been disapproved successfully.", "success");
+      this.ngZone.run(() => {
+        this.router.navigate(['/bookings/cancel', item._id]);
       });
     }
 

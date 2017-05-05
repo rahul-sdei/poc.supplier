@@ -105,6 +105,18 @@ Meteor.methods({
       let user = Meteor.user();
       Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
     },
+    "bookings.cancel": (bookingId: string, userData: any) => {
+      let dataToUpdate: any = {
+        confirmed: false,
+        cancelled: true,
+        cancelledAt: new Date(),
+        cancellationReason: userData.reason,
+        cancellationComments: userData.comments,
+        cancelledBy: "supplier"
+      };
+
+      return Bookings.collection.update({_id: bookingId, cancelled: false}, { $set: dataToUpdate });
+    },
     "bookings.statistics": () => {
       userIsInRole(["supplier"]);
 

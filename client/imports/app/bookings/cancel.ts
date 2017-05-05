@@ -10,7 +10,9 @@ import { Booking } from "../../../../both/models/booking.model";
 import { showAlert } from "../shared/show-alert";
 import { Roles } from 'meteor/alanning:roles';
 import * as moment from 'moment';
-import template from "./view.html";
+import * as _ from 'underscore';
+
+import template from "./cancel.html";
 
 declare var jQuery:any;
 
@@ -18,14 +20,16 @@ declare var jQuery:any;
   selector: '',
   template
 })
-export class BookingsViewComponent extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class BookingsCancelComponent extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
     paramsSub: Subscription;
     item: Booking;
+    cancellationForm: FormGroup;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
+        private formBuilder: FormBuilder
     ) {
         super();
     }
@@ -40,26 +44,31 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
             return;
             }
 
-            this.call("bookings.findOne", {_id: id}, (err, res) => {
+            this.call("bookings.findOne", {_id: id, confirmed: false}, (err, res) => {
                 if (err) {
                     showAlert(err.reason, "danger");
                     return;
                 }
 
-                // check completed flag
-                if (new Date(res.startDate) < new Date()) {
-                  res.completed = true;
+                if (_.isEmpty(res)) {
+                  showAlert(`Invalid booking-id "${id}" supplied`);
+                  this.router.navigate(['/bookings/list']);
+                  return;
                 }
+
                 this.item = res;
                 this.changeDetectorRef.detectChanges();
             })
 
         });
 
+        this.cancellationForm = this.formBuilder.group({
+          reason: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)]) ],
+          comments: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(255)]) ]
+        });
     }
 
     ngAfterViewChecked() {
-
     }
 
     get booking() {
@@ -94,27 +103,15 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
       return diff;
     }
 
-    approveBooking() {
-      let booking = this.item;
-      booking.confirmed = true;
-
-      this.call("bookings.approve", booking._id, (err, res) => {
-        if (err) {
-          showAlert(err.reason, "danger");
-          return;
-        }
-
-        this.changeDetectorRef.detectChanges();
-
-        showAlert("Booking has been approved successfully.", "success");
-      });
-    }
-
-    disapproveBooking() {
+    cancelBooking() {
       let booking = this.item;
       booking.confirmed = false;
+      booking.cancelled = true;
 
-      this.call("bookings.disapprove", booking._id, (err, res) => {
+      let cancellationForm = this.cancellationForm.value;
+      // console.log(cancellationForm);
+
+      this.call("bookings.cancel", booking._id, cancellationForm, (err, res) => {
         if (err) {
           showAlert(err.reason, "danger");
           return;
@@ -122,7 +119,10 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
 
         this.changeDetectorRef.detectChanges();
 
-        showAlert("Booking has been disapproved successfully.", "success");
+        this.ngZone.run(() => {
+          showAlert("Booking has been cancelled successfully.", "success");
+          this.router.navigate(['/bookings/list']);
+        });
       });
     }
 }
