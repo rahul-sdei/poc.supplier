@@ -61,14 +61,15 @@
       <div class="row justify-content-sm-center">
         <div class="col-xl-10">
           <ul class="tabs">
-            <li rel="tab1" (click)="activeTab='first'; changeStatus('new')" class="active">New Bookings <span>{{bookingsCount.new}}</span></li>
-            <li rel="tab2" (click)="activeTab='second'; changeStatus('pending')">Pending <span>{{bookingsCount.pending}}</span></li>
-            <li rel="tab2" (click)="activeTab='third'; changeStatus('completed')" class="tab_last">Completed <span>{{bookingsCount.completed}}</span></li>
+            <li rel="tab1" (click)="activeTab='first'; changeStatus('pending')" class="active">New Bookings <span>{{bookingsCount.pending}}</span></li>
+            <li rel="tab2" (click)="activeTab='second'; changeStatus('confirmed')">Pending <span>{{bookingsCount.confirmed}}</span></li>
+            <li rel="tab3" (click)="activeTab='third'; changeStatus('completed')" class="">Completed <span>{{bookingsCount.completed}}</span></li>
+            <li rel="tab4" (click)="activeTab='fourth'; changeStatus('cancelled')" class="tab_last">Cancelled <span>{{bookingsCount.cancelled}}</span></li>
           </ul>
           <div class="right-wrap">
             <div class="tab_container" id="tabContent1">
               <!--tab-1-->
-              <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="activeTab='first'; changeStatus('new')">New Bookings <span>1</span></h3>
+              <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="activeTab='first'; changeStatus('pending')">New Bookings <span>{{bookingsCount.pending}}</span></h3>
               <div id="tab1" class="tab_content">
                 <div class="table-wrapper">
                   <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize" [showAction]="true" (onApprove)="onApprove($event)" (onDisapprove)="onDisapprove($event)"></bookings-table>
@@ -76,7 +77,7 @@
               </div>
               <!--tab-1-->
               <!--tab-2-->
-              <h3 class="tab_drawer_heading" rel="tab2" (click)="activeTab='second'; changeStatus('pending')">Pending <span>2</span></h3>
+              <h3 class="tab_drawer_heading" rel="tab2" (click)="activeTab='second'; changeStatus('confirmed')">Pending <span>{{bookingsCount.confirmed}}</span></h3>
               <div id="tab2" class="tab_content">
                 <div class="table-wrapper">
                   <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
@@ -85,13 +86,22 @@
               <!--tab-2-->
 
               <!--tab-3-->
-              <h3 class="tab_drawer_heading" rel="tab3" (click)="activeTab='third'; changeStatus('completed')">Completed <span>2</span></h3>
+              <h3 class="tab_drawer_heading" rel="tab3" (click)="activeTab='third'; changeStatus('completed')">Completed <span>{{bookingsCount.completed}}</span></h3>
               <div id="tab3" class="tab_content">
                 <div class="table-wrapper">
                   <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
                 </div>
               </div>
               <!--tab-3-->
+
+              <!--tab-4-->
+              <h3 class="tab_drawer_heading" rel="tab4" (click)="activeTab='fourth'; changeStatus('cancelled')">Cancelled <span>{{bookingsCount.cancelled}}</span></h3>
+              <div id="tab4" class="tab_content">
+                <div class="table-wrapper">
+                  <bookings-table [pageArr]="pageArr" [itemsSize]="itemsSize"></bookings-table>
+                </div>
+              </div>
+              <!--tab-4-->
             </div>
 
           </div>

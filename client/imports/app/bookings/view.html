@@ -68,6 +68,7 @@
           <!--booking-details-->
           <!--travler-wrap-->
           <div class="travler-wrap">
+            <p *ngIf="isProcessing" class="process-wrap">Your request is under processing. Please wait for a while.</p>
             <div class="row">
               <div class="col-sm-8">
                 <ul>
@@ -103,9 +104,19 @@
                     <h3 *ngIf="booking.paymentInfo?.method == 'express_checkout'"><span><i class="fa fa-paypal" aria-hidden="true"></i></span>Paypal</h3>
                     <h3 *ngIf="booking.paymentInfo?.method == 'credit_card'"><span><i class="fa fa-credit-card" aria-hidden="true"></i></span>Credit Card</h3>
                   </div>
-                  <div class="special-req">
+                  <div class="special-req" *ngIf="!! booking.travellers[0]?.specialRequest">
                     <p>Special Request</p>
                     <h3>{{booking.travellers[0]?.specialRequest}}</h3>
+                  </div>
+                  <div class="special-req refund-req" *ngIf="booking.cancelled == true && booking.refunded !== true">
+                    <p>Refund Pending</p>
+
+                    <button class="green-btn full-btn" (click)="processRefund()">Make Refund</button>
+
+                  </div>
+                  <div class="special-req refund-req" *ngIf="booking.cancelled == true && booking.refunded == true">
+                    <p>Refund Processed</p>
+                    <span>Refund request was processed at {{booking.refundInfo.processedAt | date}} {{booking.refundInfo.processedAt | date:'shortTime'}}</span>
                   </div>
                 </div>
                 <button *ngIf="booking.confirmed == false && booking.cancelled == false" class="green-btn full-btn" (click)="approveBooking()">Confirm Tour</button>

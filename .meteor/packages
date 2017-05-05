@@ -34,3 +34,4 @@ alanning:roles
 #service-configuration
 meteorhacks:picker
 meteorhacks:aggregate
+http

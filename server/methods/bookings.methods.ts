@@ -23,7 +23,8 @@ Meteor.methods({
         }, {
           "$or": [{active: true}, {active: {$exists: false} }]
         }, {
-          "tour.supplierId": userId
+          "tour.supplierId": userId,
+          "paymentInfo.status": "approved"
         });
 
         if ( !_.isEmpty(criteria) ) {
@@ -73,7 +74,8 @@ Meteor.methods({
       }, {
         "$or": [{active: true}, {active: {$exists: false} }]
       }, {
-        "tour.supplierId": userId
+        "tour.supplierId": userId,
+        "paymentInfo.status": "approved"
       });
 
       if (_.isEmpty(criteria)) {
@@ -87,9 +89,10 @@ Meteor.methods({
       userIsInRole(["supplier"]);
 
       let bookingsCount: any = {};
-      bookingsCount.new = Meteor.call("bookings.find", {}, {"confirmed": false, "cancelled": false}, "", true);
-      bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
+      bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": false, "cancelled": false}, "", true);
+      bookingsCount.confirmed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
       bookingsCount.completed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": true}, "", true);
+      bookingsCount.cancelled = Meteor.call("bookings.find", {}, {"cancelled": true}, "", true);
 
       return bookingsCount;
     },

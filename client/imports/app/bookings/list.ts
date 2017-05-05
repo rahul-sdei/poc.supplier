@@ -24,9 +24,10 @@ interface Options extends Pagination {
 }
 
 interface BookingsCount {
-    new: number;
     pending: number;
+    confirmed: number;
     completed: number;
+    cancelled: number;
 }
 
 declare var jQuery:any;
@@ -48,9 +49,10 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     whereCond: Subject<any> = new Subject<any>();
     searchTimeout: any;
     bookingsCount: BookingsCount = {
-        new: null,
         pending: null,
-        completed: null
+        confirmed: null,
+        completed: null,
+        cancelled: null
     };
 
     constructor(private router: Router,
@@ -81,7 +83,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             orderBy: "createdAt",
             nameOrder: -1,
             searchString: '',
-            where: {"active": true, "confirmed": false}
+            where: {active: true, confirmed: false, cancelled: false}
         }
 
         this.setOptionsSub();
@@ -210,21 +212,24 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
 
     changeStatus(mode: string): void {
         switch(mode) {
-            case "new":
+            case "pending":
             this.whereCond.next({active: true, confirmed: false, cancelled: false});
             break;
-            case "pending":
+            case "confirmed":
             this.whereCond.next({active: true, confirmed: true, completed: false});
             break;
             case "completed":
             this.whereCond.next({active: true, confirmed: true, completed: true});
             break;
+            case "cancelled":
+            this.whereCond.next({active: true, cancelled: true});
+            break;
         }
     }
 
     onApprove(result) {
-      this.bookingsCount.new--;
-      this.bookingsCount.pending++;
+      this.bookingsCount.pending--;
+      this.bookingsCount.confirmed++;
       this.changeDetectorRef.detectChanges();
     }
 

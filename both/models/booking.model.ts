@@ -88,6 +88,14 @@ export interface Booking extends CollectionObject {
     cancellationComments: string;
     denied: boolean;
     deniedReason: string;
+    paymentInfo: {
+      gateway: string;
+      method: string;
+      transactionId: string;
+      gatewayTransId: string;
+      status: string;
+      saleId: string;
+    };
     deleted: boolean;
     createdAt: Date;
     modifiedAt: Date;

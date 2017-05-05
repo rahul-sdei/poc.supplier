@@ -1,4 +1,5 @@
 import { Meteor } from "meteor/meteor";
+import { HTTP } from "meteor/http";
 import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { MeteorObservable } from "meteor-rxjs";
@@ -21,6 +22,7 @@ declare var jQuery:any;
 export class BookingsViewComponent extends MeteorComponent implements OnInit, AfterViewChecked, OnDestroy {
     paramsSub: Subscription;
     item: Booking;
+    isProcessing: boolean = false;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -85,8 +87,10 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
 
     get departInDays() {
       let booking = this.item;
-      let a = moment(booking.startDate);
-      let b = moment(new Date());
+      let a = moment.utc(booking.startDate);
+      a.set({hour:0,minute:0,second:0,millisecond:0})
+      let b = moment.utc(new Date());
+      b.set({hour:0,minute:0,second:0,millisecond:0})
       let diff = a.diff(b, 'days');
       if (diff < 0) {
         diff = 0;
@@ -112,17 +116,38 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
 
     disapproveBooking() {
       let booking = this.item;
-      booking.confirmed = false;
+      this.ngZone.run(() => {
+        this.router.navigate(['/bookings/cancel', booking._id]);
+      });
+    }
 
-      this.call("bookings.disapprove", booking._id, (err, res) => {
-        if (err) {
-          showAlert(err.reason, "danger");
-          return;
+    processRefund() {
+      if (this.isProcessing) {
+        showAlert("Your previous request is under processing. Please wait for a while.", "info");
+        return false;
+      }
+
+      this.isProcessing = true;
+      this.changeDetectorRef.detectChanges();
+      let booking = this.item;
+      HTTP.call("POST", "/api/1.0/paypal/payment/refund", {
+        data: {},
+        params: {
+          paymentId: booking.paymentInfo.gatewayTransId
         }
-
+      }, (error, result) => {
+        this.isProcessing = false;
         this.changeDetectorRef.detectChanges();
-
-        showAlert("Booking has been disapproved successfully.", "success");
+        let response = JSON.parse(result.content);
+        if (! response.success) {
+          showAlert("Error while processing refund request. Please review gateway configurations and try again after some time.", "danger");
+          return;
+        } else {
+          this.ngZone.run(() => {
+            showAlert("Refund request has been processed successfully. Payment will be sent to customer based on processing time of gateway.", "success")
+            this.router.navigate(['/bookings/list']);
+          });
+        }
       });
     }
 }
