@@ -260,12 +260,8 @@ Meteor.methods({
       }, 0);
 
       // send email to customer
-      let customer = Meteor.users.findOne({_id: booking.user.id});
-      if (_.isEmpty(customer)) {
-        return;
-      }
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
-      to = customer.emails[0].address;
+      to = booking.user.email;
       subject = "Booking Cancellation Confirmation - Customer";
       text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-cancellation.html")+'`');
       Meteor.setTimeout(() => {
@@ -289,12 +285,8 @@ Meteor.methods({
       }
 
       // send email to customer
-      let customer = Meteor.users.findOne({_id: booking.user.id});
-      if (_.isEmpty(customer)) {
-        return;
-      }
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
-      let to = customer.emails[0].address;
+      let to = booking.user.email;
       let subject = "Booking Cancellation Confirmation - Customer";
       let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-approved.html")+'`');
       Meteor.setTimeout(() => {
