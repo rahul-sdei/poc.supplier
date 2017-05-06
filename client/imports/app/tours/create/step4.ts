@@ -92,7 +92,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
             this.isUploaded = true;
             this.images.push({
               id: res._id,
-              url: res.url,
+              url: res.path,
               name: res.name
             });
             console.log("file id:", res._id);

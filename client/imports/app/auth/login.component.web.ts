@@ -9,6 +9,7 @@ import { User } from "../../../../both/models/user.model";
 import { validateEmail, validatePhoneNum, validateFirstName } from "../../validators/common";
 import { showAlert } from "../shared/show-alert";
 import template from './login.component.web.html';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'login',
@@ -49,10 +50,10 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 this.localStorage.store("rememberMeNot", !this.rememberMe);
                 this.sessionStorage.store("Meteor.userId", Meteor.userId());
                 let user = <User>Meteor.user();
-                if (typeof user.profile.supplier.agentCertificate == "undefined") {
+                if (_.isEmpty(user.profile.supplier.agentCertificate)) {
                     showAlert("Upload your agent certificate to continue.", "info");
                     this.router.navigate(['/signup/step1']);
-                } else if (typeof user.profile.supplier.agentIdentity == "undefined") {
+                } else if (_.isEmpty(user.profile.supplier.agentIdentity)) {
                     showAlert("Upload your identity to continue.", "info");
                     this.router.navigate(['/signup/step2']);
                 } else {

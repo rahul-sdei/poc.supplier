@@ -67,7 +67,7 @@ export class UploadCertStep1Component extends MeteorComponent implements OnInit,
           }
           let document: Document = {
             id: res._id,
-            url: res.url,
+            url: res.path,
             name: res.name
           };
           if (field == 'agentCertificate') {

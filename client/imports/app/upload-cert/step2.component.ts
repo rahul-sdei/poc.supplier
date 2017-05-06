@@ -70,7 +70,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
           }
           let document: Document = {
             id: res._id,
-            url: res.url,
+            url: res.path,
             name: res.name
           };
           if (field == 'agentIdentity') {
@@ -100,6 +100,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
 
     this.call("users.update", {"profile.supplier.agentIdentity" : this.agentIdentity, "profile.supplier.ownerName": ownerName}, (err, res) => {
       if (! err) {
+        this.call("users.sendUploadCertNotification", () => {});
         showAlert("Your documents have been uploaded successfully.", "success");
         this.router.navigate(['/dashboard']);
       } else {

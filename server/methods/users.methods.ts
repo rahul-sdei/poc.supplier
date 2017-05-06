@@ -115,5 +115,20 @@ Meteor.methods({
         throw new Meteor.Error(403, "Not authorized!");
       }
       return Meteor.users.findOne({ _id: userId });
+    },
+    "users.sendUploadCertNotification": () => {
+      let fs = require("fs");
+
+      let supplier = Meteor.call("users.findOne");
+
+      //send email to admin
+      let admin = Meteor.users.findOne({"roles": "super-admin"}, {fields: {"emails": 1} });
+      let adminAppUrl = Meteor.settings.public["adminAppUrl"];
+      let to = admin.emails[0].address;
+      let subject = "Supplier Certificates Upload Notification - Admin";
+      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/certificate-upload.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text)
+      }, 0);
     }
 })
