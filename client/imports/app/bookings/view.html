@@ -116,7 +116,7 @@
                   </div>
                   <div class="special-req refund-req" *ngIf="booking.cancelled == true && booking.refunded == true">
                     <p>Refund Processed</p>
-                    <span>Refund request was processed at {{booking.refundInfo.processedAt | date}} {{booking.refundInfo.processedAt | date:'shortTime'}}</span>
+                    <span>Refund request was processed by {{booking.refundInfo?.processedBy}} at {{booking.refundInfo?.processedAt | date}} {{booking.refundInfo?.processedAt | date:'shortTime'}}</span>
                   </div>
                 </div>
                 <button *ngIf="booking.confirmed == false && booking.cancelled == false" class="green-btn full-btn" (click)="approveBooking()">Confirm Tour</button>

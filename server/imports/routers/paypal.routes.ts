@@ -68,6 +68,7 @@ Picker.route( '/api/1.0/paypal/payment/refund/', function( params, request, resp
               transactionId: transactionId,
               gatewayTransId: refund.id,
               processedAt: new Date(),
+              processedBy: "supplier"
             }
           } });
 

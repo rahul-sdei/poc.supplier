@@ -100,13 +100,7 @@ Meteor.methods({
       userIsInRole(["supplier"]);
 
       let user = Meteor.user();
-      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {confirmed: true, confirmedAt: new Date()} });
-    },
-    "bookings.disapprove": (bookingId) => {
-      userIsInRole(["supplier"]);
-
-      let user = Meteor.user();
-      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id}, {$set: {cancelled: true, cancelledAt: new Date()} });
+      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id, "cancelled": false}, {$set: {confirmed: true, confirmedAt: new Date()} });
     },
     "bookings.cancel": (bookingId: string, userData: any) => {
       let dataToUpdate: any = {
