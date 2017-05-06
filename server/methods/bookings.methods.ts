@@ -100,7 +100,14 @@ Meteor.methods({
       userIsInRole(["supplier"]);
 
       let user = Meteor.user();
-      Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id, "cancelled": false}, {$set: {confirmed: true, confirmedAt: new Date()} });
+      let retVal = Bookings.collection.update({_id: bookingId, "tour.supplierId": user._id, "cancelled": false}, {$set: {confirmed: true, confirmedAt: new Date()} });
+
+      //send email to customer
+      Meteor.setTimeout(() => {
+        Meteor.call("bookings.sendApprovedConfirmation", bookingId);
+      }, 0);
+
+      return retVal;
     },
     "bookings.cancel": (bookingId: string, userData: any) => {
       let dataToUpdate: any = {
@@ -112,7 +119,14 @@ Meteor.methods({
         cancelledBy: "supplier"
       };
 
-      return Bookings.collection.update({_id: bookingId, cancelled: false}, { $set: dataToUpdate });
+      let retVal = Bookings.collection.update({_id: bookingId, cancelled: false}, { $set: dataToUpdate });
+
+      //send email to customer and admin
+      Meteor.setTimeout(() => {
+        Meteor.call("bookings.sendCancelledConfirmation", bookingId);
+      }, 0);
+
+      return retVal;
     },
     "bookings.statistics": () => {
       userIsInRole(["supplier"]);
@@ -225,6 +239,120 @@ Meteor.methods({
            }}
       ])
       return data;
+    },
+    "bookings.sendCancelledConfirmation": (bookingId) => {
+      let fs = require("fs");
+
+      // find booking details
+      let booking = Bookings.collection.findOne({_id: bookingId});
+      if (_.isEmpty(booking)) {
+        return;
+      }
+
+      // send email to Admin
+      let admin = Meteor.users.findOne({"roles": "super-admin"}, {fields: {"emails": 1} });
+      let adminAppUrl = Meteor.settings.public["adminAppUrl"];
+      let to = admin.emails[0].address;
+      let subject = "Booking Cancellation Confirmation - Admin";
+      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/booking-cancellation.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text)
+      }, 0);
+
+      // send email to customer
+      let customer = Meteor.users.findOne({_id: booking.user.id});
+      if (_.isEmpty(customer)) {
+        return;
+      }
+      let customerAppUrl = Meteor.settings.public["customerAppUrl"];
+      to = customer.emails[0].address;
+      subject = "Booking Cancellation Confirmation - Customer";
+      text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-cancellation.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text)
+      }, 0);
+    },
+    "bookings.sendApprovedConfirmation": (bookingId) => {
+      let fs = require("fs");
+
+      // find booking details
+      let booking = Bookings.collection.findOne({_id: bookingId});
+      if (_.isEmpty(booking)) {
+        return;
+      }
+
+      let paymentMethod = booking.paymentInfo.method;
+      if (paymentMethod == "express_checkout") {
+        booking.paymentInfo.method = "Paypal";
+      } else if(paymentMethod == "credit_card") {
+        booking.paymentInfo.method = "Credit Card";
+      }
+
+      // send email to customer
+      let customer = Meteor.users.findOne({_id: booking.user.id});
+      if (_.isEmpty(customer)) {
+        return;
+      }
+      let customerAppUrl = Meteor.settings.public["customerAppUrl"];
+      let to = customer.emails[0].address;
+      let subject = "Booking Cancellation Confirmation - Customer";
+      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-approved.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text);
+      }, 0);
+    },
+    "bookings.refundConfirmation": (bookingId) => {
+      let fs = require("fs");
+
+      // find booking details
+      let booking = Bookings.collection.findOne({_id: bookingId});
+      if (_.isEmpty(booking)) {
+        return;
+      }
+
+      let paymentMethod = booking.paymentInfo.method;
+      if (paymentMethod == "express_checkout") {
+        booking.paymentInfo.method = "Paypal";
+      } else if(paymentMethod == "credit_card") {
+        booking.paymentInfo.method = "Credit Card";
+      }
+
+      // send email to customer
+      let customerAppUrl = Meteor.settings.public["customerAppUrl"];
+      let to = booking.user.email;
+      let subject = "Booking Refund Confirmation - Customer";
+      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-refund.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text);
+      }, 0);
+
+      // send email to Admin
+      let admin = Meteor.users.findOne({"roles": "super-admin"}, {fields: {"emails": 1} });
+      let adminAppUrl = Meteor.settings.public["adminAppUrl"];
+      to = admin.emails[0].address;
+      subject = "Booking Refund Confirmation - Admin";
+      text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/booking-refund.html")+'`');
+      Meteor.setTimeout(() => {
+        Meteor.call("sendEmail", to, subject, text)
+      }, 0);
     }
 
 });
+
+function getFormattedDate(today) {
+  if (! today) {
+    return "N.A.";
+  }
+  today = new Date(today.toString());
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+
+  var yyyy = today.getFullYear();
+  if(dd<10){
+      dd='0'+dd;
+  }
+  if(mm<10){
+      mm='0'+mm;
+  }
+  return dd+'/'+mm+'/'+yyyy;
+}
