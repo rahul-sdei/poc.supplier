@@ -106,6 +106,10 @@ export class BookingsCancelComponent extends MeteorComponent implements OnInit, 
     }
 
     cancelBooking() {
+      if (! this.cancellationForm.valid) {
+        showAlert("Please fill the form completly.", "danger");
+        return;
+      }
       let booking = this.item;
       booking.confirmed = false;
       booking.cancelled = true;
