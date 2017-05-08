@@ -1,0 +1,183 @@
+<header-main></header-main>
+<main>
+	<!--link-content-->
+	<section class="grey-bg link-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8" *ngIf="!!tour">
+					<!--overview-->
+					<div class="tour-detail right-wrap" id="overview">
+						<h3>Overview</h3>
+						<ul>
+							<li>
+								<p>Pace</p>
+								<h5>{{tour.tourPace}}</h5>
+							</li>
+							<li>
+								<p>Type</p>
+								<h5>{{tour.tourType}}</h5>
+							</li>
+							<li>
+								<p>Total Meals</p>
+								<h5>{{tour.totalMeals}}</h5>
+							</li>
+							<li>
+								<p>TourGuide</p>
+								<h5 *ngIf="tour.hasGuide">Included</h5>
+								<h5 *ngIf="!tour.hasGuide">Not Included</h5>
+							</li>
+						</ul>
+						<p [innerHTML]="tour.description | nl2br">
+						</p>
+					</div>
+					<!--overview-->
+					<!--tour-itinerary-->
+					<div class="tour-itinerary right-wrap" id="itinerary">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3>Itinerary</h3>
+								<div class="day-box">
+									<!-- itenerary loop -->
+									<div class="day-wrap" [ngClass]="{'small-icon': i>0, 'green-icon': i==0, 'show-less': i>=2 && !tour.showFullItenerary}" *ngFor="let itenerary of tour.itenerary; let i = index;">
+										<h2>Day <span [innerHTML]="i+1"></span> : {{itenerary.title}}</h2>
+										<p [innerHTML]="itenerary.description | nl2br"></p>
+										<div [ngClass]="{'show-less': !itenerary.showMore}">
+											<div class="sub-head">
+												<h4>Hotel</h4>
+												<p *ngIf="!! itenerary.hotelName">{{itenerary.hotelName}}</p>
+                        <p *ngIf="! itenerary.hotelName && !! itenerary.hotelType">{{itenerary.hotelType}}</p>
+                        <p *ngIf="! itenerary.hotelName && ! itenerary.hotelType">0 Nights</p>
+											</div>
+											<div class="sub-head">
+												<h4>Meals</h4>
+												<p>
+													<span class="radio-wrap">
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!itenerary.hasBreakfast">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="itenerary.hasBreakfast">
+                            <label for="breakFast" class="radio-custom-label">Breakfast</label>
+                          </span>
+                          <span class="radio-wrap">
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!itenerary.hasLunch">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="itenerary.hasLunch">
+                            <label for="lunch" class="radio-custom-label">Lunch</label>
+                          </span>
+                          <span class="radio-wrap">
+                            <img src="images/imgpsh_fullsize.png" alt="" *ngIf="!itenerary.hasDinner">
+                            <img src="images/imgpsh_fullsize(2).png" alt="" *ngIf="itenerary.hasDinner">
+                            <label for="dinner" class="radio-custom-label">Dinner</label>
+                          </span>
+												</p>
+											</div>
+										</div>
+										<a href="javascript:void(0)" class="showmore" (click)="itenerary.showMore = !itenerary.showMore; detectChanges();">
+											<span *ngIf="!itenerary.showMore">Show more</span>
+											<span *ngIf="itenerary.showMore">Show less</span>
+											<span>
+												<i class="fa fa-angle-down" [ngClass]="{'fa-angle-down': !itenerary.showMore, 'fa-angle-up': itenerary.showMore}" aria-hidden="true"></i>
+											</span>
+										</a>
+									</div>
+									<!-- itenerary loop ends -->
+								</div>
+								<div class="text-center" *ngIf="tour.itenerary.length > 2">
+									<a href="javascript:void(0)" class="full-itinerary" (click)="tour.showFullItenerary = !tour.showFullItenerary; detectChanges();">View full itinerary<span>
+										<i class="fa fa-angle-down" aria-hidden="true" *ngIf="!tour.showFullItenerary"></i>
+										<i class="fa fa-angle-up" aria-hidden="true" *ngIf="tour.showFullItenerary"></i>
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--tour-itinerary-->
+					<!--gallery-wrap-->
+					<div class="gallery-wrap right-wrap" id="gallery">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3>Gallery</h3>
+							</div>
+							<div class="col-sm-12 second-row">
+                <div class="img-wrap" *ngFor="let image of tour.images;">
+                  <a target="_blank" href="{{image.url}}" rel="prettyPhoto[tour_gallery]"><img src="{{image.url}}" alt="{{image.name}}" /></a>
+                </div>
+              </div>
+						</div>
+					</div>
+					<!--inclusive-policy-->
+					<div class="inclusive-policy right-wrap" id="inclusion">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3>Inclusion &amp; Policy</h3>
+								<h4>Included:</h4>
+								<ul>
+									<li *ngFor="let text of tour.inclusions;">{{text}}</li>
+								</ul>
+								<h4>Excluded:</h4>
+								<ul>
+									<li *ngFor="let text of tour.exclusions">{{text}}</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--inclusive-policy-->
+					<!--Availability-->
+					<div class="availability right-wrap" id="availability">
+						<h3>Availability</h3>
+						<div class="table-responsive status-table">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Start</th>
+										<th>End </th>
+										<th>Seats Left</th>
+										<th>Price(A$)</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let row of tour.dateRange; let i = index;" [hidden]="! isAvailSchedule(row)">
+										<td>{{row.startDate | date}}</td>
+										<td>{{row.endDate | date}}</td>
+										<td>{{row.availableSeats}}</td>
+										<td>
+                      <span>$ {{row.price[0].adult}}</span>
+											<a href="javascript:void(0)" (click)="selDateRange=row; detectChanges();" data-toggle="modal" data-target="#myModal">see all pricing</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content ">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Schedule Pricing</h5>
+                </div>
+                <div class="modal-body">
+                  <table class="table hover-table" *ngIf="selDateRange">
+                    <thead>
+                      <tr>
+                        <th>People</th>
+                        <th>Adult</th>
+                        <th>Child</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of selDateRange.price">
+                        <td>{{row.numOfPersons}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+					<!--Availability-->
+				</div>
+			</div>
+		</div>
+
+	</section>
+</main>

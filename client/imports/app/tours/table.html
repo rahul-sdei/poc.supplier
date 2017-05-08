@@ -19,7 +19,7 @@
         <span *ngIf="page.images?.length > 0 && page.featuredImage?.url"><img [src]="page.featuredImage?.url" /></span>
         <span *ngIf="page.images?.length > 0 && !page.featuredImage?.url"><img [src]="page.images[0]?.url" /></span>
         <div>
-          <h5>{{page.name}}</h5>
+          <h5><a [routerLink]="['/tours', page.slug]">{{page.name}}</a></h5>
           <p>{{page.departure}}, {{page.destination}}</p>
         </div>
       </td>
