@@ -53,3 +53,27 @@ input::-webkit-inner-spin-button {
 .completer-row-wrapper, .completer-row, .completer-item-text, .completer-list-item-holder, .completer-list-item {
   width: 100% !important;
 }
+
+.cancellation {
+  float: left;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e2e6;
+  background: #fff;
+  .col-sm-5, .col-sm-10 {
+    padding-top: 10px;
+    p {
+      color: #5a6b81;
+      font-weight: 700;
+      font-size: 16px;
+    }
+  }
+  h3 {
+    color: #5a6b81;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 22px;
+  }
+}

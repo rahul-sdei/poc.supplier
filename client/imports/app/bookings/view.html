@@ -125,6 +125,29 @@
             </div>
           </div>
           <!--travler-wrap-->
+          <div class="cancellation" *ngIf="booking.cancelled">
+            <h3>Cancellation Details</h3>
+            <div class="row">
+              <div class="col-xl-10">
+                <div class="col-sm-5">
+                  <h6>Cancelled At: </h6>
+                  <p>{{booking.cancelledAt | date}}</p>
+                </div>
+                <div class="col-sm-5">
+                  <h6>Cancelled By: </h6>
+                  <p><b>{{booking.cancelledBy | uppercase}}<b></p>
+                </div>
+                <div class="col-sm-10">
+                  <h6>Cancellation Reason: </h6>
+                  <p>{{booking.cancellationReason}}</p>
+                </div>
+                <div class="col-sm-10">
+                  <h6>Cancellation Comments: </h6>
+                  <p>{{booking.cancellationComments}}</p>
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
