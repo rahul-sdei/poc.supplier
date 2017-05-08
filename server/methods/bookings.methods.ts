@@ -89,10 +89,10 @@ Meteor.methods({
       userIsInRole(["supplier"]);
 
       let bookingsCount: any = {};
-      bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": false, "cancelled": false}, "", true);
+      bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": false, "refunded": false}, "", true);
       bookingsCount.confirmed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
       bookingsCount.completed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": true}, "", true);
-      bookingsCount.cancelled = Meteor.call("bookings.find", {}, {"cancelled": true}, "", true);
+      bookingsCount.cancelled = Meteor.call("bookings.find", {}, {"refunded": true}, "", true);
 
       return bookingsCount;
     },
