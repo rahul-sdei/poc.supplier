@@ -177,7 +177,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
                   return;
               }
               $("#inputFile").val("");
-              this.user.profile.image.url = res.path;
+              // this.user.profile.image.url = res.path;
               showAlert("Profile picture updated successfully.", "success");
           });
       })

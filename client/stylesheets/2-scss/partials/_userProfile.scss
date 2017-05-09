@@ -102,8 +102,6 @@
 				@include border-all(1px, solid, $border-color);
 					img {
 						@include border-radius($full, $full, $full, $full);
-						height: auto;
-						width: auto;
 						max-width: 100%;
 					}
 				}

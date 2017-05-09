@@ -91,7 +91,7 @@ Meteor.methods({
       let bookingsCount: any = {};
       bookingsCount.pending = Meteor.call("bookings.find", {}, {"confirmed": false, "refunded": false}, "", true);
       bookingsCount.confirmed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": false}, "", true);
-      bookingsCount.completed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": true}, "", true);
+      bookingsCount.completed = Meteor.call("bookings.find", {}, {"confirmed": true, "completed": true, "cancelled": false}, "", true);
       bookingsCount.cancelled = Meteor.call("bookings.find", {}, {"refunded": true}, "", true);
 
       return bookingsCount;
