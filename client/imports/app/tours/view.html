@@ -1,10 +1,26 @@
 <header-main></header-main>
 <main>
+	<div class="user-head" style="padding-top: 30px; padding-bottom: 30px; height: auto;" *ngIf="!! tour">
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col-xl-10">
+          <div class="row sort-bar">
+            <div class="col-md-12">
+              <h4>{{tour.name}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 	<!--link-content-->
 	<section class="grey-bg link-content">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-8" *ngIf="!!tour">
+			<div class="row justify-content-sm-center">
+				<div class="col-xl-10">
+          <a [routerLink]="['/tours/list']" class="green-anchor"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>&nbsp;See all tours</a>
+        </div>
+				<div class="col-xl-10" *ngIf="!!tour">
 					<!--overview-->
 					<div class="tour-detail right-wrap" id="overview">
 						<h3>Overview</h3>
@@ -141,7 +157,7 @@
 										<td>{{row.endDate | date}}</td>
 										<td>{{row.availableSeats}}</td>
 										<td>
-                      <span>$ {{row.price[0].adult}}</span>
+                      <span>${{row.price[0].adult}}</span>
 											<a href="javascript:void(0)" (click)="selDateRange=row; detectChanges();" data-toggle="modal" data-target="#myModal">see all pricing</a>
 										</td>
 									</tr>
@@ -167,6 +183,8 @@
                     <tbody>
                       <tr *ngFor="let row of selDateRange.price">
                         <td>{{row.numOfPersons}}</td>
+												<td>${{row.adult}}</td>
+                        <td>${{row.child}}</td>
                       </tr>
                     </tbody>
                   </table>
