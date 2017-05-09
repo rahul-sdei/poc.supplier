@@ -22,7 +22,7 @@
         </div>
 				<div class="col-xl-10" *ngIf="!!tour">
 					<!--overview-->
-					<div class="tour-detail right-wrap" id="overview">
+					<div class="tour-block right-wrap tour-detail-page" id="overview">
 						<h3>Overview</h3>
 						<ul>
 							<li>
@@ -48,7 +48,7 @@
 					</div>
 					<!--overview-->
 					<!--tour-itinerary-->
-					<div class="tour-itinerary right-wrap" id="itinerary">
+					<div class="tour-block right-wrap tour-itinerary-page" id="itinerary">
 						<div class="row">
 							<div class="col-sm-12">
 								<h3>Itinerary</h3>
@@ -85,13 +85,6 @@
 												</p>
 											</div>
 										</div>
-										<a href="javascript:void(0)" class="showmore" (click)="itenerary.showMore = !itenerary.showMore; detectChanges();">
-											<span *ngIf="!itenerary.showMore">Show more</span>
-											<span *ngIf="itenerary.showMore">Show less</span>
-											<span>
-												<i class="fa fa-angle-down" [ngClass]="{'fa-angle-down': !itenerary.showMore, 'fa-angle-up': itenerary.showMore}" aria-hidden="true"></i>
-											</span>
-										</a>
 									</div>
 									<!-- itenerary loop ends -->
 								</div>
@@ -107,7 +100,7 @@
 					</div>
 					<!--tour-itinerary-->
 					<!--gallery-wrap-->
-					<div class="gallery-wrap right-wrap" id="gallery">
+					<div class="tour-block right-wrap tour-gallery-page" id="gallery">
 						<div class="row">
 							<div class="col-sm-12">
 								<h3>Gallery</h3>
@@ -120,7 +113,7 @@
 						</div>
 					</div>
 					<!--inclusive-policy-->
-					<div class="inclusive-policy right-wrap" id="inclusion">
+					<div class="tour-block right-wrap tour-inclusion-page" id="inclusion">
 						<div class="row">
 							<div class="col-sm-12">
 								<h3>Inclusion &amp; Policy</h3>
@@ -138,7 +131,7 @@
 					</div>
 					<!--inclusive-policy-->
 					<!--Availability-->
-					<div class="availability right-wrap" id="availability">
+					<div class="tour-block right-wrap tour-availability-page" id="availability">
 						<h3>Availability</h3>
 						<div class="table-responsive status-table">
 							<table class="table">
