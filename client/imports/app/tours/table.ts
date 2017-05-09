@@ -30,9 +30,10 @@ export class ToursTableComponent extends MeteorComponent {
   }
 
   canEdit(tour: Tour) {
-    if (! tour.requestApprovalSentAt) {
+    return true;
+    /*if (! tour.requestApprovalSentAt) {
       return true;
-    }
+    }*/
   }
 
   canDelete(tour: Tour) {

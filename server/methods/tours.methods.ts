@@ -132,8 +132,13 @@ Meteor.methods({
     "tours.update": (data: Tour, id: string) => {
       userIsInRole(["supplier"]);
 
+      data.approved = false;
       data.modifiedAt = new Date();
-      return Tours.collection.update({_id: id}, {$set: data});
+      let requestApprovalDate = new Date();
+      //requestApprovalDate.setHours(requestApprovalDate.getHours() + 6);
+      requestApprovalDate.setMinutes(requestApprovalDate.getMinutes() + 5);
+      data.requestApprovalAt = requestApprovalDate;
+      return Tours.collection.update({_id: id}, {$set: data, $unset: {requestApprovalSentAt: 1} });
     },
     "tours.updateUser": (userId: string) => {
       let user = Meteor.users.findOne({_id: userId});

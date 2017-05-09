@@ -53,11 +53,11 @@ export class TourViewComponent extends MeteorComponent implements OnInit, AfterV
 
   ngOnInit() {
     this.paramsSub = this.route.params
-      .map(params => params['name'])
-      .subscribe(name => {
-          this.query = name;
+      .map(params => params['id'])
+      .subscribe(id => {
+          this.query = id;
 
-          this.call("tours.findOne", {slug: this.query}, (err, res) => {
+          this.call("tours.findOne", {_id: this.query}, (err, res) => {
             if (err) {
               console.log(err.reason, "danger");
               return;
@@ -100,6 +100,10 @@ export class TourViewComponent extends MeteorComponent implements OnInit, AfterV
       return false;
     }
     return true;
+  }
+
+  get tourDetails() {
+    return this.tour;
   }
 
 }

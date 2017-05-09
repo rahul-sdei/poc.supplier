@@ -19,5 +19,5 @@ export const routes = [
     {path: "tours/create/step4", component: CreateTourStep4Component },
     {path: "tours/create/step5", component: CreateTourStep5Component },
     {path: "tours/create/step6", component: CreateTourStep6Component },
-    {path: "tours/:name", component: TourViewComponent}
+    {path: "tours/view/:id", component: TourViewComponent}
 ];

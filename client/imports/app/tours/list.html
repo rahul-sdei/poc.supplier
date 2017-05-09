@@ -69,7 +69,7 @@
               <h3 class="d_active tab_drawer_heading" rel="tab1" (click)="showPending=false; changeStatus(true)">Approved Tours <span *ngIf="approvedCount > 0">{{approvedCount}}</span></h3>
               <div id="tab1" class="tab_content">
                 <div class="table-responsive">
-                  <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize" (onDelete)="onDelete($event)"></tours-table>
+                  <tours-table [pageArr]="pageArr" [itemsSize]="itemsSize" [showAction]="true" (onDelete)="onDelete($event)"></tours-table>
                 </div>
               </div>
               <!--tab-1-->
