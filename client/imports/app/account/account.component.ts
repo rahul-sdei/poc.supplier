@@ -13,6 +13,7 @@ import { InjectUser } from "angular2-meteor-accounts-ui";
 import { CustomValidators as CValidators } from "ng2-validation";
 import { validatePhoneNum, validateFirstName } from "../../validators/common";
 import { upload } from '../../../../both/methods/images.methods';
+import * as _ from 'underscore';
 import template from './account.component.html';
 
 declare var jQuery:any;
@@ -164,12 +165,13 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
       .then((res) => {
           this.isUploading = false;
           this.isUploaded = true;
+          let userImage = {
+            id: res._id,
+            url: res.path,
+            name: res.name
+          };
           let userData = {
-              "profile.image":{
-                id: res._id,
-                url: res.path,
-                name: res.name
-              }
+              "profile.image": userImage
           };
           this.call("users.update", userData, (err, res) => {
               if (err) {
@@ -177,7 +179,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
                   return;
               }
               $("#inputFile").val("");
-              // this.user.profile.image.url = res.path;
+              this.user.profile.image = userImage;
               showAlert("Profile picture updated successfully.", "success");
           });
       })
