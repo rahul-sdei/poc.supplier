@@ -30,7 +30,8 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         private completerService: CompleterService
     ) {
         super();
-        this.dataService = completerService.remote('/api/1.0/places/search?searchString=', 'name', 'name');
+        let supplierAppUrl = Meteor.settings.public["supplierAppUrl"];
+        this.dataService = completerService.remote(supplierAppUrl + '/api/1.0/places/search?searchString=', 'name', 'name');
     }
 
     ngOnInit() {

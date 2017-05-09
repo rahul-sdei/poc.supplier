@@ -102,7 +102,9 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
       if (! err) {
         this.call("users.sendUploadCertNotification", () => {});
         showAlert("Your documents have been uploaded successfully.", "success");
-        this.router.navigate(['/dashboard']);
+        this.ngZone.run(() => {
+          this.router.navigate(['/dashboard']);
+        });
       } else {
         showAlert(err.reason, "danger");
       }

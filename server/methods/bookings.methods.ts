@@ -111,7 +111,7 @@ Meteor.methods({
     },
     "bookings.cancel": (bookingId: string, userData: any) => {
       let dataToUpdate: any = {
-        confirmed: false,
+        // confirmed: false,
         cancelled: true,
         cancelledAt: new Date(),
         cancellationReason: userData.reason,

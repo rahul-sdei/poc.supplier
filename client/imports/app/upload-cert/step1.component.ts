@@ -91,7 +91,9 @@ export class UploadCertStep1Component extends MeteorComponent implements OnInit,
 
     this.call("users.update", {"profile.supplier.agentCertificate" : this.agentCertificate}, (err, res) => {
       if (! err) {
-        this.router.navigate(['/signup/step2']);
+        this.ngZone.run(() => {
+          this.router.navigate(['/signup/step2']);
+        });
       } else {
         showAlert(err.reason, "danger");
       }

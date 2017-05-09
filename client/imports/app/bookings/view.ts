@@ -134,7 +134,8 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
       this.isProcessing = true;
       this.changeDetectorRef.detectChanges();
       let booking = this.item;
-      HTTP.call("POST", "/api/1.0/paypal/payment/refund", {
+      let supplierAppUrl = Meteor.settings.public["supplierAppUrl"];
+      HTTP.call("POST", supplierAppUrl + "/api/1.0/paypal/payment/refund", {
         data: {},
         params: {
           paymentId: booking.paymentInfo.gatewayTransId
