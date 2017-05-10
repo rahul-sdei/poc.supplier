@@ -204,6 +204,11 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       let dateRange = this.dateRange;
       this.totalSeats += object.numOfSeats;
       this.dateRange.push(object);
+      this.dateRange.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(a.startDate.toString()) - new Date(b.startDate.toString());
+      });
 
       //this.step2Form.reset();
       $('#datetimepicker1').val('').datepicker('update');

@@ -42,8 +42,14 @@ Meteor.methods({
           //console.log(criteria);
           where.push(criteria);
         }
+        
         // match search string
-        if (typeof searchString === 'string' && searchString.length) {
+        if (isNaN(searchString) == false && searchString.length) {
+          searchString = Number(searchString);
+          where.push({
+              "$or": [{uniqueId: searchString}]
+          });
+        } else if (typeof searchString === 'string' && searchString.length) {
             // allow search on firstName, lastName
             where.push({
                 "$or": [

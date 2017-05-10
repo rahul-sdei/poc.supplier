@@ -124,35 +124,4 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
         this.router.navigate(['/bookings/cancel', booking._id]);
       });
     }
-
-    processRefund() {
-      if (this.isProcessing) {
-        showAlert("Your previous request is under processing. Please wait for a while.", "info");
-        return false;
-      }
-
-      this.isProcessing = true;
-      this.changeDetectorRef.detectChanges();
-      let booking = this.item;
-      let supplierAppUrl = Meteor.settings.public["supplierAppUrl"];
-      HTTP.call("POST", supplierAppUrl + "/api/1.0/paypal/payment/refund", {
-        data: {},
-        params: {
-          paymentId: booking.paymentInfo.gatewayTransId
-        }
-      }, (error, result) => {
-        this.isProcessing = false;
-        this.changeDetectorRef.detectChanges();
-        let response = JSON.parse(result.content);
-        if (! response.success) {
-          showAlert("Error while processing refund request. Please review gateway configurations and try again after some time.", "danger");
-          return;
-        } else {
-          this.ngZone.run(() => {
-            showAlert("Refund request has been processed successfully. Payment will be sent to customer based on processing time of gateway.", "success")
-            this.router.navigate(['/bookings/list']);
-          });
-        }
-      });
-    }
 }
