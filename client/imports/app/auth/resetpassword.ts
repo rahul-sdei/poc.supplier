@@ -26,7 +26,7 @@ export class ResetPassword extends MeteorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Reser Password | Atorvia");
+    this.titleService.setTitle("Reset Password | Atorvia");
     this.paramsSub = this.route.params
       .map(params => params['token'])
       .subscribe(token => {

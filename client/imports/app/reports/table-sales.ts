@@ -43,7 +43,7 @@ export class SalesTableComponent extends MeteorComponent implements OnInit, OnCh
     private titleService: Title,
     private changeDetectorRef: ChangeDetectorRef) {
     super();
-  }Reports
+  }
 
   ngOnInit() {
     this.titleService.setTitle("Sales Reports | Atorvia");
