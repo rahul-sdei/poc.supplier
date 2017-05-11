@@ -293,7 +293,7 @@ Meteor.methods({
       // send email to customer
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
       let to = booking.user.email;
-      let subject = "Booking Cancellation Confirmation - Customer";
+      let subject = "Booking Approval Confirmation - Customer";
       let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-approved.html")+'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text);
