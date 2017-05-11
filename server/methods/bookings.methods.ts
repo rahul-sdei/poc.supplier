@@ -175,12 +175,13 @@ Meteor.methods({
           { "$match": {
               "tour.supplierId": userId,
               "confirmed": true,
+              "refunded": false,
               "bookingDate": { "$gte": week6 }
           }},
           { "$group": {
               "_id": $cond,
               "count": { "$sum": 1 },
-              "totalValue": { "$sum": "$totalPrice" }
+              "totalValue": { "$sum": "$totalPriceDefault" }
           }}
       ]);
 
@@ -216,13 +217,14 @@ Meteor.methods({
         "$match":
           {
             "tour.supplierId": userId,
-            "confirmed": true
+            "confirmed": true,
+            "refunded": false
           }},
         {
         "$project":
           {
             "tour.supplierId":1,
-            "totalPrice":1,
+            "totalPriceDefault":1,
             "month": {"$month":"$bookingDate"},
             "year": {"$year": "$bookingDate"},
             "day": {"$dayOfMonth": "$bookingDate"},
@@ -235,7 +237,7 @@ Meteor.methods({
         "$group":
           {
             _id,
-            "totalPrice":{"$sum":"$totalPrice"},
+            "totalPrice":{"$sum":"$totalPriceDefault"},
             "count":{"$sum":1}
           }},
           {
