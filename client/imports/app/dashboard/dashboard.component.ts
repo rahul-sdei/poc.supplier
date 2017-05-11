@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import template from "./dashboard.html";
 import { Booking } from "../../../../both/models/booking.model";
+import { Title } from '@angular/platform-browser';
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { ChangeDetectorRef } from "@angular/core";
 import { Chart } from 'chart.js';
@@ -32,6 +33,7 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
   bookingsValue: number[] = [];
 
   constructor(private router: Router,
+      private titleService: Title,
       private route: ActivatedRoute,
       private ngZone: NgZone,
       private changeDetectorRef: ChangeDetectorRef,
@@ -83,6 +85,7 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Summary | Atorvia");
     if (! Meteor.userId()) {
       this.router.navigate(['/login']);
     } else {

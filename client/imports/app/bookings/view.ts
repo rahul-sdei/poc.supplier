@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import { ChangeDetectorRef } from "@angular/core";
+import { Title } from '@angular/platform-browser';
 import { Booking } from "../../../../both/models/booking.model";
 import { showAlert } from "../shared/show-alert";
 import { Roles } from 'meteor/alanning:roles';
@@ -27,6 +28,7 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
+        private titleService: Title,
         private changeDetectorRef: ChangeDetectorRef,
     ) {
         super();
@@ -52,6 +54,10 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
                 if (new Date(res.startDate.toString()) < new Date()) {
                   res.completed = true;
                 }
+
+                let booking = res.tour.name;
+                let name = booking.toUpperCase();
+                this.titleService.setTitle("Booking - " + name + " | Atorvia");
                 this.item = res;
                 this.changeDetectorRef.detectChanges();
             })

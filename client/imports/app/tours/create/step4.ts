@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { MeteorComponent } from 'angular2-meteor';
+import { Title } from '@angular/platform-browser';
 import { ChangeDetectorRef } from "@angular/core";
 import { SessionStorageService } from 'ng2-webstorage';
 import { UploadFS } from 'meteor/jalik:ufs';
@@ -35,6 +36,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
+        private titleService: Title,
         private formBuilder: FormBuilder,
         private sessionStorage: SessionStorageService,
         private changeDetectorRef: ChangeDetectorRef
@@ -43,6 +45,7 @@ export class CreateTourStep4Component extends MeteorComponent implements OnInit 
     }
 
     ngOnInit() {
+      this.titleService.setTitle("Add Tour Gallery | Atorvia");
       let step4Details = this.sessionStorage.retrieve("step4Details");
       if (step4Details) {
         this.images = step4Details.images;

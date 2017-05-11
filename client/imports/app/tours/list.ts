@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewChecked }
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { PaginationService } from "ng2-pagination";
 import { MeteorObservable } from "meteor-rxjs";
+import { Title } from '@angular/platform-browser';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -49,6 +50,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
         private route: ActivatedRoute,
         private paginationService: PaginationService,
         private ngZone: NgZone,
+        private titleService: Title,
         private changeDetectorRef: ChangeDetectorRef,
         private sessionStorage: SessionStorageService
     ) {
@@ -56,6 +58,7 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Tours List | Atorvia");
         this.call("tours.count", (err, res) => {
           if (! err) {
             this.pendingCount = res.pendingCount;

@@ -9,6 +9,7 @@ import { SessionStorageService } from 'ng2-webstorage';
 import { Observable, Subscription, Subject } from "rxjs";
 import { User } from "../../../../both/models/user.model";
 import { Place } from "../../../../both/models/place.model";
+import { Title } from '@angular/platform-browser';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { CustomValidators as CValidators } from "ng2-validation";
 import { validatePhoneNum, validateFirstName } from "../../validators/common";
@@ -36,12 +37,14 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
   constructor(private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
+    private titleService: Title,
     private formBuilder: FormBuilder
   ) {
     super();
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Profile | Atorvia");
     if (! Meteor.userId()) { return; }
     this.profileForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), CValidators.email])],

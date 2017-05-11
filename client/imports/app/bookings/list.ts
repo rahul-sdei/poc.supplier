@@ -6,6 +6,7 @@ import { MeteorObservable } from "meteor-rxjs";
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { MeteorComponent } from 'angular2-meteor';
 import { ChangeDetectorRef } from "@angular/core";
 import { Booking } from "../../../../both/models/booking.model";
@@ -57,6 +58,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
 
     constructor(private router: Router,
         private route: ActivatedRoute,
+        private titleService: Title,
         private paginationService: PaginationService,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
@@ -65,6 +67,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Bookings List | Atorvia");
         this.call("bookings.count", {active: true}, (err, res) => {
           if (! err) {
             this.bookingsCount = res;
@@ -215,15 +218,19 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     changeStatus(mode: string): void {
         switch(mode) {
             case "pending":
+            this.titleService.setTitle("New Bookings List | Atorvia");
             this.whereCond.next({active: true, confirmed: false, cancelled: false, refunded: false});
             break;
             case "confirmed":
+            this.titleService.setTitle("Confirmed Bookings List | Atorvia");
             this.whereCond.next({active: true, "$or": [{confirmed: true}, {cancelled: true}], completed: false, refunded: false});
             break;
             case "completed":
+            this.titleService.setTitle("Completed Bookings List | Atorvia");
             this.whereCond.next({active: true, confirmed: true, cancelled: false, completed: true, refunded: false});
             break;
             case "cancelled":
+            this.titleService.setTitle("Cancelled Bookings List | Atorvia");
             this.whereCond.next({active: true, refunded: true});
             break;
         }

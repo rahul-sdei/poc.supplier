@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, AfterViewChecked, OnDestroy, NgZone }
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import { Title } from '@angular/platform-browser';
 import { MeteorComponent } from 'angular2-meteor';
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { ChangeDetectorRef } from "@angular/core";
@@ -47,7 +48,7 @@ export class TourViewComponent extends MeteorComponent implements OnInit, AfterV
   tour: Tour;
   selDateRange: DateRange = null;
 
-  constructor(private zone: NgZone, private router: Router, private ngZone: NgZone, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private sessionStorage: SessionStorageService) {
+  constructor(private zone: NgZone, private titleService: Title, private router: Router, private ngZone: NgZone, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private sessionStorage: SessionStorageService) {
     super();
   }
 
@@ -63,6 +64,9 @@ export class TourViewComponent extends MeteorComponent implements OnInit, AfterV
               return;
             }
 
+            let tour = res.name;
+            let name = tour.toUpperCase();
+            this.titleService.setTitle("Tour - " + name + " | Atorvia");
             this.tour = <Tour>res;
             this.changeDetectorRef.detectChanges();
           })

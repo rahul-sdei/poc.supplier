@@ -8,6 +8,7 @@ import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import { User } from "../../../../both/models/user.model";
 import { validateEmail, validatePhoneNum, validateFirstName } from "../../validators/common";
 import { showAlert } from "../shared/show-alert";
+import { Title } from '@angular/platform-browser';
 import template from './login.component.web.html';
 import * as _ from 'underscore';
 
@@ -21,11 +22,12 @@ export class LoginComponent extends MeteorComponent implements OnInit {
     rememberMe = false;
     userId: string;
 
-    constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
+    constructor(private router: Router, private titleService: Title, private zone: NgZone, private formBuilder: FormBuilder, private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
       super();
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Login | Atorvia");
         this.loginForm = this.formBuilder.group({
           email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])],
           password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])]

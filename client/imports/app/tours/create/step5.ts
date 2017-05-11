@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import { Title } from '@angular/platform-browser';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
@@ -33,12 +34,14 @@ export class CreateTourStep5Component extends MeteorComponent implements OnInit 
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
+        private titleService: Title,
         private sessionStorage: SessionStorageService
     ) {
         super();
     }
 
     ngOnInit() {
+      this.titleService.setTitle("Tour Inclusions & Exclusions | Atorvia");
       let step5Details = this.sessionStorage.retrieve("step5Details");
       if (! step5Details) {
         step5Details = {

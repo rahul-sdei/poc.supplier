@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
@@ -56,12 +57,14 @@ export class CreateTourStep3Component extends MeteorComponent implements OnInit 
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
+        private titleService: Title,
         private sessionStorage: SessionStorageService
     ) {
         super();
     }
 
     ngOnInit() {
+      this.titleService.setTitle("Add Tour Itenerary | Atorvia");
       this.step3Form = this.formBuilder.group({
         itenerary: this.formBuilder.array([
         ])

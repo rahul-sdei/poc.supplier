@@ -4,6 +4,7 @@ import { CustomValidators as CValidators } from "ng2-validation";
 import { Router } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { Title } from '@angular/platform-browser';
 import { validateEmail, validatePassword } from "../../validators/common";
 import { showAlert } from "../shared/show-alert";
 
@@ -17,11 +18,12 @@ export class ResendEmailComponent extends MeteorComponent implements OnInit {
   resendForm: FormGroup;
   error: string;
 
-  constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private zone: NgZone, private titleService: Title, private formBuilder: FormBuilder) {
     super();
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Resend Email | Atorvia");
     this.resendForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), validateEmail])]
     });

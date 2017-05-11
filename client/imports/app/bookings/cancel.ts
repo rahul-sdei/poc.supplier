@@ -9,6 +9,7 @@ import { ChangeDetectorRef } from "@angular/core";
 import { Booking } from "../../../../both/models/booking.model";
 import { showAlert } from "../shared/show-alert";
 import { Roles } from 'meteor/alanning:roles';
+import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 
@@ -27,6 +28,7 @@ export class BookingsCancelComponent extends MeteorComponent implements OnInit, 
 
     constructor(private router: Router,
         private route: ActivatedRoute,
+        private titleService: Title,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
         private formBuilder: FormBuilder
@@ -35,6 +37,7 @@ export class BookingsCancelComponent extends MeteorComponent implements OnInit, 
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Cancel Booking Form | Atorvia");
         this.paramsSub = this.route.params
         .map(params => params['id'])
         .subscribe(id => {

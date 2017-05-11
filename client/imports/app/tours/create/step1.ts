@@ -8,6 +8,7 @@ import { MeteorComponent } from 'angular2-meteor';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { showAlert } from "../../shared/show-alert";
 import { SessionStorageService } from 'ng2-webstorage';
+import { Title } from '@angular/platform-browser';
 import { CustomValidators as CValidators } from "ng2-validation";
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import template from "./step1.html";
@@ -26,6 +27,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
         private route: ActivatedRoute,
         private ngZone: NgZone,
         private formBuilder: FormBuilder,
+        private titleService: Title,
         private sessionStorage: SessionStorageService,
         private completerService: CompleterService
     ) {
@@ -35,6 +37,7 @@ export class CreateTourStep1Component extends MeteorComponent implements OnInit 
     }
 
     ngOnInit() {
+      this.titleService.setTitle("Add Tour Details | Atorvia");
       let step1Details = this.sessionStorage.retrieve("step1Details");
       if (! step1Details) {
         step1Details = {};

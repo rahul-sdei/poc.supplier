@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import { Title } from '@angular/platform-browser';
 import { ChangeDetectorRef } from "@angular/core";
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../../shared/show-alert";
@@ -41,6 +42,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     constructor(private router: Router,
         private route: ActivatedRoute,
         private ngZone: NgZone,
+        private titleService: Title,
         private formBuilder: FormBuilder,
         private sessionStorage: SessionStorageService,
         private changeDetectorRef: ChangeDetectorRef
@@ -49,6 +51,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
     }
 
     ngOnInit() {
+      this.titleService.setTitle("Add Tour Schedule | Atorvia");
       let step2Details = this.sessionStorage.retrieve("step2Details");
       if (! step2Details) {
         step2Details = {};

@@ -4,6 +4,7 @@ import { Component, Input, OnInit, OnDestroy, NgZone, AfterViewInit, AfterViewCh
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { PaginationService } from "ng2-pagination";
 import { ChangeDetectorRef } from "@angular/core";
+import { Title } from '@angular/platform-browser';
 import { Payout } from "../../../../both/models/payout.model";
 import * as _ from 'underscore';
 import { showAlert } from "../shared/show-alert";
@@ -39,11 +40,13 @@ export class PayoutsTableComponent extends MeteorComponent {
 
   constructor(private paginationService: PaginationService,
     private ngZone: NgZone,
+    private titleService: Title,
     private changeDetectorRef: ChangeDetectorRef) {
     super();
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Payouts Report | Atorvia");
     this.setOptions();
   }
 
