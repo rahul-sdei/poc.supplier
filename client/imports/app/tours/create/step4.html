@@ -79,7 +79,7 @@
                   <div class="row">
                     <div class="col-lg-4" *ngFor="let image of imagesArr; let i=index">
                       <div class="image-wrap">
-                        <img src="/{{image.url}}" alt=""/>
+                        <img src="{{image.url}}" alt=""/>
                         <span class="close"><a href="javascript:void(0);" (click)="removeImage(image.id)"><i class="fa fa-times" aria-hidden="true"></i></a></span>
                       </div>
                       <div class="radio-wrap">
@@ -96,7 +96,7 @@
                 (onFileDrop)="onFileDrop($event)">
                   <div class="drag-area">
                     <div class="cloud">
-                      <img src="/images/cloud.png" alt=""/>
+                      <img src="images/cloud.png" alt=""/>
                     </div>
                     <p>Drag your image(s) here to upload</p>
                     <h5>OR</h5>

@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-3">
                     <div class="side-img">
-                      <img src="/images/booking.png" alt=""/>
+                      <img src="images/booking.png" alt=""/>
                     </div>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                   </div>
                   <div class="col-3">
                     <div class="side-img">
-                      <img src="/images/revenue.png" alt=""/>
+                      <img src="images/revenue.png" alt=""/>
                     </div>
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                   </div>
                   <div class="col-3">
                     <div class="side-img">
-                      <img src="/images/totView.png" alt=""/>
+                      <img src="images/totView.png" alt=""/>
                     </div>
                   </div>
                 </div>
@@ -96,8 +96,8 @@
                         [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
                         [hidden]="page.deleted">
                           <th scope="row">
-                            <img *ngIf="!page.tour?.featuredImage?.url" src="/images/random.png" />
-                            <img *ngIf="!!page.tour?.featuredImage?.url" src="/{{page.tour?.featuredImage?.url}}" />
+                            <img *ngIf="!page.tour?.featuredImage?.url" src="images/random.png" />
+                            <img *ngIf="!!page.tour?.featuredImage?.url" src="{{page.tour?.featuredImage?.url}}" />
                           </th>
                           <td class="location">
                             <h5>{{page.tour.name}}</h5>
@@ -105,8 +105,8 @@
                           </td>
                           <td class="user-detail">
                             <span class="user-img">
-                              <img *ngIf="!page.user?.image?.url" src="/images/user.png" />
-                              <img *ngIf="!!page.user?.image?.url" src="/{{page.user?.image?.url}}" />
+                              <img *ngIf="!page.user?.image?.url" src="images/user.png" />
+                              <img *ngIf="!!page.user?.image?.url" src="{{page.user?.image?.url}}" />
                             </span>
                             <span class="user-name">{{page.user.firstName}} {{page.user.lastName}}</span>
                           </td>

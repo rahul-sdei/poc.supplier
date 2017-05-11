@@ -109,6 +109,7 @@ Meteor.methods({
       data.owner = owner;
       data.active = true;
       data.approved = false;
+      data.rejected = false;
       data.deleted = false;
       data.createdAt = new Date();
       let requestApprovalDate = new Date();

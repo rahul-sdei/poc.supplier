@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i>
         </span>
       </button>
-      <a class="navbar-brand" href="javascript:void(0);"><img src="/images/logo.png" alt=""/></a>
+      <a class="navbar-brand" href="javascript:void(0);"><img src="images/logo.png" alt=""/></a>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" [routerLinkActive]="['active']">
@@ -38,8 +38,8 @@
                 </li> -->
                 <li>
                   <span class="user-img">
-                    <img src="/images/user.png" alt="" *ngIf="! user?.profile.image?.url" />
-                    <img src="/{{user?.profile.image.url}}" alt="" *ngIf="!! user?.profile.image?.url" />
+                    <img src="images/user.png" alt="" *ngIf="! user?.profile.image?.url" />
+                    <img src="{{user?.profile.image.url}}" alt="" *ngIf="!! user?.profile.image?.url" />
                   </span>
                   <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

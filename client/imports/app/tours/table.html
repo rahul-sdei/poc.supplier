@@ -15,9 +15,9 @@
       [ngClass]="{'red accent-1': page.deleted, 'red lighten-4': page.active === false}"
       [hidden]="page.deleted">
       <td class="tour-detail">
-        <span *ngIf="!page.images?.length"><img src="/images/random.png" /></span>
-        <span *ngIf="page.images?.length > 0 && page.featuredImage?.url"><img [src]="'/'+page.featuredImage?.url" /></span>
-        <span *ngIf="page.images?.length > 0 && !page.featuredImage?.url"><img [src]="'/'+page.images[0]?.url" /></span>
+        <span *ngIf="!page.images?.length"><img src="images/random.png" /></span>
+        <span *ngIf="page.images?.length > 0 && page.featuredImage?.url"><img [src]="page.featuredImage?.url" /></span>
+        <span *ngIf="page.images?.length > 0 && !page.featuredImage?.url"><img [src]="page.images[0]?.url" /></span>
         <div>
           <h5><a [routerLink]="['/tours/view', page._id]">{{page.name}}</a></h5>
           <p>{{page.departure}}, {{page.destination}}</p>
