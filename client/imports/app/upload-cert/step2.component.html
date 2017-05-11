@@ -42,7 +42,7 @@
                     <label for="CANCELLATION">ID Verification<span class="pull_right">Accepts PDF Format only. Max. 5MB.</span></label>
                     <div class="input-wrap">
                       <div class="input-group">
-                        <input #fileInput class="form-control" id="CANCELLATION" placeholder="Attach identification that match the name above" type="file" (change)="onFileSelect($event, 'agentIdentity')" accept="application/pdf,image/*">
+                        <input #fileInput class="form-control" id="CANCELLATION" placeholder="Attach identification that match the name above" type="file" (change)="onFileSelect($event, 'agentIdentity')" accept="application/pdf">
                         <span class="pull_left">Attach identification that match the name above</span>
                         <div class="input-group-btn">
                           <button type="button" class="btn green-btn profile-btn" (click)="fileInput.click();">Upload</button>

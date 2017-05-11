@@ -109,11 +109,11 @@
                     <h3>{{booking.travellers[0]?.specialRequest}}</h3>
                   </div>
                   <div class="special-req refund-req" *ngIf="booking.cancelled == true && booking.refunded !== true">
-                    <p>Refund Pending</p>
+                    <p>Refund Requested</p>
 
                   </div>
                   <div class="special-req refund-req" *ngIf="booking.cancelled == true && booking.refunded == true">
-                    <p>Refund Processed</p>
+                    <p>Refunded</p>
                     <span>Refund request was processed by {{booking.refundInfo?.processedBy}} at {{booking.refundInfo?.processedAt | date}} {{booking.refundInfo?.processedAt | date:'shortTime'}}</span>
                   </div>
                 </div>

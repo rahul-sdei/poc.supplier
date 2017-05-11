@@ -5,9 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MeteorComponent } from 'angular2-meteor';
 import { SessionStorageService } from 'ng2-webstorage';
 import { InjectUser } from "angular2-meteor-accounts-ui";
-import { showAlert } from "../shared/show-alert";
-import { upload } from '../../../../both/methods/documents.methods';
+import { upload } from '../../../../both/methods/pdfs.methods';
 import { Roles } from 'meteor/alanning:roles';
+import { showAlert } from "../shared/show-alert";
 
 import template from "./step1.component.html";
 

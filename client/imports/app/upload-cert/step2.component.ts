@@ -7,7 +7,7 @@ import { SessionStorageService } from 'ng2-webstorage';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { ChangeDetectorRef } from "@angular/core";
 import { showAlert } from "../shared/show-alert";
-import { upload } from '../../../../both/methods/documents.methods';
+import { upload } from '../../../../both/methods/pdfs.methods';
 import { Roles } from 'meteor/alanning:roles';
 
 import template from "./step2.component.html";

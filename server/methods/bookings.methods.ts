@@ -12,7 +12,7 @@ interface Options {
 }
 
 Meteor.methods({
-    "bookings.find": (options: Options, criteria: any, searchString: string, count: boolean = false) => {
+    "bookings.find": (options: Options, criteria: any, searchString: any, count: boolean = false) => {
         userIsInRole(["supplier"]);
 
         let userId = Meteor.userId();
@@ -28,21 +28,21 @@ Meteor.methods({
         });
 
         if ( !_.isEmpty(criteria) ) {
-          if ( criteria.confirmed == false ) { // new items
+          if ( criteria.confirmed == false ) { // pending
             criteria.startDate = {$gt: new Date()};
             delete criteria["completed"];
           } else if ( criteria.completed==true ) { // completed
             criteria.startDate = {$lte: new Date()};
             delete criteria["completed"];
             delete criteria["confirmed"];
-          } else if ( criteria.completed==false && criteria.confirmed==true ) { // pending
+          } else if ( criteria.completed==false && criteria.confirmed==true ) { // confirmed
             criteria.startDate = {$gt: new Date()};
             delete criteria["completed"];
           }
           //console.log(criteria);
           where.push(criteria);
         }
-        
+
         // match search string
         if (isNaN(searchString) == false && searchString.length) {
           searchString = Number(searchString);

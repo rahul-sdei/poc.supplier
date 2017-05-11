@@ -49,7 +49,7 @@ export class BookingsViewComponent extends MeteorComponent implements OnInit, Af
                 }
 
                 // check completed flag
-                if (new Date(res.startDate) < new Date()) {
+                if (new Date(res.startDate.toString()) < new Date()) {
                   res.completed = true;
                 }
                 this.item = res;
