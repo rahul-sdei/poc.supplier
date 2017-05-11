@@ -114,6 +114,8 @@ export class ListPageComponent extends MeteorComponent implements OnInit, AfterV
             this.paginationService.setCurrentPage("tours", curPage as number);
 
             this.searchString = searchString;
+            this.items = [];
+            this.itemsSize = -1;
             jQuery(".loading").show();
             this.call("tours.find", options, where, searchString, (err, res) => {
                 jQuery(".loading").hide();

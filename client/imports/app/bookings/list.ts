@@ -123,6 +123,8 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             this.paginationService.setCurrentPage("bookings", curPage as number);
 
             this.searchString = searchString;
+            this.items = [];
+            this.itemsSize = -1;
             jQuery(".loading").show();
             this.call("bookings.find", options, where, searchString, (err, res) => {
                 jQuery(".loading").hide();
