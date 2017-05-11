@@ -19,7 +19,7 @@ let rootUrl = process.env.ROOT_URL;
 Picker.middleware( bodyParser.json() );
 Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
 
-Picker.route( '/supplier/api/1.0/paypal/payment/get/', function( params, request, response, next ) {
+Picker.route( '/api/1.0/paypal/payment/get/', function( params, request, response, next ) {
   let body = request.body;
   let args = params.query;
 

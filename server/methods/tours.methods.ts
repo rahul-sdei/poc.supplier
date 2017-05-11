@@ -134,6 +134,7 @@ Meteor.methods({
       userIsInRole(["supplier"]);
 
       data.approved = false;
+      data.rejected = false;
       data.modifiedAt = new Date();
       let requestApprovalDate = new Date();
       //requestApprovalDate.setHours(requestApprovalDate.getHours() + 6);

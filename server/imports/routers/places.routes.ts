@@ -14,7 +14,7 @@ Picker.middleware( bodyParser.json() );
 Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
 
 // Define our routes.
-Picker.route( '/supplier/api/1.0/places/search', function( params, request, response, next ) {
+Picker.route( '/api/1.0/places/search', function( params, request, response, next ) {
   // Handle our request and response here.
 
   let data = {
