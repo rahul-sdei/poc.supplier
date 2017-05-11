@@ -83,7 +83,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             orderBy: "createdAt",
             nameOrder: -1,
             searchString: '',
-            where: {active: true, confirmed: false, refunded: false}
+            where: {active: true, confirmed: false, cancelled: false, refunded: false}
         }
 
         this.setOptionsSub();
@@ -213,10 +213,10 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
     changeStatus(mode: string): void {
         switch(mode) {
             case "pending":
-            this.whereCond.next({active: true, confirmed: false, refunded: false});
+            this.whereCond.next({active: true, confirmed: false, cancelled: false, refunded: false});
             break;
             case "confirmed":
-            this.whereCond.next({active: true, confirmed: true, completed: false, refunded: false});
+            this.whereCond.next({active: true, "$or": [{confirmed: true}, {cancelled: true}], completed: false, refunded: false});
             break;
             case "completed":
             this.whereCond.next({active: true, confirmed: true, cancelled: false, completed: true, refunded: false});

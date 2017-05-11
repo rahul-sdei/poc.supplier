@@ -76,7 +76,7 @@
 													<td>
 														${{item.price[0]?.adult}}
 														<span>
-															<button (click)="selDateRange=item" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+															<button (click)="selDateRange=item; detectChanges();" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
 														</span>
 													</td>
 												</tr>
@@ -85,7 +85,7 @@
 									</table>
 									<div class=" modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
-											<div class="modal-content arrow_box">
+											<div class="modal-content ">
 												<div class="modal-header">
 													<h5 class="modal-title" id="exampleModalLabel">Schedule Pricing</h5>
 												</div>
