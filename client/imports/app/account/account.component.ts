@@ -142,8 +142,10 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
     });
   }
 
-  resetStateValue() {
-    this.profileForm.controls['state'].setValue(null);
+  resetStateValue(country) {
+    if (country == "Australia") {
+      this.profileForm.controls['state'].setValue(null);
+    }
   }
 
   onFileSelect(event) {

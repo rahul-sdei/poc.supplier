@@ -206,8 +206,9 @@ Meteor.methods({
       }
       message += `</ul>`;
 
+      let admin = Meteor.users.findOne({"roles": "super-admin"}, {fields: {"emails": 1} });
+      let to = admin.emails[0].address;
       let from = "atorvia12@gmail.com";
-      let to = "atorvia.sdei@yopmail.com";
       let subject = "Tours approval required";
       let text = message;
       Meteor.setTimeout(() => {
