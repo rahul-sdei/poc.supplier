@@ -191,11 +191,17 @@ Meteor.methods({
       where.push({requestApprovalSentAt: {$exists: false} } );
 
       let tours = Tours.collection.find({$and: where}, options).fetch();
+      console.log(`Found ${tours.length} records to request approval.`);
+
+      if (tours.length == 0) {
+        console.log("Skip sending email.")
+        return;
+      }
+
       let message = `Hi Admin, <br />
       We have found ${tours.length} new tours that requires approval.<br />
       <ul>`;
 
-      console.log(`Found ${tours.length} records to request approval.`);
       let tourIds: string[] = [];
       for (let i=0; i<tours.length; i++) {
         let tour = tours[i];
