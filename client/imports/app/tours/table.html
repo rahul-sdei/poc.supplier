@@ -20,7 +20,7 @@
         <span *ngIf="page.images?.length > 0 && !page.featuredImage?.url"><img [src]="page.images[0]?.url" /></span>
         <div>
           <h5><a [routerLink]="['/tours/view', page._id]">{{page.name}}</a></h5>
-          <p>{{page.departure}}, {{page.destination}}</p>
+          <p>{{page.destination}}</p>
         </div>
       </td>
       <td>{{page.noOfDays}} Days <span *ngIf="page.noOfNights">{{page.noOfNights}} Nights</span> </td>
