@@ -8,6 +8,7 @@ import { Booking } from "../../../../both/models/booking.model";
 import { Title } from '@angular/platform-browser';
 import { Observable, Subscription, Subject, BehaviorSubject } from "rxjs";
 import { ChangeDetectorRef } from "@angular/core";
+import { User } from "../../../../both/models/user.model";
 import { Chart } from 'chart.js';
 import * as _ from 'underscore';
 import { showAlert } from "../shared/show-alert";
@@ -29,6 +30,7 @@ interface Options extends Pagination {
 export class DashboardComponent extends MeteorComponent implements OnInit, AfterViewInit, AfterViewChecked {
   userId: string;
   items: Booking[];
+  user: User;
   bookingsCount: number[] = [];
   bookingsValue: number[] = [];
 
@@ -42,43 +44,6 @@ export class DashboardComponent extends MeteorComponent implements OnInit, After
   }
 
   ngAfterViewInit() {
-    let ctx3 = document.getElementById("myChart3");
-    let myChart3 = new Chart(ctx3, {
-        type: 'bar',
-        data: {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
-            datasets: [{
-                label: 'Views',
-                data: [125, 135, 115, 145, 105, 155],
-                backgroundColor: [
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)',
-                    'rgba(22, 160, 133, 1)'
-                ],
-                borderColor: [
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)',
-                  'rgba(22, 160, 133, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });
   }
 
   ngAfterViewChecked() {
