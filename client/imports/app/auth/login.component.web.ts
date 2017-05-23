@@ -58,6 +58,9 @@ export class LoginComponent extends MeteorComponent implements OnInit {
                 } else if (_.isEmpty(user.profile.supplier.agentIdentity)) {
                     showAlert("Upload your identity to continue.", "info");
                     this.router.navigate(['/signup/step2']);
+                } else if (_.isEmpty(user.profile.supplier.bankDetails)) {
+                  showAlert("Fill your bank details to continue.", "info");
+                  this.router.navigate(['/signup/step3']);
                 } else {
                     showAlert("You have been logged in successfully.", "success");
                     this.router.navigate(['/dashboard']);

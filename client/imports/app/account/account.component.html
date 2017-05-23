@@ -193,6 +193,76 @@
                         </div>
                       </div>
                     </div>
+                    <div class="update-detail">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <h3>Bank Details</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inner-wrap">
+                      <div class="row">
+      									<div class="col-md-6">
+      										<label for="beneficiary">Beneficiary Name</label>
+      										<div class="input-wrap">
+      											<input type="text" class="form-control" id="beneficiary" placeholder="Beneficiary Name" formControlName="accountName"/>
+      										</div>
+                          <div class='form-text error has-error' *ngIf='profileForm.controls.accountName.errors && profileForm.controls.accountName.touched'>
+      											<div [hidden]="!profileForm.controls['accountName'].errors.required">You have to fill in Beneficiary Name to continue.</div>
+      			                <div [hidden]="!profileForm.controls['accountName'].errors.minlength">Min 5 characters required.</div>
+      			                <div [hidden]="!profileForm.controls['accountName'].errors.maxlength">Max 30 characters allowed.</div>
+      										</div>
+      									</div>
+                        <div class="col-md-6">
+      										<label for="accountnumber">Account Number</label>
+      										<div class="input-wrap">
+      											<input type="text" class="form-control" id="accountnumber" placeholder="Account Number" formControlName="accountNumber"/>
+      										</div>
+                          <div class='form-text error has-error' *ngIf='profileForm.controls.accountNumber.errors && profileForm.controls.accountNumber.touched'>
+      											<div [hidden]="!profileForm.controls['accountNumber'].errors.required">You have to fill in Account Number to continue.</div>
+      			                <div [hidden]="!profileForm.controls['accountNumber'].errors.minlength">Min 8 digits required.</div>
+      			                <div [hidden]="!profileForm.controls['accountNumber'].errors.maxlength">Max 20 digits allowed.</div>
+      										</div>
+      									</div>
+      								</div>
+                      <div class="row">
+                        <div class="col-md-6">
+      										<label for="bankname">Bank Name</label>
+      										<div class="input-wrap">
+      											<input type="text" class="form-control" id="bankname" placeholder="Bank Name" formControlName="bankName"/>
+      										</div>
+                          <div class='form-text error has-error' *ngIf='profileForm.controls.bankName.errors && profileForm.controls.bankName.touched'>
+      											<div [hidden]="!profileForm.controls['bankName'].errors.required">You have to fill in Bank Name to continue.</div>
+      			                <div [hidden]="!profileForm.controls['bankName'].errors.minlength">Min 8 characters required.</div>
+      			                <div [hidden]="!profileForm.controls['bankName'].errors.maxlength">Max 50 characters allowed.</div>
+      										</div>
+      									</div>
+                        <div class="col-md-6">
+      										<label for="bankaddress">Bank Address</label>
+      										<div class="input-wrap">
+      											<input type="text" class="form-control" id="bankaddress" placeholder="Bank Address" formControlName="bankAddress"/>
+      										</div>
+                          <div class='form-text error has-error' *ngIf='profileForm.controls.bankAddress.errors && profileForm.controls.bankAddress.touched'>
+      											<div [hidden]="!profileForm.controls['bankAddress'].errors.required">You have to fill in Bank Address to continue.</div>
+      			                <div [hidden]="!profileForm.controls['bankAddress'].errors.minlength">Min 8 characters required.</div>
+      			                <div [hidden]="!profileForm.controls['bankAddress'].errors.maxlength">Max 255 characters allowed.</div>
+      										</div>
+      									</div>
+                      </div>
+                      <div class="row">
+      									<div class="col-md-12">
+      										<label for="swift">Bank Swift Code</label>
+      										<div class="input-wrap">
+      											<input type="text" class="form-control" id="swift" placeholder="Bank Swift Code" formControlName="swiftCode"/>
+      										</div>
+                          <div class='form-text error has-error' *ngIf='profileForm.controls.swiftCode.errors && profileForm.controls.bankAddress.touched'>
+      											<div [hidden]="!profileForm.controls['swiftCode'].errors.required">You have to fill in Bank Swift Code to continue.</div>
+      			                <div [hidden]="!profileForm.controls['swiftCode'].errors.minlength">Min 8 characters required.</div>
+      			                <div [hidden]="!profileForm.controls['swiftCode'].errors.maxlength">Max 11 characters allowed.</div>
+      										</div>
+      									</div>
+      								</div>
+                    </div>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="text-right btn-space">

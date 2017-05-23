@@ -55,7 +55,12 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
       suburb: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30)])],
       state: ['', Validators.compose([Validators.required])],
       postCode: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(12)])],
-      country: ['', Validators.compose([Validators.required])]
+      country: ['', Validators.compose([Validators.required])],
+      accountName: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
+      accountNumber: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
+      bankName: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(50)])],
+      bankAddress: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(255)])],
+      swiftCode: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(11)])]
     })
     let callback = (user) => {
       this.profileForm.controls['companyName'].setValue(user.profile.supplier.companyName);
@@ -64,12 +69,20 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
       if (typeof user.profile.address == "undefined") {
         user.profile.address = {};
       }
+      if (typeof user.profile.bankDetails == "undefined") {
+        user.profile.bankDetails = {};
+      }
       this.profileForm.controls['state'].setValue(user.profile.address.state);
       this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
       this.profileForm.controls['country'].setValue(user.profile.address.country);
       this.profileForm.controls['address2'].setValue(user.profile.address.address2);
       this.profileForm.controls['address1'].setValue(user.profile.address.address1);
       this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
+      this.profileForm.controls['accountName'].setValue(user.profile.bankDetails.accountName);
+      this.profileForm.controls['accountNumber'].setValue(user.profile.bankDetails.accountNumber);
+      this.profileForm.controls['bankName'].setValue(user.profile.bankDetails.bankName);
+      this.profileForm.controls['bankAddress'].setValue(user.profile.bankDetails.bankAddress);
+      this.profileForm.controls['swiftCode'].setValue(user.profile.bankDetails.swiftCode);
       this.oldEmailAddress = user.emails[0].address;
     };
     this.fetchUser(callback);
@@ -121,6 +134,13 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         state:  this.profileForm.value.state,
         postCode: this.profileForm.value.postCode,
         country:  this.profileForm.value.country
+      },
+      "profile.bankDetails": {
+        accountName: this.profileForm.value.accountName,
+        accountNumber: this.profileForm.value.accountNumber,
+        bankName: this.profileForm.value.bankName,
+        bankAddress: this.profileForm.value.bankAddress,
+        swiftCode: this.profileForm.value.swiftCode
       }
     };
     let emailAddress = {

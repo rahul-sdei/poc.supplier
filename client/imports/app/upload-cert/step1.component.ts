@@ -6,6 +6,7 @@ import { MeteorComponent } from 'angular2-meteor';
 import { SessionStorageService } from 'ng2-webstorage';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { upload } from '../../../../both/methods/pdfs.methods';
+import { Title } from '@angular/platform-browser';
 import { Roles } from 'meteor/alanning:roles';
 import { showAlert } from "../shared/show-alert";
 
@@ -30,12 +31,14 @@ export class UploadCertStep1Component extends MeteorComponent implements OnInit,
   constructor(private router: Router,
       private route: ActivatedRoute,
       private ngZone: NgZone,
+      private titleService: Title,
       private sessionStorage: SessionStorageService
   ) {
       super();
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Agent Certificate Upload | Atorvia");
   }
 
   ngAfterViewChecked() {

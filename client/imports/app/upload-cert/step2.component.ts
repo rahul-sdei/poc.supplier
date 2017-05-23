@@ -7,6 +7,7 @@ import { SessionStorageService } from 'ng2-webstorage';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { ChangeDetectorRef } from "@angular/core";
 import { showAlert } from "../shared/show-alert";
+import { Title } from '@angular/platform-browser';
 import { upload } from '../../../../both/methods/pdfs.methods';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -32,6 +33,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
   constructor(private router: Router,
       private route: ActivatedRoute,
       private ngZone: NgZone,
+      private titleService: Title,
       private sessionStorage: SessionStorageService,
       private changeDetectorRef: ChangeDetectorRef
   ) {
@@ -39,6 +41,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Agent Identity Upload | Atorvia");
   }
 
   ngAfterViewChecked() {
@@ -103,7 +106,7 @@ export class UploadCertStep2Component extends MeteorComponent implements OnInit,
         this.call("users.sendUploadCertNotification", () => {});
         showAlert("Your documents have been uploaded successfully.", "success");
         this.ngZone.run(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/signup/step3']);
         });
       } else {
         showAlert(err.reason, "danger");

@@ -1,7 +1,6 @@
 .sign-step1 {
 	.center-content {
 		padding: 0;
-
 		.white-bg {
 			background: $white;
 			padding: 35px 30px;
@@ -28,7 +27,7 @@
 				margin-bottom: 50px;
 				li {
 					@extend .inline-block;
-					width: 48%;
+					width: 32%;
 					@extend .text-center;
 					span {
 						height: 48px;
