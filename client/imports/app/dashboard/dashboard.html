@@ -53,14 +53,14 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4" *ngIf="!! user">
+            <div class="col-md-4" *ngIf="!! user && !! user.profile.supplier.bankDetails">
               <div class="right-wrap">
                   <div class="row">
                     <div class="col-sm-12">
                       <h4>Supplier's Bank Details</h4>
                     </div>
                   </div>
-                <div class="row" *ngIf="!! user.profile.supplier.bankDetails">
+                <div class="row">
                   <div class="col-md-12">
                     <label><b>Benificiary Name</b></label>
                   </div>
@@ -98,6 +98,55 @@
                   </div>
                   <div class="col-md-12">
                     <label>{{user.profile.supplier.bankDetails.swiftCode}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="!! user && ! user.profile.supplier.bankDetails">
+              <div class="right-wrap" >
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <h4>Supplier's Bank Details</h4>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Benificiary Name</b></label>
+                  </div>
+                  <div class="col-md-12">
+                    <label>N.A.</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Account Number</b></label>
+                  </div>
+                  <div class="col-md-12">
+                    <label>N.A.</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Bank Name</b></label>
+                  </div>
+                  <div class="col-md-12">
+                    <label>N.A.</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Bank Address</b></label>
+                  </div>
+                  <div class="col-md-12">
+                    <label>N.A.</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Bank Swift Code</b></label>
+                  </div>
+                  <div class="col-md-12">
+                    <label>N.A.</label>
                   </div>
                 </div>
               </div>
