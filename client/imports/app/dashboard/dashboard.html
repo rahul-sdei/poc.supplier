@@ -60,12 +60,12 @@
                       <h4>Supplier's Bank Details</h4>
                     </div>
                   </div>
-                <div class="row">
+                <div class="row" *ngIf="!! user.profile.supplier.bankDetails">
                   <div class="col-md-12">
                     <label><b>Benificiary Name</b></label>
                   </div>
                   <div class="col-md-12">
-                    <label>{{user.profile.bankDetails.accountName}}</label>
+                    <label>{{user.profile.supplier.bankDetails.accountName}}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -73,7 +73,7 @@
                     <label><b>Account Number</b></label>
                   </div>
                   <div class="col-md-12">
-                    <label>{{user.profile.bankDetails.accountNumber}}</label>
+                    <label>{{user.profile.supplier.bankDetails.accountNumber}}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -81,7 +81,7 @@
                     <label><b>Bank Name</b></label>
                   </div>
                   <div class="col-md-12">
-                    <label>{{user.profile.bankDetails.bankName}}</label>
+                    <label>{{user.profile.supplier.bankDetails.bankName}}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -89,7 +89,7 @@
                     <label><b>Bank Address</b></label>
                   </div>
                   <div class="col-md-12">
-                    <label>{{user.profile.bankDetails.bankAddress}}</label>
+                    <label>{{user.profile.supplier.bankDetails.bankAddress}}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -97,7 +97,7 @@
                     <label><b>Bank Swift Code</b></label>
                   </div>
                   <div class="col-md-12">
-                    <label>{{user.profile.bankDetails.swiftCode}}</label>
+                    <label>{{user.profile.supplier.bankDetails.swiftCode}}</label>
                   </div>
                 </div>
               </div>

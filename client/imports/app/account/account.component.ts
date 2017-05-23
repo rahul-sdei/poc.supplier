@@ -135,7 +135,7 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
         postCode: this.profileForm.value.postCode,
         country:  this.profileForm.value.country
       },
-      "profile.bankDetails": {
+      "profile.supplier.bankDetails": {
         accountName: this.profileForm.value.accountName,
         accountNumber: this.profileForm.value.accountNumber,
         bankName: this.profileForm.value.bankName,
