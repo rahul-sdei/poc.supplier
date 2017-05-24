@@ -69,20 +69,21 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
       if (typeof user.profile.address == "undefined") {
         user.profile.address = {};
       }
-      if (typeof user.profile.bankDetails == "undefined") {
-        user.profile.bankDetails = {};
+      if (typeof user.profile.supplier.bankDetails == "undefined") {
+        user.profile.supplier.bankDetails = {};
       }
+      let bankDetails = user.profile.supplier.bankDetails;
       this.profileForm.controls['state'].setValue(user.profile.address.state);
       this.profileForm.controls['suburb'].setValue(user.profile.address.suburb);
       this.profileForm.controls['country'].setValue(user.profile.address.country);
       this.profileForm.controls['address2'].setValue(user.profile.address.address2);
       this.profileForm.controls['address1'].setValue(user.profile.address.address1);
       this.profileForm.controls['postCode'].setValue(user.profile.address.postCode);
-      this.profileForm.controls['accountName'].setValue(user.profile.bankDetails.accountName);
-      this.profileForm.controls['accountNumber'].setValue(user.profile.bankDetails.accountNumber);
-      this.profileForm.controls['bankName'].setValue(user.profile.bankDetails.bankName);
-      this.profileForm.controls['bankAddress'].setValue(user.profile.bankDetails.bankAddress);
-      this.profileForm.controls['swiftCode'].setValue(user.profile.bankDetails.swiftCode);
+      this.profileForm.controls['accountName'].setValue(bankDetails.accountName);
+      this.profileForm.controls['accountNumber'].setValue(bankDetails.accountNumber);
+      this.profileForm.controls['bankName'].setValue(bankDetails.bankName);
+      this.profileForm.controls['bankAddress'].setValue(bankDetails.bankAddress);
+      this.profileForm.controls['swiftCode'].setValue(bankDetails.swiftCode);
       this.oldEmailAddress = user.emails[0].address;
     };
     this.fetchUser(callback);
@@ -119,10 +120,10 @@ export class UserDetailsComponent extends MeteorComponent implements OnInit, Aft
 
   //update supplier's profile
   update() {
-    /*if (! this.profileForm.valid) {
+    if (! this.profileForm.valid) {
       showAlert("Invalid FormData supplied.", "danger");
       return;
-    }*/
+    }
 
     let userData = {
       "profile.supplier.companyName": this.profileForm.value.companyName,
