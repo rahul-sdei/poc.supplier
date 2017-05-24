@@ -21,7 +21,7 @@ Meteor.methods({
         html: text
       }
 
-      email.sendText(`noreply@${domain}`, to, subject, text, domain, (err) => {
+      mailgun.messages().send(data, (err) => {
         if (err) {
           console.log(err);
         }
