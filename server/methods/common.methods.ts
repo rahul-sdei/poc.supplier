@@ -15,7 +15,7 @@ Meteor.methods({
       let mailgun = require('mailgun-js')({apiKey: mailgunKey, domain: mailgunDomain});
 
       let data = {
-        from: "noreply@atorvia.com",
+        from: `noreply@${mailgunDomain}`,
         to: to,
         subject: subject,
         html: text
