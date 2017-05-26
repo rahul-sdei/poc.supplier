@@ -157,6 +157,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
 
       let dateRange = this.dateRange;
       this.totalSeats -= dateRange[index]["numOfSeats"];
+      this.totalAvailableSeats -= dateRange[index]["availableSeats"];
       dateRange.splice(index, 1);
       this.changeDetectorRef.detectChanges();
       this.dateRange = dateRange;
@@ -206,6 +207,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
 
       let dateRange = this.dateRange;
       this.totalSeats += object.numOfSeats;
+      this.totalAvailableSeats += object.numOfSeats;
       this.dateRange.push(object);
       this.dateRange.sort(function(a,b){
         // Turn your strings into dates, and then subtract them
