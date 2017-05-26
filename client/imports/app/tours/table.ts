@@ -91,7 +91,8 @@ export class ToursTableComponent extends MeteorComponent {
       let detailstep2 = {
         dateRange: res.dateRange,
         totalSeats: res.totalSeats,
-        totalSoldSeats: res.totalSoldSeats
+        totalSoldSeats: res.totalSoldSeats,
+        totalAvailableSeats: res.totalAvailableSeats
       }
       this.sessionStorage.store("step2Details", detailstep2);
       let detailstep3 = {
