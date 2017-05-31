@@ -218,7 +218,7 @@ Meteor.methods({
       let subject = "Tours approval required";
       let text = message;
       Meteor.setTimeout(() => {
-        Email.send({ to, from, subject, text});
+        Email.send({ to, from, subject, html});
       }, 0);
 
 
