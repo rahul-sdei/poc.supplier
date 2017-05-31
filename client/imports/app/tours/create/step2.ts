@@ -156,7 +156,8 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       }
 
       let dateRange = this.dateRange;
-      this.totalSeats -= dateRange[index]["numOfSeats"];
+      this.totalSeats -= dateRange[index]["availableSeats"];
+      this.totalAvailableSeats -= dateRange[index]["availableSeats"];
       dateRange.splice(index, 1);
       this.changeDetectorRef.detectChanges();
       this.dateRange = dateRange;
@@ -206,11 +207,12 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
 
       let dateRange = this.dateRange;
       this.totalSeats += object.numOfSeats;
+      this.totalAvailableSeats += object.numOfSeats;
       this.dateRange.push(object);
       this.dateRange.sort(function(a,b){
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
-        return new Date(a.startDate.toString()) - new Date(b.startDate.toString());
+        return <any>new Date(a.startDate.toString()) - <any>new Date(b.startDate.toString());
       });
 
       //this.step2Form.reset();
@@ -241,7 +243,7 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
         dateRange: this.dateRange,
         totalSeats: this.totalSeats,
         totalSoldSeats: this.totalSoldSeats,
-        totalAvailableSeats: this.totalSeats
+        totalAvailableSeats: this.totalAvailableSeats
       };
 
       this.sessionStorage.store("step2Details", details);
