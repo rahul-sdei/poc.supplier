@@ -5,6 +5,11 @@ import { check } from "meteor/check";
 import { Bookings } from "../../both/collections/bookings.collection";
 import { Booking } from "../../both/models/booking.model";
 import { isLoggedIn, userIsInRole } from "../imports/services/auth";
+import bookingCancellationAdminHtml from "../imports/emails/admin/booking-cancellation.html";
+import bookingCancellationCustomerHtml from "../imports/emails/customer/booking-cancellation.html";
+import bookingApprovalHtml from "../imports/emails/customer/booking-approved.html";
+import bookingRefundCustomerHtml from "../imports/emails/customer/booking-refund.html";
+import bookingRefundAdminHtml from "../imports/emails/admin/booking-refund.html";
 import * as _ from 'underscore';
 
 interface Options {
@@ -249,7 +254,6 @@ Meteor.methods({
       return data;
     },
     "bookings.sendCancelledConfirmation": (bookingId) => {
-      let fs = require("fs");
 
       // find booking details
       let booking = Bookings.collection.findOne({_id: bookingId});
@@ -262,7 +266,7 @@ Meteor.methods({
       let adminAppUrl = Meteor.settings.public["adminAppUrl"];
       let to = admin.emails[0].address;
       let subject = "Booking Cancellation Confirmation - Admin";
-      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/booking-cancellation.html")+'`');
+      let text = eval('`'+bookingCancellationAdminHtml+'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text)
       }, 0);
@@ -271,13 +275,12 @@ Meteor.methods({
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
       to = booking.user.email;
       subject = "Booking Cancellation Confirmation - Customer";
-      text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-cancellation.html")+'`');
+      text = eval('`'+ bookingCancellationCustomerHtml +'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text)
       }, 0);
     },
     "bookings.sendApprovedConfirmation": (bookingId) => {
-      let fs = require("fs");
 
       // find booking details
       let booking = Bookings.collection.findOne({_id: bookingId});
@@ -296,7 +299,7 @@ Meteor.methods({
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
       let to = booking.user.email;
       let subject = "Booking Approval Confirmation - Customer";
-      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-approved.html")+'`');
+      let text = eval('`'+ bookingApprovalHtml +'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text);
       }, 0);
@@ -321,7 +324,7 @@ Meteor.methods({
       let customerAppUrl = Meteor.settings.public["customerAppUrl"];
       let to = booking.user.email;
       let subject = "Booking Refund Confirmation - Customer";
-      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/customer/booking-refund.html")+'`');
+      let text = eval('`'+ bookingRefundCustomerHtml +'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text);
       }, 0);
@@ -331,7 +334,7 @@ Meteor.methods({
       let adminAppUrl = Meteor.settings.public["adminAppUrl"];
       to = admin.emails[0].address;
       subject = "Booking Refund Confirmation - Admin";
-      text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/booking-refund.html")+'`');
+      text = eval('`'+ bookingRefundAdminHtml +'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text)
       }, 0);

@@ -2,6 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
 import { Users } from '../../both/collections/users.collection';
 import { isLoggedIn, userIsInRole } from "../imports/services/auth";
+import certificateUploadHtml from "../imports/emails/admin/certificate-upload.html";
 
 Meteor.methods({
     "users.insert": (userData: {email: string, passwd: string, profile?: any}): string => {
@@ -117,8 +118,6 @@ Meteor.methods({
       return Meteor.users.findOne({ _id: userId });
     },
     "users.sendUploadCertNotification": () => {
-      let fs = require("fs");
-
       let supplier = Meteor.call("users.findOne");
 
       //send email to admin
@@ -126,7 +125,7 @@ Meteor.methods({
       let adminAppUrl = Meteor.settings.public["adminAppUrl"];
       let to = admin.emails[0].address;
       let subject = "Supplier Certificates Upload Notification - Admin";
-      let text = eval('`'+fs.readFileSync(process.env.PWD + "/server/imports/emails/admin/certificate-upload.html")+'`');
+      let text = eval('`'+certificateUploadHtml+'`');
       Meteor.setTimeout(() => {
         Meteor.call("sendEmail", to, subject, text)
       }, 0);
