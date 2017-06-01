@@ -216,9 +216,9 @@ Meteor.methods({
       let to = admin.emails[0].address;
       let from = "atorvia12@gmail.com";
       let subject = "Tours approval required";
-      let text = message;
+      let html = message;
       Meteor.setTimeout(() => {
-        Email.send({ to, from, subject, text});
+        Email.send({ to, from, subject, html});
       }, 0);
 
 
