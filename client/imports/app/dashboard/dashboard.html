@@ -177,7 +177,7 @@
                         [hidden]="page.deleted">
                           <th scope="row">
                             <img *ngIf="!page.tour?.featuredImage?.url" src="images/random.png" />
-                            <img *ngIf="!!page.tour?.featuredImage?.url" src="{{page.tour?.featuredImage?.url}}" />
+                            <img *ngIf="!!page.tour?.featuredImage?.url" src="uploads/images/{{page.tour?.featuredImage?.id}}-48-48.jpg" />
                           </th>
                           <td class="location">
                             <h5>{{page.tour.name}}</h5>
@@ -186,7 +186,7 @@
                           <td class="user-detail">
                             <span class="user-img">
                               <img *ngIf="!page.user?.image?.url" src="images/user.png" />
-                              <img *ngIf="!!page.user?.image?.url" src="{{page.user?.image?.url}}" />
+                              <img *ngIf="!!page.user?.image?.url" src="uploads/images/{{page.user?.image?.id}}-48-48.jpg" />
                             </span>
                             <span class="user-name">{{page.user.firstName}} {{page.user.lastName}}</span>
                           </td>
