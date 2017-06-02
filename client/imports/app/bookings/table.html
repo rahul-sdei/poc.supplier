@@ -21,7 +21,7 @@
       <td class="contact-person">
         <span class="user-img">
           <img *ngIf="!page.user?.image?.url" src="images/user.png" />
-          <img *ngIf="!!page.user?.image?.url" src="{{page.user?.image?.url}}" />
+          <img *ngIf="!!page.user?.image?.url" src="uploads/images/{{page.user?.image?.id}}-30-30.jpg" />
         </span>
         <span class="name">{{page.user?.firstName}} {{page.user?.lastName}}</span>
       </td>

@@ -18,7 +18,7 @@
 		<div class="grey-bg">
 	    <div class="container">
 	      <div class="row justify-content-sm-center">
-	        <div class="col-xl-10">
+	        <div class="col-xl-8">
 	          <a [routerLink]="['/tours/list']" class="green-anchor"><span><i class="fa fa-angle-left" aria-hidden="true"></i></span>&nbsp;See all tours</a>
 	        </div>
 					<div class="col-xl-2" *ngIf="canEdit(tour)">
@@ -159,7 +159,7 @@
 								</div>
 								<div class="col-sm-12 second-row">
 									<div class="img-wrap" *ngFor="let image of tourDetails.images;">
-										<img src="{{image.url}}" alt="{{image.name}}" />
+										<img src="uploads/images/{{image.id}}-300-220.jpg" alt="{{image.name}}" />
 									</div>
 								</div>
 							</div>
