@@ -56,8 +56,12 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
     let where = this.whereCond;
 
     if (startDate && endDate) {
-      startDate = new Date(startDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
+      startDate = convertToUTC(new Date(startDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1")));
       endDate = new Date(endDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      endDate.setSeconds(59);
+      endDate = convertToUTC(endDate);
       where["bookingDate"] = {$gte: startDate, $lte: endDate};
     } else {
       delete where["bookingDate"];
@@ -67,18 +71,6 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       this.salesTable.setWhereCond(where);
     } else {
       this.payoutsTable.setWhereCond(where);
-    }
-  }
-
-  filterStats(startDate, endDate) {
-    let where = {};
-
-    if (startDate && endDate) {
-      startDate = new Date(startDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
-      endDate = new Date(endDate.replace(/^(\d\d)\/(\d\d)\/(\d{4})$/, "$3/$2/$1"));
-      where["bookingDate"] = {$gte: startDate, $lte: endDate};
-    } else {
-      delete where["bookingDate"];
     }
   }
 
@@ -130,4 +122,11 @@ export class ReportsComponent extends MeteorComponent implements OnInit, AfterVi
       });
     }, 500);
   }
+}
+
+function convertToUTC(date: Date) {
+  var d = new Date();
+  let offset = d.getTimezoneOffset();
+  let time = date.getTime() - (offset * 60 * 1000);
+  return new Date(time);
 }

@@ -20,7 +20,7 @@
       <td>{{booking.tour.name}}</td>
       <td *ngIf="! booking.paymentInfo?.status">Unpaid</td>
       <td *ngIf="!! booking.paymentInfo?.status">Paid</td>
-      <td>${{booking.totalPrice}}</td>
+      <td>${{booking.totalPriceDefault}}</td>
     </tr>
   </tbody>
 </table>
