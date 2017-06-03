@@ -12,7 +12,7 @@ function loggedIn(userId) {
 export const PDFsStore = new UploadFS.store.Local({
   collection: PDFs.collection,
   name: 'pdfs',
-  path: process.env.PWD + '/uploads/pdfs',
+  path: process.env.PWD + '/../uploads/pdfs',
   filter: new UploadFS.Filter({
     maxSize: 1024 * 5 * 1000, // 5MB,
     contentTypes: ['application/pdf']

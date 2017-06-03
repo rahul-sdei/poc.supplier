@@ -15,7 +15,7 @@ Meteor.methods({
         if (typeof image == "undefined" || !image._id) {
             throw new Meteor.Error(`Invalid image-id "${imageId}"`);
         }
-        let imagePath = process.env.PWD + '/uploads/images/' + image._id + '.' + image.extension;
+        let imagePath = process.env.PWD + '/../uploads/images/' + image._id + '.' + image.extension;
         fs.unlink(imagePath, (res) => {
             //console.log("unlink.img:", res);
         });
