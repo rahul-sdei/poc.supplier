@@ -94,7 +94,6 @@ export class CreateTourStep2Component extends MeteorComponent implements OnInit 
       let callback = (noOfDays) => {
         var today = new Date();
         today.setDate(today.getDate() + 1);
-        // console.log("today", today, "tomorrow",tomorrow, "tomorrow string",tomorrow.toString());
         jQuery(function($){
           $('#datetimepicker1')
             .datepicker({
