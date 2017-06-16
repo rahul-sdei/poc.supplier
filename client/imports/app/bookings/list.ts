@@ -223,7 +223,7 @@ export class BookingsPageComponent extends MeteorComponent implements OnInit, Af
             break;
             case "confirmed":
             this.titleService.setTitle("Confirmed Bookings List | Atorvia");
-            this.whereCond.next({active: true, "$or": [{confirmed: true}, {cancelled: true}], completed: false, refunded: false});
+            this.whereCond.next({active: true, confirmed: true, completed: false, refunded: false});
             break;
             case "completed":
             this.titleService.setTitle("Completed Bookings List | Atorvia");

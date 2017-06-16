@@ -44,7 +44,9 @@ Meteor.methods({
             delete criteria["completed"];
             delete criteria["confirmed"];
           } else if ( criteria.completed==false && criteria.confirmed==true ) { // confirmed
+            criteria["$or"] = [{confirmed: true}, {cancelled: true}];
             criteria.startDate = {$gte: today};
+            delete criteria["confirmed"];
             delete criteria["completed"];
           }
           //console.log(criteria);
@@ -104,7 +106,7 @@ Meteor.methods({
 
       let bookingsCount: any = {};
       bookingsCount.pending = Meteor.call("bookings.find", {}, {confirmed: false, cancelled: false, refunded: false}, "", true);
-      bookingsCount.confirmed = Meteor.call("bookings.find", {}, {"$or": [{confirmed: true}, {cancelled: true}], completed: false, refunded: false}, "", true);
+      bookingsCount.confirmed = Meteor.call("bookings.find", {}, {confirmed: true, completed: false, refunded: false}, "", true);
       bookingsCount.completed = Meteor.call("bookings.find", {}, {confirmed: true, cancelled: false, completed: true, refunded: false}, "", true);
       bookingsCount.cancelled = Meteor.call("bookings.find", {}, {refunded: true}, "", true);
 
