@@ -34,14 +34,14 @@ Meteor.methods({
 
         if ( !_.isEmpty(criteria) ) {
           if ( criteria.confirmed == false ) { // pending
-            criteria.startDate = {$gt: new Date()};
+            criteria.startDate = {$gte: new Date()};
             delete criteria["completed"];
           } else if ( criteria.completed==true ) { // completed
-            criteria.startDate = {$lte: new Date()};
+            criteria.startDate = {$lt: new Date()};
             delete criteria["completed"];
             delete criteria["confirmed"];
           } else if ( criteria.completed==false && criteria.confirmed==true ) { // confirmed
-            criteria.startDate = {$gt: new Date()};
+            criteria.startDate = {$gte: new Date()};
             delete criteria["completed"];
           }
           //console.log(criteria);
