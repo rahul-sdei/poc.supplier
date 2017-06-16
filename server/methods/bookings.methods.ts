@@ -33,15 +33,18 @@ Meteor.methods({
         });
 
         if ( !_.isEmpty(criteria) ) {
+          let today = new Date();
+          today.setHours(0, 0, 0, 0);
+          // console.log(today.toISOString());
           if ( criteria.confirmed == false ) { // pending
-            criteria.startDate = {$gte: new Date()};
+            criteria.startDate = {$gte: today};
             delete criteria["completed"];
           } else if ( criteria.completed==true ) { // completed
-            criteria.startDate = {$lt: new Date()};
+            criteria.startDate = {$lt: today};
             delete criteria["completed"];
             delete criteria["confirmed"];
           } else if ( criteria.completed==false && criteria.confirmed==true ) { // confirmed
-            criteria.startDate = {$gte: new Date()};
+            criteria.startDate = {$gte: today};
             delete criteria["completed"];
           }
           //console.log(criteria);
